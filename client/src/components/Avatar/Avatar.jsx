@@ -12,6 +12,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import './Avatar.scss';
+import { Link } from '@mui/material';
 
 export default function MyAvatar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -77,12 +78,17 @@ export default function MyAvatar() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        <a href= '/auth/login' className='link'>
+        <MenuItem  onClick={handleClose}>
          Iniciar Sesíon
         </MenuItem>
+        </a>
+        <a href= '/auth/register'  className='link'>
         <MenuItem onClick={handleClose}>
+
        Registrate
         </MenuItem>
+        </a>
         <Divider />
         <MenuItem onClick={handleClose}>
     
