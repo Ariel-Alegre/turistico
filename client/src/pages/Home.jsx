@@ -1,6 +1,7 @@
 import Cards from "../components/Cards/Cards";
 import Continent from "../components/Continent/Continent";
 import CountriesAmerica from "../components/CountriesAmerica/CountriesAmerica";
+import Login from "./Login";
 import NavBar from "../components/NavBar/NavBar";
 
 
@@ -13,6 +14,7 @@ export default function Home() {
             <Continent/>
             <CountriesAmerica/>
             <Cards/>
-        </div>
+
+    </div>
     )
 }
