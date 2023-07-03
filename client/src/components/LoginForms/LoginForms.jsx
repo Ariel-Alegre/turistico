@@ -73,6 +73,9 @@ export default function LoginForms() {
           variant="contained"
           display="flex"
           justifyContent="center"
+          sx={{backgroundColor: "#05A1A1", ":hover": {
+            backgroundColor: "#05A1A1"
+          }}}
         >
           Ingresar
         </Button>

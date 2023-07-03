@@ -12,8 +12,9 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import * as formik from 'formik';
 import * as yup from 'yup';
+import './RegisterForm.scss';
 
-const steps = ['Datos Personales', 'Datos opcional', 'Dirección'];
+const steps = ['Datos Requeridos', 'Datos Personales'];
 
 export default function RegisterForm() {
   const [activeStep, setActiveStep] = useState(0);
@@ -92,7 +93,7 @@ export default function RegisterForm() {
           {({ handleSubmit, handleChange, values, touched, errors }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationFormik01">
+                <Form.Group md="10" controlId="validationFormik01">
                   <Form.Label>Nombre</Form.Label>
                   <Form.Control
                     type="text"
@@ -101,9 +102,8 @@ export default function RegisterForm() {
                     onChange={handleChange}
                     isValid={touched.firstName && !errors.firstName}
                   />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationFormik02">
+                <Form.Group md="4" controlId="validationFormik02">
                   <Form.Label>Apellido</Form.Label>
                   <Form.Control
                     type="text"
@@ -113,7 +113,6 @@ export default function RegisterForm() {
                     isValid={touched.lastName && !errors.lastName}
                   />
     
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
               
 
@@ -124,28 +123,26 @@ export default function RegisterForm() {
     
               </Row>
               <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationFormik01">
+                <Form.Group  md="4" controlId="validationFormik01">
                   <Form.Label>Correo Electronico</Form.Label>
                   <Form.Control
                     type="text"
-                    name="firstName"
+                    name="email"
                     value={values.firstName}
                     onChange={handleChange}
                     isValid={touched.firstName && !errors.firstName}
                   />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationFormik02">
-                  <Form.Label>Apellido</Form.Label>
+                <Form.Group  md="4" controlId="validationFormik02">
+                  <Form.Label>Contraseña</Form.Label>
                   <Form.Control
                     type="text"
-                    name="lastName"
+                    name="password"
                     value={values.lastName}
                     onChange={handleChange}
                     isValid={touched.lastName && !errors.lastName}
                   />
     
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
               
 
@@ -172,28 +169,26 @@ export default function RegisterForm() {
           {({ handleSubmit, handleChange, values, touched, errors }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationFormik01">
-                  <Form.Label>Nombre</Form.Label>
+                <Form.Group  md="4" controlId="validationFormik01">
+                  <Form.Label>Telefono</Form.Label>
                   <Form.Control
                     type="text"
-                    name="firstName"
+                    name="phone"
                     value={values.firstName}
                     onChange={handleChange}
                     isValid={touched.firstName && !errors.firstName}
                   />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationFormik02">
-                  <Form.Label>Apellido</Form.Label>
+                <Form.Group md="4" controlId="validationFormik02">
+                  <Form.Label>Region</Form.Label>
                   <Form.Control
                     type="text"
-                    name="lastName"
+                    name="country"
                     value={values.lastName}
                     onChange={handleChange}
                     isValid={touched.lastName && !errors.lastName}
                   />
     
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
               
 
@@ -204,28 +199,26 @@ export default function RegisterForm() {
     
               </Row>
               <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationFormik01">
-                  <Form.Label>Correo Electronico</Form.Label>
+                <Form.Group  md="4" controlId="validationFormik01">
+                  <Form.Label>Ciudad</Form.Label>
                   <Form.Control
                     type="text"
-                    name="firstName"
+                    name="city"
                     value={values.firstName}
                     onChange={handleChange}
                     isValid={touched.firstName && !errors.firstName}
                   />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationFormik02">
-                  <Form.Label>Apellido</Form.Label>
+                <Form.Group  md="4" controlId="validationFormik02">
+                  <Form.Label>Fecha de nacimiento</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="date"
                     name="lastName"
                     value={values.lastName}
                     onChange={handleChange}
                     isValid={touched.lastName && !errors.lastName}
                   />
     
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
               
 
@@ -261,7 +254,6 @@ export default function RegisterForm() {
                     onChange={handleChange}
                     isValid={touched.firstName && !errors.firstName}
                   />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="validationFormik02">
                   <Form.Label>Apellido</Form.Label>
@@ -273,7 +265,6 @@ export default function RegisterForm() {
                     isValid={touched.lastName && !errors.lastName}
                   />
     
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
               
 
@@ -305,7 +296,6 @@ export default function RegisterForm() {
                     isValid={touched.lastName && !errors.lastName}
                   />
     
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
               
 
@@ -320,25 +310,34 @@ export default function RegisterForm() {
   };
 
   return (
+    <div className='register-container'>
+        <div className="login-Redes">
+        <h1>Registro</h1>
+        <p>
+          ¿Ya tiene una cuenta? <a href="/auth/login">Iniciar sesión </a>
+        </p>
+        <p>Conectarse con las redes sociales</p>
+      </div>
+
     <Box
       sx={{
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: '20vh',
+        justifyContent: "center",
       }}
     >
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
-
+          
           if (isStepSkipped(index)) {
             stepProps.completed = false;
           }
           return (
-            <Step key={label} {...stepProps}>
+            <Step key={label} {...stepProps} >
               <StepLabel {...labelProps}>{label}</StepLabel>
             </Step>
           );
@@ -369,7 +368,7 @@ export default function RegisterForm() {
               disabled={activeStep === 0}
               onClick={handleBack}
               sx={{ mr: 1 }}
-            >
+              >
               Back
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
@@ -386,5 +385,6 @@ export default function RegisterForm() {
         </React.Fragment>
       )}
     </Box>
+      </div>
   );
 }

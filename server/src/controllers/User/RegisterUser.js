@@ -15,7 +15,7 @@ function encryptToken(token) {
 
 module.exports = {
   RegisterUser: async (req, res) => {
-    const { name, lastName, password, email, phone, country, city, postal_code, birthdate, street } = req.body;
+    const { name, lastName, password, email, phone, country, city, birthdate } = req.body;
 
     try {
       // Verificar si el usuario ya existe
@@ -44,13 +44,7 @@ module.exports = {
         name,
         lastName,
         email,
-        password: hashedPassword,
-        phone,
-        country,
-        city,
-        postal_code,
-        birthdate,
-        street,
+        password: hashedPassword,    
         role, // Asignar el rol correspondiente
       });
 

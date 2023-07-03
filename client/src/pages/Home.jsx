@@ -1,20 +1,21 @@
-import Cards from "../components/Cards/Cards";
-import Continent from "../components/Continent/Continent";
-import CountriesAmerica from "../components/CountriesAmerica/CountriesAmerica";
-import Login from "./Login";
-import NavBar from "../components/NavBar/NavBar";
+import { useState } from "react";
+import { list, list2 } from "../assets/cards-list";
+import Cards from "../components/Cards";
+import Filter from "../components/Filter";
+import Header from "../components/Header";
 
-
-export default function Home() {
-    return (
-        <div >
-            <header>
-            <NavBar/>
-            </header>
-            <Continent/>
-            <CountriesAmerica/>
-            <Cards/>
-
+function App() {
+  const [selectedFilter, setSelectedFilter] = useState(0);
+  return (
+    <div className="App">
+      <Header />
+      <Filter
+        selectedFilter={selectedFilter}
+        setSelectedFilter={setSelectedFilter}
+      />
+      {selectedFilter == 0 ? <Cards list={list} /> : <Cards list={list2} />}
     </div>
-    )
+  );
 }
+
+export default App;
