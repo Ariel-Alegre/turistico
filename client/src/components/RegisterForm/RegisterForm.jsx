@@ -1,390 +1,219 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import ButtonBootstrap from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
-import * as formik from 'formik';
-import * as yup from 'yup';
+
+import { useState } from 'react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { Switch } from '@headlessui/react';
 import './RegisterForm.scss';
+import { UserRegister } from '../../redux/action'
+import {  useDispatch } from 'react-redux'
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
-const steps = ['Datos Requeridos', 'Datos Personales'];
-
-export default function RegisterForm() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set());
-  const { Formik } = formik;
-
-  const schema = yup.object().shape({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    username: yup.string().required(),
-    city: yup.string().required(),
-    state: yup.string().required(),
-    zip: yup.string().required(),
-    terms: yup.bool().required().oneOf([true], 'Terms must be accepted'),
+export default function Example() {
+  const [agreed, setAgreed] = useState(false);
+  const dispatch = useDispatch();
+  const [register, setRegister] = useState({
+    name:"",
+    lastName: "",
+    email: "",
+    password: "",
+    phone:" ",  
   });
 
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(UserRegister(register))
+  }
 
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
+  const handleChange = (e) => {
+    e.preventDefault();
+    setRegister((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
-  const renderStepContent = (step) => {
-    switch (step) {
-      case 0:
-        return (
-          <Formik
-          validationSchema={schema}
-          onSubmit={console.log}
-          initialValues={{
-            firstName: '',
-            lastName: '',
-            username: '',
-            city: '',
-            state: '',
-            zip: '',
-            terms: false,
-          }}
-        >
-          {({ handleSubmit, handleChange, values, touched, errors }) => (
-            <Form noValidate onSubmit={handleSubmit}>
-              <Row className="mb-3">
-                <Form.Group md="10" controlId="validationFormik01">
-                  <Form.Label>Nombre</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="firstName"
-                    value={values.firstName}
-                    onChange={handleChange}
-                    isValid={touched.firstName && !errors.firstName}
-                  />
-                </Form.Group>
-                <Form.Group md="4" controlId="validationFormik02">
-                  <Form.Label>Apellido</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="lastName"
-                    value={values.lastName}
-                    onChange={handleChange}
-                    isValid={touched.lastName && !errors.lastName}
-                  />
-    
-                </Form.Group>
-              
-
-              </Row>
-             
-              <Row className="mb-3">
-          
-    
-              </Row>
-              <Row className="mb-3">
-                <Form.Group  md="4" controlId="validationFormik01">
-                  <Form.Label>Correo Electronico</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="email"
-                    value={values.firstName}
-                    onChange={handleChange}
-                    isValid={touched.firstName && !errors.firstName}
-                  />
-                </Form.Group>
-                <Form.Group  md="4" controlId="validationFormik02">
-                  <Form.Label>Contraseña</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="password"
-                    value={values.lastName}
-                    onChange={handleChange}
-                    isValid={touched.lastName && !errors.lastName}
-                  />
-    
-                </Form.Group>
-              
-
-              </Row>
-            </Form>
-          )}
-        </Formik>
-        );
-      case 1:
-        return (
-          <Formik
-          validationSchema={schema}
-          onSubmit={console.log}
-          initialValues={{
-            firstName: '',
-            lastName: '',
-            username: '',
-            city: '',
-            state: '',
-            zip: '',
-            terms: false,
-          }}
-        >
-          {({ handleSubmit, handleChange, values, touched, errors }) => (
-            <Form noValidate onSubmit={handleSubmit}>
-              <Row className="mb-3">
-                <Form.Group  md="4" controlId="validationFormik01">
-                  <Form.Label>Telefono</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="phone"
-                    value={values.firstName}
-                    onChange={handleChange}
-                    isValid={touched.firstName && !errors.firstName}
-                  />
-                </Form.Group>
-                <Form.Group md="4" controlId="validationFormik02">
-                  <Form.Label>Region</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="country"
-                    value={values.lastName}
-                    onChange={handleChange}
-                    isValid={touched.lastName && !errors.lastName}
-                  />
-    
-                </Form.Group>
-              
-
-              </Row>
-             
-              <Row className="mb-3">
-          
-    
-              </Row>
-              <Row className="mb-3">
-                <Form.Group  md="4" controlId="validationFormik01">
-                  <Form.Label>Ciudad</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="city"
-                    value={values.firstName}
-                    onChange={handleChange}
-                    isValid={touched.firstName && !errors.firstName}
-                  />
-                </Form.Group>
-                <Form.Group  md="4" controlId="validationFormik02">
-                  <Form.Label>Fecha de nacimiento</Form.Label>
-                  <Form.Control
-                    type="date"
-                    name="lastName"
-                    value={values.lastName}
-                    onChange={handleChange}
-                    isValid={touched.lastName && !errors.lastName}
-                  />
-    
-                </Form.Group>
-              
-
-              </Row>
-            </Form>
-          )}
-        </Formik>
-        )
-      case 2:
-        return (
-          <Formik
-          validationSchema={schema}
-          onSubmit={console.log}
-          initialValues={{
-            firstName: '',
-            lastName: '',
-            username: '',
-            city: '',
-            state: '',
-            zip: '',
-            terms: false,
-          }}
-        >
-          {({ handleSubmit, handleChange, values, touched, errors }) => (
-            <Form noValidate onSubmit={handleSubmit}>
-              <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationFormik01">
-                  <Form.Label>Nombre</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="firstName"
-                    value={values.firstName}
-                    onChange={handleChange}
-                    isValid={touched.firstName && !errors.firstName}
-                  />
-                </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationFormik02">
-                  <Form.Label>Apellido</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="lastName"
-                    value={values.lastName}
-                    onChange={handleChange}
-                    isValid={touched.lastName && !errors.lastName}
-                  />
-    
-                </Form.Group>
-              
-
-              </Row>
-             
-              <Row className="mb-3">
-          
-    
-              </Row>
-              <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationFormik01">
-                  <Form.Label>Correo Electronico</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="firstName"
-                    value={values.firstName}
-                    onChange={handleChange}
-                    isValid={touched.firstName && !errors.firstName}
-                  />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationFormik02">
-                  <Form.Label>Apellido</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="lastName"
-                    value={values.lastName}
-                    onChange={handleChange}
-                    isValid={touched.lastName && !errors.lastName}
-                  />
-    
-                </Form.Group>
-              
-
-              </Row>
-            </Form>
-          )}
-        </Formik>
-        )
-      default:
-        return null;
-    }
-  };
+  }
 
   return (
-    <div className='register-container'>
-        <div className="login-Redes">
-        <h1>Registro</h1>
-        <p>
-          ¿Ya tiene una cuenta? <a href="/auth/login">Iniciar sesión </a>
+    <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+      <div
+        className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+        aria-hidden="true"
+      >
+        <div
+          className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#05A1A1] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+          style={{
+            clipPath:
+              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+        />
+      </div>
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Registrarse</h2>
+        <p className="mt-2 text-lg leading-8 text-gray-600">
+          Ya tienes una cuenta <a className='text-color' href="/auth/login">Iniciar sesión</a>.
         </p>
-        <p>Conectarse con las redes sociales</p>
       </div>
+      <form onSubmit={handleSubmit} method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div>
+            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+              Nombre
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="text"
+                name="name"
+                id="name"
+                autoComplete="given-name"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input-global"
+                value={register.name}
+                onChange={handleChange}
+                required
 
-    <Box
-      sx={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: "center",
-      }}
-    >
-      <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-          
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={label} {...stepProps} >
-              <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeStep === steps.length ? (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            {renderStepContent(activeStep)}
-        
-
-
-          </Typography>
-
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
+              />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">
+              Apellido
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                autoComplete="family-name"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input-global"
+                value={register.lastName}
+                onChange={handleChange}
+                required
+              
+              />
+            </div>
+          </div>
+    
+          <div className="sm:col-span-2">
+            <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
+              Correo electronico
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                autoComplete="email"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input-global"
+                value={register.email}
+                onChange={handleChange}
+                required
+               
+            />
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label htmlFor="company" className="block text-sm font-semibold leading-6 text-gray-900">
+              Contraseña
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="text"
+                name="password"
+                id="password"
+                autoComplete="organization"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input-global"
+                value={register.password}
+                onChange={handleChange}
+                required
+                
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label htmlFor="phone-number" className="block text-sm font-semibold leading-6 text-gray-900">
+              Telefono
+            </label>
+            <div className="relative mt-2.5">
+              <div className="absolute inset-y-0 left-0 flex items-center">
+                <label htmlFor="country" className="sr-only">
+                  Country
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm input-global"
+                >
+                  <option>US</option>
+                  <option>CA</option>
+                  <option>EU</option>
+                </select>
+                <ChevronDownIcon
+                  className="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </div>
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                autoComplete="tel"
+                className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input-global"
+                value={register.phone}
+                onChange={handleChange}
+                required
+              
+              />
+            </div>
+          </div>
+    {/*       <div className="sm:col-span-2">
+            <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">
+              Message
+            </label>
+            <div className="mt-2.5">
+              <textarea
+                name="message"
+                id="message"
+                rows={4}
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 input-global"
+                defaultValue={''}
+              />
+            </div>
+          </div> */}
+          <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2 ">
+            <div className="flex h-6 items-center ">
+              <Switch
+                checked={agreed}
+                onChange={setAgreed}
+                className={classNames(
+                  agreed ? 'button-color' : 'bg-gray-200',
+                  'flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 '
+                )}
               >
-              Back
-            </Button>
-            <Box sx={{ flex: '1 1 auto' }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )}
-
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
-          </Box>
-        </React.Fragment>
-      )}
-    </Box>
-      </div>
-  );
+                <span className="sr-only">Agree to policies</span>
+                <span
+                  aria-hidden="true"
+                  className={classNames(
+                    agreed ? 'translate-x-3.5' : 'translate-x-0',
+                    'h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out'
+                  )}
+                />
+              </Switch>
+            </div>
+            <Switch.Label className="text-sm leading-6 text-gray-600">
+              
+             Al seleccionar esto, aceptas nuestra{' '}
+              <a href="#" className="font-semibold text-indigo-600 text-color">
+              política de privacidad.
+              </a>
+            </Switch.Label>
+          </Switch.Group>
+        </div>
+        <div className="mt-10">
+          <button
+            type="submit"
+            className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 button-color"
+          >
+            Registrarse
+          </button>
+        </div>
+      </form>
+    </div>
+  )
 }

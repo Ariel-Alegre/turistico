@@ -1,0 +1,13 @@
+.Details {
+    display: flex;
+
+    .DetailsContainer {
+        flex: 6;
+        padding: 25px 25px 25px 25px;
+    }
+
+    .button {
+        display: flex;
+        gap: 30px;
+    }
+}
