@@ -1,4 +1,4 @@
-.navbar {
+.navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,6 +7,25 @@
   top: 0;
   background-color: var(--white);
   z-index: 1000;
+  background-color: white;
+}
+
+.button-continent {
+  justify-content: center;
+  display: flex;
+
+}
+
+.button-continent button {
+  width: 150px;
+  height: 150px;
+}
+
+@media only screen and (max-width: 480px) {
+  .button-continent {
+   flex-direction: column;
+
+  }
 }
 
 .navbar-logo {

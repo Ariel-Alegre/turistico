@@ -1,10 +1,9 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
-import "./styles.css";
+import "./header.scss";
 import { Link } from "react-router-dom";
 
 export default function BasicMenu() {
@@ -18,7 +17,7 @@ export default function BasicMenu() {
   };
 
   return (
-    <div>
+    <div className="account-menu">
       <div
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
@@ -46,12 +45,12 @@ export default function BasicMenu() {
           },
         }}
       >
-        <Link to='/auth/login' >
+        <Link to='/auth/login' className="text-link">
         <MenuItem className="menu-items" onClick={handleClose}>
         Iniciar sesión 
         </MenuItem>
         </Link>
-        <Link to='/auth/register'>
+        <Link to='/auth/register' className="text-link">
         <MenuItem onClick={handleClose} className="menu-items">
         Registrate
         </MenuItem>

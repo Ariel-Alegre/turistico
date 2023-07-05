@@ -10,6 +10,15 @@
   margin-bottom: 2rem;
 }
 
+.text-link {
+  text-decoration: none;
+  color: black;
+}
+.card-title {
+  text-decoration: none;
+  color: black;
+}
+
 .swiper-container {
   height: 270px;
   width: 270px;
@@ -28,6 +37,7 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+
 
 .card-rating {
   display: flex;

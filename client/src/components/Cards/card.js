@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css";
+import "./Cards.scss";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 function Card({ card }) {
   return (
-      <Link to='/rooms'>
+      <Link to='/rooms' className="text-link">
     <div className="card-box">
       <Swiper
         slidesPerView={1}

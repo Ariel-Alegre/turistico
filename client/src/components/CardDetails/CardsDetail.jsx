@@ -3,7 +3,7 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import NavBar from '../Header/index';
 import './CardsDetail.scss';
-
+import ModalDetail from "../ModalDetail/ModalDetail";
 const product = {
   name: "Basic Tee 6-Pack",
   price: "$192",
@@ -71,7 +71,7 @@ export default function CardDetails() {
       <NavBar/>
       <div className="bg-white">
         <div className="pt-6">
-           <h1 id='title'>Skylodge Adventure Suites</h1>
+           <h1 className='title'>Skylodge Adventure Suites</h1>
 
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -105,7 +105,9 @@ export default function CardDetails() {
                 className="h-full w-full object-cover object-center"
               />
             </div>
+
           </div>
+            <ModalDetail/>  
 
           {/* Product info */}
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">

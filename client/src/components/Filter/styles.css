@@ -1,3 +1,17 @@
+.filter-container {
+  display: flex;
+  justify-content:center ;
+
+}
+
+.panel-country {
+  width: 100%;
+}
+
+
+@media only screen and (max-width: 480px) {
+  
+}
 .filter-div {
   border-top: 1px solid var(--grey);
   padding: 1rem 3rem;
