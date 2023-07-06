@@ -5,6 +5,9 @@ import Register from './pages/Register';
 import CardDetails from './components/CardDetails/CardsDetail';
 import HomeAdmin from './AdminPage/pages/home/HomeAdmin';
 import DetailsUsers from "./AdminPage/pages/detailsUsers/DetailsUsers";
+import AccountSettings from './pages/AccountSettings';
+import InfoPersonal from './pages/InfoPersonal';
+import Security from './pages/Security';
 
 function App() {
   return (
@@ -19,6 +22,12 @@ function App() {
           <Route exact path='/auth/login' element={<Login />} />
           <Route exact path='/auth/register' element={<Register />} />
           <Route exact path='/rooms' element={<CardDetails />} />
+          <Route exact path='/account-settings' element={<AccountSettings />} />
+          <Route exact path='/account-settings/personal-info' element={<InfoPersonal />} />
+          <Route exact path='/account-settings/login-and-security' element={<Security />} />
+
+
+
         </Routes>
 
       </Router>

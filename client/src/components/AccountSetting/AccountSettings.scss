@@ -1,0 +1,32 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.text-account h1 {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.text-account {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.sub-text {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    p {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    span {
+        font-size: 18px;
+
+    }
+}
