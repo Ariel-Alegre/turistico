@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
-import NavBar from '../Header/index';
 import './CardsDetail.scss';
 import ModalDetail from "../ModalDetail/ModalDetail";
+import Header from "../Header";
+import Footer from "../Footer/Footer";
 const product = {
   name: "Basic Tee 6-Pack",
   price: "$192",
@@ -68,7 +69,7 @@ export default function CardDetails() {
 
   return (
     <div>
-      <NavBar/>
+      <Header/>
       <div className="bg-white">
         <div className="pt-6">
            <h1 className='title'>Skylodge Adventure Suites</h1>
@@ -231,6 +232,7 @@ Equipamiento, snack, cena gourmet y desayuno</p>
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

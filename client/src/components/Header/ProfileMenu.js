@@ -62,6 +62,11 @@ export default function BasicMenu() {
             width: "100%",
           }}
         />
+        <Link to='/account-settings'>
+         <MenuItem className="menu-items" onClick={handleClose}>
+        Cuenta 
+        </MenuItem>
+        </Link>
         <MenuItem onClick={handleClose} className="menu-items">
          Ayúda
         </MenuItem>
