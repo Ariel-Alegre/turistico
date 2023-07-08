@@ -3,6 +3,10 @@
     justify-content: center;
     gap: 40px;
     margin-top: 50px;
+
+    a {
+        text-decoration: none;
+    }
 }
 
 .text-account h1 {
@@ -28,5 +32,11 @@
     span {
         font-size: 18px;
 
+    }
+}
+
+@media only  screen and (max-width: 480px) {
+    .card-container {
+   display: grid;
     }
 }
