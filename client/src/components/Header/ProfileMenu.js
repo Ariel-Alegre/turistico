@@ -5,8 +5,12 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import "./header.scss";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function BasicMenu() {
+const token = useSelector(state => state.token);
+console.log(token);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -25,10 +29,11 @@ export default function BasicMenu() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         className="profile-menu-flex"
-      >
+        >
         <MenuRoundedIcon />
         <AccountCircleRoundedIcon />
       </div>
+        { token === null ? ( 
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -44,8 +49,10 @@ export default function BasicMenu() {
             boxShadow: "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
           },
         }}
-      >
-        <Link to='/auth/login' className="text-link">
+        >
+
+          
+          <Link to='/auth/login' className="text-link">
         <MenuItem className="menu-items" onClick={handleClose}>
         Iniciar sesión 
         </MenuItem>
@@ -56,27 +63,71 @@ export default function BasicMenu() {
         </MenuItem>
         </Link>
         <div
-          style={{
-            height: "1px",
-            backgroundColor: "var(--grey)",
-            width: "100%",
-          }}
+        style={{
+          height: "1px",
+          backgroundColor: "var(--grey)",
+          width: "100%",
+        }}
         />
-        <Link to='/account-settings'>
-         <MenuItem className="menu-items" onClick={handleClose}>
-        Cuenta 
-        </MenuItem>
-        </Link>
+      <Link to='/account-settings'>
+
         <MenuItem onClick={handleClose} className="menu-items">
          Ayúda
         </MenuItem>
+      </Link>
         <MenuItem onClick={handleClose} className="menu-items">
           Host an experience
         </MenuItem>
         <MenuItem onClick={handleClose} className="menu-items">
           Help
         </MenuItem>
-      </Menu>
+    </Menu>) 
+        : (
+        <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+        sx={{
+          ".MuiPaper-root": {
+            minWidth: "200px",
+            borderRadius: "1rem",
+            boxShadow: "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
+          },
+        }}
+        >
+
+          
+   
+        <div
+        style={{
+          height: "1px",
+          backgroundColor: "var(--grey)",
+          width: "100%",
+        }}
+        />
+        <Link to='/account-settings'>
+         <MenuItem className="menu-items" onClick={handleClose}>
+        Cuenta 
+        </MenuItem>
+        </Link>
+        <MenuItem className="menu-items" onClick={handleClose}>
+        Informacion Personal 
+        </MenuItem>
+        <MenuItem className="menu-items" onClick={handleClose}>
+       Seguridad 
+        </MenuItem>
+        <MenuItem onClick={handleClose} className="menu-items">
+         Ayúda
+        </MenuItem>
+    
+        <MenuItem onClick={handleClose} className="menu-items">
+          Cerrar sesión
+        </MenuItem>
+    </Menu>)}
     </div>
-  );
+    );
 }

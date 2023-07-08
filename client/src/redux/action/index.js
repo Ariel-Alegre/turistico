@@ -10,3 +10,26 @@ export const UserRegister = (payload) => {
     })
   }
 }
+
+export const UserLogin = (email, password) => {
+  return async (dispatch) => {
+
+      const response = await axios.post("http://localhost:4000/auth/login", {
+          email,
+          password,
+      });
+      const data = localStorage.setItem("token", response.data.token);
+      
+
+      return dispatch({
+          type: "USER_LOGIN",
+          payload: data
+
+      })
+  }
+};
+
+export const loginSuccess = (token) => ({
+  type: 'LOGIN_SUCCESS',
+  payload: token
+});
