@@ -8,6 +8,8 @@ import DetailsUsers from "./AdminPage/pages/detailsUsers/DetailsUsers";
 import AccountSettings from './pages/AccountSettings';
 import InfoPersonal from './pages/InfoPersonal';
 import Security from './pages/Security';
+import PaymentUser from './pages/PaymentUser';
+import TuristicPost from './pages/PostTuristic';
 
 function App() {
   return (
@@ -25,6 +27,10 @@ function App() {
           <Route exact path='/account-settings' element={<AccountSettings />} />
           <Route exact path='/account-settings/personal-info' element={<InfoPersonal />} />
           <Route exact path='/account-settings/login-and-security' element={<Security />} />
+          <Route exact path='/account-settings/payment-methods' element={<PaymentUser />} />
+          <Route exact path='/public' element={<TuristicPost />} />
+
+
 
 
 

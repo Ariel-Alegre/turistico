@@ -7,6 +7,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import  './AccountSettings.scss';
 import { Link } from "react-router-dom";
+import { FaRegAddressCard } from 'react-icons/fa';
+import { MdSecurity } from 'react-icons/md';
+import { MdOutlinePayments } from 'react-icons/md';
+
+
+
 
 const bull = (
   <Box
@@ -36,12 +42,12 @@ export default function BasicCard() {
       <Card sx={{ minWidth: 275, height: 200}}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            icono de documento
+            <FaRegAddressCard className="icons"/>
           </Typography>
           <Typography variant="h5" component="div">
          Informacion personal
           </Typography>
-          <Typography sx={{ mb: 1.5, width: '300px' }} color="text.secondary">
+          <Typography sx={{ mb: 1.5, width: '300px', marginTop: '10px' }} color="text.secondary">
             Proporcioná tus datos personales e indicanos cómo podemos ponernos en contacto con vos.
           </Typography>
     
@@ -53,12 +59,12 @@ export default function BasicCard() {
       <Card sx={{ minWidth: 275, height: 200 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            icono de seguridad
+           <MdSecurity className="icons"/>
           </Typography>
           <Typography variant="h5" component="div">
         Inicio de sesión y seguridad
           </Typography>
-          <Typography sx={{ mb: 1.5, width: '300px' }} color="text.secondary">
+          <Typography sx={{ mb: 1.5, width: '300px', marginTop: '10px' }} color="text.secondary">
          Actualizá tu contraseña y protegé tu cuenta
           </Typography>
     
@@ -66,21 +72,24 @@ export default function BasicCard() {
     
       </Card>
       </Link>
+
+      <Link to = '/account-settings/payment-methods'>
       <Card sx={{ minWidth: 275, height: 200 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            icono de documento
+            <MdOutlinePayments className="icons"/>
           </Typography>
           <Typography variant="h5" component="div">
-         Informacion personal
+          Pagos y cobros 
           </Typography>
-          <Typography sx={{ mb: 1.5, width: '300px' }} color="text.secondary">
-            Proporcioná tus datos personales e indicanos cómo podemos ponernos en contacto con vos.
+          <Typography sx={{ mb: 1.5, width: '300px', marginTop: '10px' }} color="text.secondary">
+            Revisá pagos y cobros
           </Typography>
     
         </CardContent>
     
       </Card>
+      </Link>
     </div>
     </div>
   );

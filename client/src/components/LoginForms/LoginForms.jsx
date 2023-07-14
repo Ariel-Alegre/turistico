@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector,  } from 'react-redux';
-import { UserLogin } from '../../redux/action'
-
+import { UserLogin } from '../../redux/action';
 import './LoginForms.scss';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../../assets/logo/Logo.jpg'
 
 
 export default function LoginForms() {
@@ -12,7 +12,7 @@ const [password, setPassword] = useState('');
 const dispatch = useDispatch();
 const navigate = useNavigate()
 const token = useSelector(state => state.token);
-const [isLoading, setIsLoading] = useState(true);
+
 
 
   
@@ -26,13 +26,7 @@ const [isLoading, setIsLoading] = useState(true);
     
 };
 
-useEffect(() => {
-  // Simulación de una tarea asíncrona
-  setTimeout(() => {
-    setIsLoading(false); // Cambiar el estado a "false" después de cierto tiempo
-  }, 2000); // Esperar 2 segundos antes de cambiar el estado
-  
-}, [dispatch]);
+
 
 
 
@@ -44,19 +38,13 @@ useEffect(() => {
 
   return (
     <>
-        {isLoading ? (
-             <div>
-            <h1>LOADING</h1>
-             <div ></div>
-           </div>
-      ) : (
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <a href="/">
 
           <img
             className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            src={Logo}
             alt="Your Company"
             />
             </a>
@@ -129,7 +117,6 @@ useEffect(() => {
           </p>
         </div>
       </div>
-      )}
     </>
   )
 }

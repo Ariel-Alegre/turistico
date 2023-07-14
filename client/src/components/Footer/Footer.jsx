@@ -1,4 +1,8 @@
 import React from 'react';
+import './Footer.scss';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const Footer = () => {
   return (
@@ -7,7 +11,7 @@ const Footer = () => {
         <div style={columnStyles}>
           <h3 style={headingStyles}>Enlaces</h3>
           <ul style={listStyles}>
-            <li><a href="/">Inicio</a></li>
+            <li><a href="/">  Inicio</a></li>
             <li><a href="/acerca">Acerca de</a></li>
             <li><a href="/contacto">Contacto</a></li>
           </ul>
@@ -15,9 +19,9 @@ const Footer = () => {
         <div style={columnStyles}>
           <h3 style={headingStyles}>Redes sociales</h3>
           <ul style={listStyles}>
-            <li><a href="https://www.facebook.com">Facebook</a></li>
-            <li><a href="https://www.twitter.com">Twitter</a></li>
-            <li><a href="https://www.instagram.com">Instagram</a></li>
+            <li><a href="https://www.facebook.com" target='_blanck'><FacebookIcon className='icons'/> Facebook</a></li>
+            <li><a href="https://www.twitter.com" target='_blanck'><TwitterIcon/>Twitter</a></li>
+            <li><a href="https://www.instagram.com" target='_blanck'><InstagramIcon/>Instagram</a></li>
           </ul>
         </div>
         <div style={columnStyles}>
@@ -55,6 +59,9 @@ const headingStyles = {
 const listStyles = {
   listStyle: 'none',
   padding: 0,
+  textDecoration: 'none',
+  color: 'red'
+
 };
 
 export default Footer;

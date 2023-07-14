@@ -1,29 +1,32 @@
+// models/User.js
+
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      // Relación uno a uno con UserDetails
+      User.hasOne(models.UserDetails, {
+        foreignKey: 'userId', // Nombre de la clave foránea en UserDetails
+        as: 'details', // Alias para acceder a los detalles del usuario
+      });
     }
   }
-  User.init({
-    name: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    role: DataTypes.STRING
-
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+  User.init(
+    {
+      // Atributos del modelo 'User'
+      name: DataTypes.STRING,
+      lastName: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      role: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'User',
+    }
+  );
   return User;
 };

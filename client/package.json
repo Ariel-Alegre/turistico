@@ -37,6 +37,7 @@
     "sass": "^1.63.6",
     "sass-loader": "^13.3.2",
     "styled-components": "^6.0.0-rc.6",
+    "sweetalert2": "^11.7.15",
     "swiper": "^10.0.2",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"

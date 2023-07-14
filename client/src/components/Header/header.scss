@@ -10,6 +10,10 @@
   background-color: white;
 }
 
+.btn-public {
+  background-color: aqua;
+}
+
 .button-continent {
   justify-content: center;
   display: flex;
@@ -79,7 +83,13 @@
   align-items: center;
   gap: 0.25rem;
 }
+.airbnb-your-home button {
+  background: #05A1A1;
+}
+.airbnb-your-home button:hover {
+  background: #05A1A1;
 
+}
 .airbnb-your-home {
   padding: 1rem;
   font-weight: 600;
