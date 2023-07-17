@@ -30,10 +30,13 @@
    flex-direction: column;
 
   }
+
+  
 }
 
 .navbar-logo {
-  height: 2rem;
+  height: 3rem;
+  margin-left: -25px;
 }
 
 .search-bar {
@@ -153,5 +156,9 @@ a {
     width: 100%;
     border-top: 1px solid var(--grey);
     box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
+  }
+
+  .navbar-logo {
+    height: 2rem;
   }
 }

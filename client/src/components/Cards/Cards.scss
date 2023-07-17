@@ -8,11 +8,14 @@
 .card-box {
   margin: 1rem;
   margin-bottom: 2rem;
+  justify-content: center;
+  display: grid;
 }
 
 .text-link {
   text-decoration: none;
   color: black;
+  
 }
 .card-title {
   text-decoration: none;

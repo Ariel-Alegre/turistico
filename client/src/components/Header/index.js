@@ -25,7 +25,6 @@ function Header() {
       </div>
       <div className="profile-container">
         <Link to="/public">
-        <div className="airbnb-your-home"><Button variant="contained" >Publicar</Button></div>
         </Link>
         <div className="airbnb-your-home">
           <LanguageIcon sx={{ fontSize: "1.3rem" }} />

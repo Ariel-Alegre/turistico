@@ -350,11 +350,11 @@ export default function FloatingActionButtonZoom() {
             aria-label="action tabs example"
             
             >
-            <Tab sx={{ height: '100px'}} label="America" {...a11yProps(0)} />
-            <Tab sx={{ height: '100px'}} label="Europa" {...a11yProps(1)} />
-            <Tab sx={{ height: '100px'}} label="Asia" {...a11yProps(2)} />
-            <Tab sx={{ height: '100px'}} label="Africa" {...a11yProps(3)} />
-            <Tab sx={{ height: '100px'}} label="Oceania" {...a11yProps(4)} />
+            <Tab sx={{ height: '100px', background: '#ffff', boxShadow: '0px 0px 10px'}} label="America" {...a11yProps(0)} />
+            <Tab sx={{ height: '100px', background: '#ffff'}} label="Europa" {...a11yProps(1)} />
+            <Tab sx={{ height: '100px', background: '#ffff'}} label="Asia" {...a11yProps(2)} />
+            <Tab sx={{ height: '100px', background: '#ffff'}} label="Africa" {...a11yProps(3)} />
+            <Tab sx={{ height: '100px', background: '#ffff'}} label="Oceania" {...a11yProps(4)} />
 
           </Tabs>
         </AppBar>
