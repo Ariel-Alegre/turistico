@@ -17,8 +17,8 @@ function Card({ card }) {
           loop={true}
           mousewheel={true}
           cssMode={true}
-          pagination
           className="swiper-container"
+          pagination
         >
           {card.imgSrc.map((src, i) => (
             <SwiperSlide key={i}>

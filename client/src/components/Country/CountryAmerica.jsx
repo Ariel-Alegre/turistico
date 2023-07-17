@@ -152,7 +152,7 @@ export default function CountryAmerica() {
         marginTop: "20px",
       }}
     >
-      <TabPanel value={value} index={0} dir={theme.direction}>
+      <TabPanel >
         <Tabs
           value={value}
           onChange={handleChange}

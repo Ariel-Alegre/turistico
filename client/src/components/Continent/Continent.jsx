@@ -23,9 +23,9 @@ function Continent() {
     setShowAfrica(false);
     setShowAsia(false);
     setShowOceania(false);
-
     setShowEurope(false);
     setShowAmerica(true);
+
   };
 
   const handleClickEurope = (e) => {
@@ -42,7 +42,6 @@ function Continent() {
     e.preventDefault();
     setShowAfrica(false);
     setShowOceania(false);
-
     setShowAmerica(false);
     setShowEurope(false);
     setShowAsia(true);
@@ -53,7 +52,6 @@ function Continent() {
     setShowEurope(false);
     setShowAsia(false);
     setShowOceania(false);
-
     setShowAfrica(true);
   };
 

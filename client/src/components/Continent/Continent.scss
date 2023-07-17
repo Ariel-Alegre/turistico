@@ -25,3 +25,9 @@ button:focus {
 
 
 }
+
+@media only screen and (max-width: 480px) {
+    .continent-container {
+        display: none;
+    }
+}
