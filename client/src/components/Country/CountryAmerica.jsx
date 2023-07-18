@@ -151,8 +151,14 @@ export default function CountryAmerica() {
         minHeight: 200,
         marginTop: "20px",
       }}
+
     >
-      <TabPanel >
+      <TabPanel 
+         sx={{
+          width: "100%",
+        }}
+  
+      >
         <Tabs
           value={value}
           onChange={handleChange}

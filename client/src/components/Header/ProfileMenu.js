@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 export default function BasicMenu() {
 const token = useSelector(state => state.token);
-console.log(token);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -19,6 +18,7 @@ console.log(token);
   const handleClose = () => {
     setAnchorEl(null);
   };
+
 
   return (
     <div className="account-menu">

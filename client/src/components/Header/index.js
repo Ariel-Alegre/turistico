@@ -8,6 +8,7 @@ import SimpleBottomNavigation from "./BottomNav";
 import MobileSearchBar from "../MobileSearchBar";
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
+import Search from "../Search/Search";
 
 function Header() {
   return (
@@ -16,12 +17,8 @@ function Header() {
       <img src={logo} alt="logo" className="navbar-logo" />
       </Link>
       <div className="search-bar">
-        <div className="search-bar-text">Anywhere</div>
-        <div className="search-bar-text">Any Week</div>
-        <div className="search-bar-text2">Add guests</div>
-        <div className="search-icon-div">
-          <SearchRoundedIcon className="search-icon" />
-        </div>
+        <Search/>
+     
       </div>
       <div className="profile-container">
         <Link to="/public">

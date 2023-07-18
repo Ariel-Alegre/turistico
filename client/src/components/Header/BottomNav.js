@@ -3,8 +3,8 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import RestoreIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import './header.scss'
+import './header.scss';
+import SearchMobile from '../SearchMobile/SearchMobile';
 
 export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
@@ -18,9 +18,9 @@ export default function SimpleBottomNavigation() {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="Recentes" icon={<RestoreIcon />} />
+        <BottomNavigationAction label="Favoritos" icon={<FavoriteIcon />} />
+        <BottomNavigationAction label="" icon={<SearchMobile />} />
       </BottomNavigation>
     </div>
   );
