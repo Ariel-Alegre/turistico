@@ -1,10 +1,22 @@
-import { useState } from "react";
+import * as React from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
-import './CardsDetail.scss';
-import ModalDetail from "../ModalDetail/ModalDetail";
+import "./CardsDetail.scss";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "react-bootstrap/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 import Header from "../Header";
 import Footer from "../Footer/Footer";
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const product = {
   name: "Basic Tee 6-Pack",
   price: "$192",
@@ -64,57 +76,133 @@ function classNames(...classes) {
 }
 
 export default function CardDetails() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+  const [show, setShow] = React.useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const [VistPreview, setVistPreview] = React.useState(false);
+  const handleShowVistPreview = (e) => {
+    e.preventDefault()
+    setVistPreview(true)
+
+  }
+  const list = (anchor) => (
+    <div>
+      <Box
+        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+        role="presentation"
+        >
+        <List className="list-drawer">
+          <ListItemText
+            className="btn-x"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+            >
+            X
+          </ListItemText>
+          <div className="drawer-details img-container">
+            {product.images.map((img, index) => (
+              <div className="aspect-h-4 aspect-w-3  overflow-hidden rounded-lg lg:block">
+                <button variant="primary" onClick={handleShowVistPreview} id={index} >
+                  <img src={img.src} alt="not found" className="hover-image" />
+                </button>
+               
+
+                { VistPreview ? (
+                  <div className="vist-preview">
+               
+                  <img src={img.src} alt="Not found" />
+               </div>
+                  ): <div></div>
+                }
+                </div>
+          ))}
+          </div>
+          <Divider />
+        </List>
+      </Box>
+    </div>
+  );
 
   return (
     <div>
-      <Header/>
+      <Header />
+
       <div className="bg-white">
         <div className="pt-6">
-           <h1 className='title'>Skylodge Adventure Suites</h1>
+          <h1 className="title">Skylodge Adventure Suites</h1>
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-            <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-              <img
-                src={product.images[0].src}
-                alt={product.images[0].alt}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <img
-                  src={product.images[1].src}
-                  alt={product.images[1].alt}
-                  className="h-full w-full object-cover object-center"
-                />
-              </div>
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <img
-                  src={product.images[2].src}
-                  alt={product.images[2].alt}
-                  className="h-full w-full object-cover object-center"
-                />
-              </div>
-            </div>
-            <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-              <img
-                src={product.images[3].src}
-                alt={product.images[3].alt}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
+          {["top"].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <div onClick={toggleDrawer(anchor, true)}>
+                <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+                  <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+                    <img
+                      src={product.images[0].src}
+                      alt={product.images[0].alt}
+                      className="h-full w-full object-cover object-center hover-image"
+                    />
+                  </div>
 
-          </div>
-            <ModalDetail/>  
+                  <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+                    <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg ">
+                      <img
+                        src={product.images[1].src}
+                        alt={product.images[1].alt}
+                        className="h-full w-full object-cover object-center hover-image"
+                      />
+                    </div>
+                    <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+                      <img
+                        src={product.images[2].src}
+                        alt={product.images[2].alt}
+                        className="h-full w-full object-cover object-center hover-image"
+                      />
+                    </div>
+                  </div>
+                  <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+                    <img
+                      src={product.images[3].src}
+                      alt={product.images[3].alt}
+                      className="h-full w-full object-cover object-center hover-image"
+                    />
+                  </div>
+                </div>
+              </div>
+              <Drawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list(anchor)}
+              </Drawer>
+            </React.Fragment>
+          ))}
 
           {/* Product info */}
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              Lugar para quedarse. Anfitrión: Natalia
+                Lugar para quedarse. Anfitrión: Natalia
               </h1>
             </div>
 
@@ -155,10 +243,8 @@ export default function CardDetails() {
 
               <form className="mt-10">
                 {/* Colors */}
-   
 
                 {/* Sizes */}
-            
 
                 <button
                   type="submit"
@@ -176,19 +262,25 @@ export default function CardDetails() {
 
                 <div className="space-y-6">
                   <p className="text-base text-gray-900">
-                  ¿Alguna vez quisiste dormir en el nido de un cóndor? ¡Esto es lo mejor! Una cápsula de lujo transparente que cuelga de la cima de una montaña en el Valle Sagrado del Perú.
-
-Tenemos 3 cápsulas, capacidad máxima en el albergue 12 personas por noche.
-El alojamiento
-¿Alguna vez quisiste dormir en el nido de un cóndor? ¡Esto es lo mejor! Una cápsula de lujo transparente que cuelga de la cima de una montaña en el Valle Sagrado del Perú.
-
-Ubicadas en el Valle Sagrado de Cuzco, Perú, las exclusivas Skylodge Adventure Suites le ofrecen la oportunidad de dormir dentro de un dormitorio colgante completamente transparente, que le permite apreciar la impresionante vista de este mágico y místico valle.
-
-Para dormir en Skylodge, la gente debe subir 400 metros de Via Ferrata o caminar un sendero intrépido a través de tirolinas. Una noche en este lugar hará realidad tus sueños. Los paquetes incluyen desayuno y cena gourmet con vino, transporte desde Cuzco y nuestros guías bilingües profesionales.
-
-Cuota de US$ 450 por persona - 2017
-Acceso de los huéspedes
-Equipamiento, snack, cena gourmet y desayuno
+                    ¿Alguna vez quisiste dormir en el nido de un cóndor? ¡Esto
+                    es lo mejor! Una cápsula de lujo transparente que cuelga de
+                    la cima de una montaña en el Valle Sagrado del Perú. Tenemos
+                    3 cápsulas, capacidad máxima en el albergue 12 personas por
+                    noche. El alojamiento ¿Alguna vez quisiste dormir en el nido
+                    de un cóndor? ¡Esto es lo mejor! Una cápsula de lujo
+                    transparente que cuelga de la cima de una montaña en el
+                    Valle Sagrado del Perú. Ubicadas en el Valle Sagrado de
+                    Cuzco, Perú, las exclusivas Skylodge Adventure Suites le
+                    ofrecen la oportunidad de dormir dentro de un dormitorio
+                    colgante completamente transparente, que le permite apreciar
+                    la impresionante vista de este mágico y místico valle. Para
+                    dormir en Skylodge, la gente debe subir 400 metros de Via
+                    Ferrata o caminar un sendero intrépido a través de
+                    tirolinas. Una noche en este lugar hará realidad tus sueños.
+                    Los paquetes incluyen desayuno y cena gourmet con vino,
+                    transporte desde Cuzco y nuestros guías bilingües
+                    profesionales. Cuota de US$ 450 por persona - 2017 Acceso de
+                    los huéspedes Equipamiento, snack, cena gourmet y desayuno
                   </p>
                 </div>
               </div>
@@ -213,26 +305,34 @@ Equipamiento, snack, cena gourmet y desayuno
                 <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
                 <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-600">¿Alguna vez quisiste dormir en el nido de un cóndor? ¡Esto es lo mejor! Una cápsula de lujo transparente que cuelga de la cima de una montaña en el Valle Sagrado del Perú.
-
-Tenemos 3 cápsulas, capacidad máxima en el albergue 12 personas por noche.
-El alojamiento
-¿Alguna vez quisiste dormir en el nido de un cóndor? ¡Esto es lo mejor! Una cápsula de lujo transparente que cuelga de la cima de una montaña en el Valle Sagrado del Perú.
-
-Ubicadas en el Valle Sagrado de Cuzco, Perú, las exclusivas Skylodge Adventure Suites le ofrecen la oportunidad de dormir dentro de un dormitorio colgante completamente transparente, que le permite apreciar la impresionante vista de este mágico y místico valle.
-
-Para dormir en Skylodge, la gente debe subir 400 metros de Via Ferrata o caminar un sendero intrépido a través de tirolinas. Una noche en este lugar hará realidad tus sueños. Los paquetes incluyen desayuno y cena gourmet con vino, transporte desde Cuzco y nuestros guías bilingües profesionales.
-
-Cuota de US$ 450 por persona - 2017
-Acceso de los huéspedes
-Equipamiento, snack, cena gourmet y desayuno</p>
+                  <p className="text-sm text-gray-600">
+                    ¿Alguna vez quisiste dormir en el nido de un cóndor? ¡Esto
+                    es lo mejor! Una cápsula de lujo transparente que cuelga de
+                    la cima de una montaña en el Valle Sagrado del Perú. Tenemos
+                    3 cápsulas, capacidad máxima en el albergue 12 personas por
+                    noche. El alojamiento ¿Alguna vez quisiste dormir en el nido
+                    de un cóndor? ¡Esto es lo mejor! Una cápsula de lujo
+                    transparente que cuelga de la cima de una montaña en el
+                    Valle Sagrado del Perú. Ubicadas en el Valle Sagrado de
+                    Cuzco, Perú, las exclusivas Skylodge Adventure Suites le
+                    ofrecen la oportunidad de dormir dentro de un dormitorio
+                    colgante completamente transparente, que le permite apreciar
+                    la impresionante vista de este mágico y místico valle. Para
+                    dormir en Skylodge, la gente debe subir 400 metros de Via
+                    Ferrata o caminar un sendero intrépido a través de
+                    tirolinas. Una noche en este lugar hará realidad tus sueños.
+                    Los paquetes incluyen desayuno y cena gourmet con vino,
+                    transporte desde Cuzco y nuestros guías bilingües
+                    profesionales. Cuota de US$ 450 por persona - 2017 Acceso de
+                    los huéspedes Equipamiento, snack, cena gourmet y desayuno
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

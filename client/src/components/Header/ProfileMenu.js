@@ -7,6 +7,7 @@ import "./header.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+
 export default function BasicMenu() {
 const token = useSelector(state => state.token);
 
@@ -31,7 +32,7 @@ const token = useSelector(state => state.token);
         className="profile-menu-flex"
         >
         <MenuRoundedIcon />
-        <AccountCircleRoundedIcon />
+        <AccountCircleRoundedIcon id="icons-avatar"/>
       </div>
         { token === null ? ( 
       <Menu

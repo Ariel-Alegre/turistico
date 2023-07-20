@@ -67,47 +67,37 @@ function Continent() {
   return (
     <>
       <div className="continent-container">
-        <div>
           <Button variant="contained" onClick={handleClickAmerica}>
             <div>
               America
               <img src={america} alt="not found" />
             </div>
           </Button>
-        </div>
 
-        <div>
           <Button variant="contained" onClick={handleClickEurope}>
             <div>
               Europa
               <img src={europa} alt="not found" />
             </div>
           </Button>
-        </div>
-        <div>
           <Button variant="contained" onClick={handleClickAsia}>
             <div>
               Asia
               <img src={asia} alt="not found" />
             </div>
           </Button>
-        </div>
-        <div>
           <Button variant="contained" onClick={handleClickAfrica}>
             <div>
               Africa
               <img src={africa} alt="not found" />
             </div>
           </Button>
-        </div>
-        <div>
           <Button variant="contained" onClick={handleClickOceania}>
             <div>
               Oceania
               <img src={africa} alt="not found" />
             </div>
           </Button>
-        </div>
       </div>
       {showAmerica ? (
         <CountryAmerica

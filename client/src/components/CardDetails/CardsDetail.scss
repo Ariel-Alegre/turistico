@@ -3,3 +3,42 @@
     font-size: 30px;
     font-weight: 600;
 }
+
+.btn-x {
+text-align: end;
+margin-right: 20px;
+cursor: pointer;
+}
+.list-drawer {
+    height: 100vh;
+}
+.img-container {
+    margin-bottom: 50px;
+}
+
+
+.hover-image {
+    cursor: pointer;
+}
+
+
+.drawer-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 450px);
+    justify-content: center;
+    gap: 10px;
+}
+
+.vist-preview {
+    background-color: black;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+

@@ -7,8 +7,7 @@ import BasicMenu from "./ProfileMenu";
 import SimpleBottomNavigation from "./BottomNav";
 import MobileSearchBar from "../MobileSearchBar";
 import { Link } from "react-router-dom";
-import Button from '@mui/material/Button';
-import Search from "../Search/Search";
+import SearchMobile from "../SearchMobile/SearchMobile";
 
 function Header() {
   return (
@@ -17,20 +16,19 @@ function Header() {
       <img src={logo} alt="logo" className="navbar-logo" />
       </Link>
       <div className="search-bar">
-        <Search/>
+        <SearchMobile/>
      
       </div>
       <div className="profile-container">
         <Link to="/public">
         </Link>
         <div className="airbnb-your-home">
-          <LanguageIcon sx={{ fontSize: "1.3rem" }} />
+          <LanguageIcon sx={{ fontSize: "1.3rem" }} id='icons-lenguage' />
         </div>
         <div className="profile-div">
           <BasicMenu />
         </div>
       </div>
-      <MobileSearchBar />
       <SimpleBottomNavigation />
     </div>
   );
