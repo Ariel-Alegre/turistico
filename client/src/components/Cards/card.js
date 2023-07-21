@@ -6,27 +6,20 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
+import Carousel from 'react-bootstrap/Carousel';
 
 function Card({ card }) {
   return (
     <div className="card-box">
-        <Swiper
-          slidesPerView={1}
-          spaceBetween={15}
-          loop={true}
-          mousewheel={true}
-          cssMode={true}
-          className="swiper-container"
-          pagination
-        >
+         <Carousel interval={null} className="swiper-container" >
           {card.imgSrc.map((src, i) => (
-            <SwiperSlide key={i}>
+            <Carousel.Item key={i}>
               <Link to='/rooms' className="text-link">
               <img src={src} className="card-img" />
               </Link>
-            </SwiperSlide>
+            </Carousel.Item>
           ))}
-        </Swiper>
+        </Carousel>
         <div className="card-info-flex">
             <Link to='/rooms' className="text-link">
 

@@ -16,6 +16,7 @@ import Header from "../Header";
 import Footer from "../Footer/Footer";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Carousel from 'react-bootstrap/Carousel';
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -99,11 +100,16 @@ export default function CardDetails() {
   };
 
   const [VistPreview, setVistPreview] = React.useState(false);
-  const handleShowVistPreview = (e) => {
-    e.preventDefault()
-    setVistPreview(true)
+  
+  const handleShowVistPreview = () => {
 
+    setVistPreview(true)
   }
+  const Close = () => {
+
+    setVistPreview(false)
+  }
+
   const list = (anchor) => (
     <div>
       <Box
@@ -116,24 +122,35 @@ export default function CardDetails() {
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
             >
-            X
+            &times;
           </ListItemText>
           <div className="drawer-details img-container">
             {product.images.map((img, index) => (
               <div className="aspect-h-4 aspect-w-3  overflow-hidden rounded-lg lg:block">
-                <button variant="primary" onClick={handleShowVistPreview} id={index} >
+                 <div onClick={handleShowVistPreview}>
                   <img src={img.src} alt="not found" className="hover-image" />
-                </button>
-               
+                  </div>
+                  
+      
+                { VistPreview && (
+                
+                  
+                  <div class="overlay">
+                <span onClick={Close} class="close-button-modal">&times;</span>
+                <Carousel interval={null} className="carrusel-container" >
+                {product.images.map((img, index) => (
+                  <Carousel.Item>
 
-                { VistPreview ? (
-                  <div className="vist-preview">
-               
-                  <img src={img.src} alt="Not found" />
-               </div>
-                  ): <div></div>
+                  <img src={img.src} alt="Not found"/>
+                  </Carousel.Item>
+                  ))}
+                  </Carousel>
+                </div> 
+                    )
                 }
-                </div>
+      </div>
+
+        
           ))}
           </div>
           <Divider />

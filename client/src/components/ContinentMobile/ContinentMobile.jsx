@@ -4,6 +4,8 @@ import america from "../../assets/icons/icons-america.png";
 import europa from "../../assets/icons/icons-europa.png";
 import asia from "../../assets/icons/icons-asia.png";
 import africa from "../../assets/icons/icons-africa.png";
+import oceania from "../../assets/icons/icons-oceania.png";
+
 import { useState } from "react";
 import CountryAmerica from "../Country/CountryAmerica";
 import CountryEuropa from "../Country/CountryEuropa";
@@ -70,7 +72,10 @@ function ContinentMobile() {
         <div>
           <Button variant="contained" onClick={handleClickAmerica}>
             <div>
+              <p>
+
               America
+              </p>
               <img src={america} alt="not found" />
             </div>
           </Button>
@@ -79,7 +84,10 @@ function ContinentMobile() {
         <div>
           <Button variant="contained" onClick={handleClickEurope}>
             <div>
+              <p>
+
               Europa
+              </p>
               <img src={europa} alt="not found" />
             </div>
           </Button>
@@ -87,7 +95,10 @@ function ContinentMobile() {
         <div>
           <Button variant="contained" onClick={handleClickAsia}>
             <div>
+              <p>
+
               Asia
+              </p>
               <img src={asia} alt="not found" />
             </div>
           </Button>
@@ -95,7 +106,10 @@ function ContinentMobile() {
         <div>
           <Button variant="contained" onClick={handleClickAfrica}>
             <div>
+              <p>
+
               Africa
+              </p>
               <img src={africa} alt="not found" />
             </div>
           </Button>
@@ -103,8 +117,11 @@ function ContinentMobile() {
         <div>
           <Button variant="contained" onClick={handleClickOceania}>
             <div>
+              <p>
+
               Oceania
-              <img src={africa} alt="not found" />
+              </p>
+              <img src={oceania} alt="not found" />
             </div>
           </Button>
         </div>

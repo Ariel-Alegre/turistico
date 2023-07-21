@@ -4,12 +4,15 @@ import america from "../../assets/icons/icons-america.png";
 import europa from "../../assets/icons/icons-europa.png";
 import asia from "../../assets/icons/icons-asia.png";
 import africa from "../../assets/icons/icons-africa.png";
+import oceania from "../../assets/icons/icons-oceania.png";
+
 import { useState } from "react";
 import CountryAmerica from "../Country/CountryAmerica";
 import CountryEuropa from "../Country/CountryEuropa";
 import CountryAsia from "../Country/CountryAsia";
 import CountryAfrica from "../Country/CountryAfrica";
 import CountryOceania from "../Country/CountryOceania";
+
 
 function Continent() {
   const [showAmerica, setShowAmerica] = useState(false);
@@ -68,34 +71,52 @@ function Continent() {
     <>
       <div className="continent-container">
           <Button variant="contained" onClick={handleClickAmerica}>
-            <div>
+            <div className="continent">
+             <p>
+
               America
+             </p>
               <img src={america} alt="not found" />
             </div>
           </Button>
 
           <Button variant="contained" onClick={handleClickEurope}>
-            <div>
+            <div className="continent">
+            <p>
+
               Europa
+            </p>
               <img src={europa} alt="not found" />
             </div>
           </Button>
           <Button variant="contained" onClick={handleClickAsia}>
-            <div>
+            <div className="continent">
+            <p>
+
               Asia
+            </p>
+
               <img src={asia} alt="not found" />
             </div>
           </Button>
           <Button variant="contained" onClick={handleClickAfrica}>
-            <div>
+            <div className="continent">
+            <p>
+
               Africa
+            </p>
+
               <img src={africa} alt="not found" />
             </div>
           </Button>
           <Button variant="contained" onClick={handleClickOceania}>
-            <div>
+            <div className="continent">
+             <p>
+
               Oceania
-              <img src={africa} alt="not found" />
+             </p>
+
+              <img src={oceania} alt="not found" />
             </div>
           </Button>
       </div>
