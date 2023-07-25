@@ -1,54 +1,65 @@
 import React, { useState } from 'react';
-import { Drawer, List, ListItem, ListItemText, Modal, Button } from '@material-ui/core';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-const CombinedComponent = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const UploadPhotos = () => {
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
-  const handleToggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
+  const handleFileChange = (event) => {
+    const filesArray = Array.from(event.target.files);
+    setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...filesArray]);
   };
 
-  const handleToggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const handleUpload = () => {
+    // Aquí puedes implementar la lógica para subir los archivos al servidor.
+    // Puedes usar la variable "selectedFiles" para acceder a los archivos seleccionados.
+    // Por ejemplo, podrías utilizar una librería como axios para enviar los archivos al backend.
+    console.log(selectedFiles);
+  };
+
+  const handleRemove = (index) => {
+    const newFilesArray = [...selectedFiles];
+    newFilesArray.splice(index, 1);
+    setSelectedFiles(newFilesArray);
   };
 
   return (
     <div>
-      <button onClick={handleToggleDrawer}>Toggle Drawer</button>
-      <button onClick={handleToggleModal}>Toggle Modal</button>
+      {/* Agregar el atributo "multiple" al input */}
+      <input type="file" multiple onChange={handleFileChange} />
 
-      <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-        <List>
-          <ListItem button>
-            <ListItemText primary="Item 1" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Item 2" />
-          </ListItem>
-          {/* Add more items as needed */}
-        </List>
-      </Drawer>
+      {/* Mostrar las fotos seleccionadas */}
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {selectedFiles.map((file, index) => (
+          <div key={index} style={{ position: 'relative' }}>
+            <img
+              src={URL.createObjectURL(file)}
+              alt={`Preview ${index}`}
+              style={{ width: '150px', height: '150px', objectFit: 'cover', margin: '5px' }}
+            />
+            <button
+              onClick={() => handleRemove(index)}
+              style={{
+                position: 'absolute',
+                top: '5px',
+                right: '5px',
+                background: 'red',
+                color: 'white',
+                border: 'none',
+                borderRadius: '50%',
+                width: '20px',
+                height: '20px',
+                cursor: 'pointer',
+              }}
+            >
+              X
+            </button>
+          </div>
+        ))}
+      </div>
 
-      <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal Title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Modal Content</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
-            Close
-          </Button>
-          <Button variant="primary">Save Changes</Button>
-        </Modal.Footer>
-      </Modal>
-
-      {/* Your main content goes here */}
+      {/* Botón para subir las fotos al servidor */}
+   
     </div>
   );
 };
 
-export default CombinedComponent;
+export default UploadPhotos;
