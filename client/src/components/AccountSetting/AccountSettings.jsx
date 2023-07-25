@@ -14,14 +14,6 @@ import { MdOutlinePayments } from 'react-icons/md';
 
 
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
 
 export default function BasicCard() {
   return (

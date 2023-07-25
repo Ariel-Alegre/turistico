@@ -31,6 +31,7 @@ function App() {
           <Route exact path='/account-settings/payment-methods' element={<PaymentUser />} />
           <Route exact path='/public' element={<TuristicPost />} />
 
+
           <Route exact path='/test' element={<Test />} />
 
 

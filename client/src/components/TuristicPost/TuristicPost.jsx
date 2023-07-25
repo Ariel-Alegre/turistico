@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import "./TuristicPost.scss";
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -54,38 +59,99 @@ const product = {
   details:
     'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 };
-const reviews = { href: "#", average: 4, totalCount: 117 };
+const reviews = { href: "#", average: 4, totalCount: 117 }; 
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function TuristicPost() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const [showTittle, setShowTittle] = useState({
+    tittle: "",
+    images: [],
+    summary:"",
+    details: ""
 
+  });
+
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setShowTittle({
+      tittle: e.target.value
+    })
+  }
+  const handleChangeImages = (e) => {
+    e.preventDefault();
+    setShowTittle({
+      images: e.target.value
+    })
+  }
+
+  const handleChangeSummary = (e) => {
+    e.preventDefault();
+    setShowTittle({
+      summary: e.target.value
+    })
+  }
   return (
     <div className="post-container">
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-
       <div className="post-turistic">
-        <div className="bg-white">
-          <div className="pt-6">
-            <h1 className="title">Skylodge Adventure Suites</h1>
+        <form action="" method="post" className="post">
+          <div>
+            Titulo
+            <input type="text" value={showTittle.tittle} onChange={handleChange} />
+          </div>
+          <div>
+            Subir fotos
+ <input type="file" value={showTittle.images} onChange={handleChange}   />
+      {/*       <Box sx={{ '& > :not(style)': { m: 1 } }} >
+      <Fab size="small" type='file' color="transparent" aria-label="add">
 
+        <AddIcon />
+
+      </Fab>
+    </Box> */}
+          </div>
+          <div>
+Resumen
+            <input type="text" value={showTittle.summary} onChange={handleChangeSummary}  />
+          </div>
+          <div>
+           Detalles
+            <input type="text" />
+          </div>
+   
+        </form>
+        <div className="bg-white order">
+          <div className="pt-6">
+            { showTittle.tittle ? (
+
+              
+              <h1 className="title">{showTittle.tittle}</h1>
+              ) : (
+                <h1 className="title">Titulo</h1>
+              )
+
+            }
             {/* Image gallery */}
             <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-              <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+              {
+showTittle.images ? (
+                <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
                 <img
                   src={product.images[0].src}
                   alt={product.images[0].alt}
                   className="h-full w-full object-cover object-center"
-                />
-              </div>
+                  />
+              </div>) :(
+                  <img
+                  src={product.images[0].src}
+                  alt={product.images[0].alt}
+                  className="h-full w-full object-cover object-center"
+                  />
+              )
+                }
               <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                 <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                   <img
@@ -175,31 +241,12 @@ export default function TuristicPost() {
 
                   <div className="space-y-6">
                     <p className="text-base text-gray-900">
-                      ¿Alguna vez quisiste dormir en el nido de un cóndor? ¡Esto
-                      es lo mejor! Una cápsula de lujo transparente que cuelga
-                      de la cima de una montaña en el Valle Sagrado del Perú.
-                      Tenemos 3 cápsulas, capacidad máxima en el albergue 12
-                      personas por noche. El alojamiento ¿Alguna vez quisiste
-                      dormir en el nido de un cóndor? ¡Esto es lo mejor! Una
-                      cápsula de lujo transparente que cuelga de la cima de una
-                      montaña en el Valle Sagrado del Perú. Ubicadas en el Valle
-                      Sagrado de Cuzco, Perú, las exclusivas Skylodge Adventure
-                      Suites le ofrecen la oportunidad de dormir dentro de un
-                      dormitorio colgante completamente transparente, que le
-                      permite apreciar la impresionante vista de este mágico y
-                      místico valle. Para dormir en Skylodge, la gente debe
-                      subir 400 metros de Via Ferrata o caminar un sendero
-                      intrépido a través de tirolinas. Una noche en este lugar
-                      hará realidad tus sueños. Los paquetes incluyen desayuno y
-                      cena gourmet con vino, transporte desde Cuzco y nuestros
-                      guías bilingües profesionales. Cuota de US$ 450 por
-                      persona - 2017 Acceso de los huéspedes Equipamiento,
-                      snack, cena gourmet y desayuno
+                  {showTittle.summary}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-10">
+                {/*    <div className="mt-10">
                   <h3 className="text-sm font-medium text-gray-900">
                     Highlights
                   </h3>
@@ -216,10 +263,10 @@ export default function TuristicPost() {
                       ))}
                     </ul>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="mt-10">
-                  <h2 className="text-sm font-medium text-gray-900">Details</h2>
+                  <h2 className="text-sm font-medium text-gray-900">Detalles</h2>
 
                   <div className="mt-4 space-y-6">
                     <p className="text-sm text-gray-600">

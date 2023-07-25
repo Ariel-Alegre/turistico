@@ -8,9 +8,30 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(1, auto);
     grid-template-areas: "containerOne containerTwo";
+
+  
 }
-.post-turistic img{
+.order {
+  width: 650px;
+  justify-content: center;
+  display: flex;
+  margin-left: 450px;
+  box-shadow: 0px 0px 10px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  
 }
+.post {
+  float: left;
+  gap: 30px;
+  margin-top: 150px;
+  margin-left: 40px;
+}
+.post input {
+  display: grid;
+ box-shadow: 0px 0px 10px;
+}
+
 
 .container .containerOne{
     grid-area: containerOne;
