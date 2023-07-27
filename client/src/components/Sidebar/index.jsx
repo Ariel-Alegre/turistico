@@ -374,9 +374,9 @@ function SideBar() {
                 <div className="mt-10">
                   <h2 className="text-sm font-medium text-gray-900">Descripción</h2>
 
-                  <div className="mt-4 space-y-6">
-                    <p className="text-sm text-gray-600">
-                    {show.description && show.description}
+                  <div className="mt-4 space-y-6 des" >
+                    <p className="text-sm text-gray-600 ">
+                    {show.description}
 
                     </p>
                   </div>

@@ -15,6 +15,7 @@ import { MdOutlinePayments } from 'react-icons/md';
 
 
 
+
 export default function BasicCard() {
   return (
     <div>

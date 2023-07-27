@@ -1,6 +1,8 @@
 const initialState = {
   loginUser: [],
   token: localStorage.getItem('token'),
+  datapersonal: [],
+
   }
 
 
@@ -24,6 +26,11 @@ export const rootReducer = (state = initialState, action) => {
           token: action.payload,
          
         };
+
+        case 'SET_DATA_PERSONAL': 
+        return {
+          ...state,
+        }
  
     
 

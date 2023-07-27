@@ -33,3 +33,35 @@ export const loginSuccess = (token) => ({
   type: 'LOGIN_SUCCESS',
   payload: token
 });
+
+export const dataPersonal = () => {
+  return async (dispatch) => {
+   const res = await axios.get('http://localhost:4000/user') ;
+   const data = await res.data;
+
+   return dispatch({
+    type:'SET_DATA_PERSONAL',
+    payload: data
+   })
+  }
+}
+
+/*  fetch("http://localhost:4000/user", {
+      method: "GET",
+      headers: {
+        Authorization: `${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la petición");
+      }
+      return response.json(); // Convertir la respuesta a formato JSON
+    })
+    .then((data) => {
+      setUser(data); // Asignar los datos del usuario al estado
+    })
+    .catch((error) => {
+      console.error(error);
+    }); */

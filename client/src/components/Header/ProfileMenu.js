@@ -6,14 +6,30 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import "./header.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import IconButton from "@mui/material/IconButton";
+import Avatar from "@mui/material/Avatar";
+import { useNavigate,  } from "react-router-dom";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Logout from "@mui/icons-material/Logout";
+import Tooltip from "@mui/material/Tooltip";
+
+import Box from "@mui/material/Box";
+
 
 
 export default function BasicMenu() {
-const token = useSelector(state => state.token);
+  const [user, setUser] = React.useState({});
 
+  const token = useSelector((state) => state.token);
+  
+  console.log(user);
+
+
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+    event.preventDefault()
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -32,7 +48,22 @@ const token = useSelector(state => state.token);
         className="profile-menu-flex"
         >
         <MenuRoundedIcon />
-        <AccountCircleRoundedIcon id="icons-avatar"/>
+        <Box
+          sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
+        >
+          <Tooltip title="Account settings">
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={open ? "account-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+            >
+              <Avatar sx={{ width: 32, height: 32 }}>{user.name && user.name[0].toUpperCase()}</Avatar>
+            </IconButton>
+          </Tooltip>
+        </Box>
       </div>
         { token === null ? ( 
       <Menu
@@ -125,9 +156,15 @@ const token = useSelector(state => state.token);
          Ayúda
         </MenuItem>
     
-        <MenuItem onClick={handleClose} className="menu-items">
-          Cerrar sesión
-        </MenuItem>
+        <MenuItem onClick={() => {
+            localStorage.clear();
+            navigate('/auth/login')
+          }}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Cerrar sesión
+          </MenuItem>
     </Menu>)}
     </div>
     );
