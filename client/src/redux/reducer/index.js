@@ -30,6 +30,7 @@ export const rootReducer = (state = initialState, action) => {
         case 'SET_DATA_PERSONAL': 
         return {
           ...state,
+          datapersonal: action.payload
         }
  
     

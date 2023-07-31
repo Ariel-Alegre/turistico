@@ -51,7 +51,7 @@ export default function BasicMenu() {
         <Box
           sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
         >
-          <Tooltip title="Account settings">
+          <Tooltip title="menu">
             <IconButton
               onClick={handleClick}
               size="small"

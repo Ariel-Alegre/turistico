@@ -1,4 +1,3 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,6 +9,11 @@ import { Link } from "react-router-dom";
 import { FaRegAddressCard } from 'react-icons/fa';
 import { MdSecurity } from 'react-icons/md';
 import { MdOutlinePayments } from 'react-icons/md';
+import { useState, useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { dataPersonal } from "../../redux/action";
+
+
 
 
 
@@ -17,14 +21,24 @@ import { MdOutlinePayments } from 'react-icons/md';
 
 
 export default function BasicCard() {
+const dispatch = useDispatch();
+const datapersonal = useSelector(state => state.datapersonal);
+const token = useSelector(state => state.token);
+
+
+console.log(datapersonal);
+useEffect(() => {
+  dispatch(dataPersonal(token))
+}, [token]);
   return (
     <div>
       <div className="text-account">
         <h1>Cuenta</h1>
         <div className="sub-text">
 
-        <p>Ariel alegre </p>,
-        <span>arielalegre98@gmail.com</span>
+        <p>{datapersonal.name} </p>,
+        <span>{datapersonal.email}</span>-
+        <a href="/user/show">ir al perfil</a>
         </div>
         
       </div>

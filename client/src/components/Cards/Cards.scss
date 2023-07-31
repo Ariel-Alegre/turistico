@@ -4,18 +4,30 @@
   align-items: center;
   flex-wrap: wrap;
   padding: 1rem 3rem;
+  gap: 40px;
 }
 .card-box {
   margin: 1rem;
   margin-bottom: 2rem;
   justify-content: center;
   display: grid;
+  transition: transform 0.3s ease; /* Transición del cambio de escala durante 0.3 segundos con función de timing "ease" */
+  transform-origin: center center; /* Establecer el punto de transformación en el centro del elemento */
+}
+
+.card-box:hover {
+  transform: scale(1.3); /* Escala el elemento en un 30% (1.3 veces) al pasar el cursor por encima */
+ position: relative;
 }
 
 .text-link {
   text-decoration: none;
   color: black;
   
+}
+
+.text-link img {
+  border-radius: 15px;
 }
 .card-title {
   text-decoration: none;
@@ -29,10 +41,10 @@
 }
 
 .card-img {
-  height: 230px;
-  width: 230px;
+  height: 270px;
+  width: 270px;
   object-fit: cover;
-  border-radius: 0.5rem;
+  border-radius: 250px;
 }
 
 .card-info-flex {
@@ -58,6 +70,7 @@
     height: 400px;
     width: 40vw;
   }
+
 }
 
 @media only screen and (max-width: 800px) {
@@ -70,4 +83,7 @@
   .cards-flex {
     padding: 0px;
   }
+ 
+
+
 }

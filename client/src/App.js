@@ -11,6 +11,7 @@ import Security from './pages/Security';
 import PaymentUser from './pages/PaymentUser';
 import TuristicPost from './pages/PostTuristic';
 import Test from './pages/test';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
           <Route exact path='/account-settings/login-and-security' element={<Security />} />
           <Route exact path='/account-settings/payment-methods' element={<PaymentUser />} />
           <Route exact path='/public' element={<TuristicPost />} />
+          <Route exact path='/user/show' element={<Profile />} />
+
 
 
           <Route exact path='/test' element={<Test />} />
