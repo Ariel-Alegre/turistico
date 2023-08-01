@@ -70,9 +70,29 @@
     height: 400px;
     width: 40vw;
   }
+  .card-box:hover {
+    transform: scale(1); /* Escala el elemento en un 30% (1.3 veces) al pasar el cursor por encima */
+   position: relative;
+  }
 
 }
+@media only screen and (min-width: 768px) and (max-width: 1280px){
+  .swiper-container,
+  .card-img {
+    max-height: 400px;
+    width: 90vw;
+  }
 
+  .cards-flex {
+    padding: 0px;
+  }
+  .card-box:hover {
+    transform: scale(1); /* Escala el elemento en un 30% (1.3 veces) al pasar el cursor por encima */
+   position: relative;
+  }
+
+
+}
 @media only screen and (max-width: 800px) {
   .swiper-container,
   .card-img {
@@ -83,7 +103,10 @@
   .cards-flex {
     padding: 0px;
   }
- 
+  .card-box:hover {
+    transform: scale(1); /* Escala el elemento en un 30% (1.3 veces) al pasar el cursor por encima */
+   position: relative;
+  }
 
 
 }
