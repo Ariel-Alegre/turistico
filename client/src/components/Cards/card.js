@@ -26,15 +26,15 @@ function Card({ card }) {
           <h3 className="card-title">{card.title}</h3>
           </Link>
 
-          <div className="card-rating">
+          {/* <div className="card-rating">
             <StarRateRoundedIcon />
             <p>{card.rating}</p>
-          </div>
+          </div> */}
         </div>
         <Link to='/rooms' className="text-link">
 
-        <p style={{ margin: 0, color: "var(--font-grey)" }}>{card.desc}</p>
-        <p style={{ margin: 0, color: "var(--font-grey)" }}>{card.date}</p>
+        {/* <p style={{ margin: 0, color: "var(--font-grey)" }}>{card.desc}</p>
+        <p style={{ margin: 0, color: "var(--font-grey)" }}>{card.date}</p> */}
         <p style={{ margin: "0.2rem", fontSize: "1rem", color: "var(--black" }}>
           <span style={{ fontWeight: "600" }}>₹{card.price}</span> night
         </p>

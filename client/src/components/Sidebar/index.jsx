@@ -8,6 +8,7 @@ import { dataPersonal } from "../../redux/action";
 import { useSelector, useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDropzone } from "react-dropzone";
+import Autocomplete from "@mui/material/Autocomplete";
 
 import "./styles.css";
 
@@ -68,8 +69,13 @@ const reviews = { href: "#", average: 4, totalCount: 117 };
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
+const options = ["Por noche", "Por semana", "Por mes"];
 function SideBar() {
   const dispatch = useDispatch();
+  const [value, setValue] = useState(options[0]);
+  const [inputValue, setInputValue] = useState("");
+
   const datapersonal = useSelector((state) => state.datapersonal);
   const token = useSelector((state) => state.token);
   useEffect(() => {
@@ -95,12 +101,12 @@ function SideBar() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const [show, setShow] = useState({
-    anfitrion: "",
     tittle: "",
+    price: "",
+    stay: "",
     images: [],
     summary: "",
     description: "",
-    price: "",
   });
 
   const handleAnfitrion = (e) => {
@@ -165,17 +171,15 @@ function SideBar() {
   return (
     <div>
       <nav className="sidebar">
-        <div className="sidebar-container">
+        <div>
           <div className="sidebar-logo-container">
             <img src={Logo} alt="logo" />
           </div>
 
-          <div className="sidebar-container">
+          <devicePixelRatio>
             <Box
               component="form"
-              sx={{
-                "& > :not(style)": { m: 1, width: "50ch" },
-              }}
+              className="sidebar-container"
               noValidate
               autoComplete="off"
             >
@@ -186,8 +190,44 @@ function SideBar() {
                 onChange={handleTittle}
                 value={show.tittle}
                 name="tittle"
+                sx={{
+                  background: "#fff",
+                }}
               />
-
+              <TextField
+                id="outlined-basic"
+                label="Precio"
+                variant="outlined"
+                onChange={handlePrice}
+                value={show.price}
+                name="price"
+                sx={{
+                  background: "#fff",
+                }}
+              />
+              <div>
+                <Autocomplete
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                  inputValue={inputValue}
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue);
+                  }}
+                  id="controllable-states-demo"
+                  options={options}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Estadia"
+                      sx={{
+                        background: "#fff",
+                      }}
+                    />
+                  )}
+                />
+              </div>
               <div
                 {...getRootProps()}
                 style={{
@@ -201,47 +241,44 @@ function SideBar() {
               >
                 <input {...getInputProps()} />
                 {isDragActive ? (
-                  <p>Suelta los archivos aquí...</p>
+                  <p>Suelta las imagenes aquí...</p>
                 ) : (
                   <div>
-
-                  <p>
-                    Arrastra y suelta los archivos aquí o haz clic para
-                    seleccionar.
-                  </p>
-                  <span>Puedes subir hasta 12 fotos.</span>
+                    <p>
+                      Arrastra y suelta las imagenes aquí o haz clic para
+                      seleccionar.
+                    </p>
+                    <span>Puedes subir hasta 12 imagenes.</span>
                   </div>
                 )}
               </div>
               <div>
-
-
-              {show.images &&
-                show.images.map((photo) => <img src={photo} alt="" />)}
-              <div className="prev-mini">
                 {show.images &&
-                  show.images.map((file, index) => (
-                    <div key={index}>
-                      {file && (
-                        <div>
-                          <img
-                            src={URL.createObjectURL(file)}
-                            alt={`Preview ${index}`}
-                            className="img-mini"
-                          />
+                  show.images.map((photo) => <img src={photo} alt="" />)}
+                <div className="prev-mini">
+                  {show.images &&
+                    show.images.map((file, index) => (
+                      <div key={index}>
+                        {file && (
+                          <div>
+                            <img
+                              src={URL.createObjectURL(file)}
+                              alt={`Preview ${index}`}
+                              className="img-mini"
+                            />
+                          </div>
+                        )}
+                        <div className="btn-x">
+                          <button
+                            type="button"
+                            onClick={() => handleRemove(index)}
+                          >
+                            X
+                          </button>
                         </div>
-                      )}
-                      <div className="btn-x">
-                        <button
-                          type="button"
-                          onClick={() => handleRemove(index)}
-                        >
-                          X
-                        </button>
                       </div>
-                    </div>
-                  ))}
-              </div>
+                    ))}
+                </div>
               </div>
               {/*        <TextField
                 id="outlined-basic"
@@ -274,23 +311,11 @@ function SideBar() {
                   className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
-            
-
-              <div>
-                <TextField
-                  id="outlined-basic"
-                  label="Precio"
-                  variant="outlined"
-                  onChange={handlePrice}
-                  value={show.price}
-                  name="price"
-                />
-              </div>
             </Box>
-          </div>
+          </devicePixelRatio>
         </div>
       </nav>
-      <div>
+      <div className="responsive-phone-tablet">
         <div className="bg-white">
           <div className="pt-6">
             {show.tittle ? (
@@ -367,13 +392,27 @@ function SideBar() {
 
               {/* Options */}
               <div className="mt-4 lg:row-span-3 lg:mt-0">
-                <h2 className="sr-only">Product information</h2>
                 <p className="text-3xl tracking-tight text-gray-900">
-                  $ {show.price}
+                  {show.price ? (
+                    <span>$ {show.price}</span>
+                  ) : (
+                    <span>precio</span>
+                  )}
+                  <div>
+                    <div className="space-y-6">
+                      {inputValue ? (
+
+                        <h3 className="text-base text-gray-900">{inputValue}</h3>
+                        ): (
+                        <h3 className="text-base text-gray-900">Estadia</h3>
+
+                        )}
+                    </div>
+                  </div>
                 </p>
 
                 {/* Reviews */}
-                <div className="mt-6">
+                {/*        <div className="mt-6">
                   <h3 className="sr-only">Reviews</h3>
                   <div className="flex items-center">
                     <div className="flex items-center">
@@ -398,7 +437,7 @@ function SideBar() {
                       {reviews.totalCount} reviews
                     </a>
                   </div>
-                </div>
+                </div> */}
 
                 <form className="mt-10">
                   {/* Colors */}
@@ -407,7 +446,7 @@ function SideBar() {
 
                   <button
                     type="submit"
-                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva"
                   >
                     Reservar
                   </button>
