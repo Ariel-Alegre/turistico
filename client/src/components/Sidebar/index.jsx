@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Logo from "../../assets/logo/Logo.jpg";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { dataPersonal } from "../../redux/action";
+import { dataPersonal, turisticPost } from "../../redux/action";
 import { useSelector, useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDropzone } from "react-dropzone";
@@ -101,13 +101,18 @@ function SideBar() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const [show, setShow] = useState({
-    tittle: "",
+    title: "",
     price: "",
     stay: "",
     images: [],
     summary: "",
     description: "",
   });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(turisticPost(show));
+  }
 
   const handleAnfitrion = (e) => {
     e.preventDefault();
@@ -121,7 +126,7 @@ function SideBar() {
     e.preventDefault();
     setShow((prevState) => ({
       ...prevState,
-      tittle: e.target.value,
+      title: e.target.value,
     }));
   };
   const handleSummary = (e) => {
@@ -144,6 +149,13 @@ function SideBar() {
     setShow((prevState) => ({
       ...prevState,
       price: e.target.value,
+    }));
+  };
+  const handleStay = (e) => {
+    e.preventDefault();
+    setShow((prevState) => ({
+      ...prevState,
+      stay: e.target.value,
     }));
   };
   /*   const handleImage = (e) => {
@@ -177,19 +189,23 @@ function SideBar() {
           </div>
 
           <devicePixelRatio>
+            <form action=""
+              onSubmit={handleSubmit}
+            
+            >
+
             <Box
-              component="form"
               className="sidebar-container"
               noValidate
               autoComplete="off"
-            >
+              >
               <TextField
                 id="outlined-basic"
                 label="Titulo"
                 variant="outlined"
                 onChange={handleTittle}
-                value={show.tittle}
-                name="tittle"
+                value={show.title}
+                name="title"
                 sx={{
                   background: "#fff",
                 }}
@@ -204,12 +220,13 @@ function SideBar() {
                 sx={{
                   background: "#fff",
                 }}
-              />
+                />
               <div>
                 <Autocomplete
                   value={value}
                   onChange={(event, newValue) => {
                     setValue(newValue);
+                    
                   }}
                   inputValue={inputValue}
                   onInputChange={(event, newInputValue) => {
@@ -221,12 +238,15 @@ function SideBar() {
                     <TextField
                       {...params}
                       label="Estadia"
+                      onChange={handleStay}
+                      value={show.stay}
+                      name="stay"
                       sx={{
                         background: "#fff",
                       }}
                     />
                   )}
-                />
+                  />
               </div>
               <div
                 {...getRootProps()}
@@ -242,7 +262,7 @@ function SideBar() {
                 <input {...getInputProps()} />
                 {isDragActive ? (
                   <p>Suelta las imagenes aquí...</p>
-                ) : (
+                  ) : (
                   <div>
                     <p>
                       Arrastra y suelta las imagenes aquí o haz clic para
@@ -265,7 +285,7 @@ function SideBar() {
                               src={URL.createObjectURL(file)}
                               alt={`Preview ${index}`}
                               className="img-mini"
-                            />
+                              />
                           </div>
                         )}
                         <div className="btn-x">
@@ -297,7 +317,7 @@ function SideBar() {
                   name="summary"
                   rows={10}
                   className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
+                  />
               </div>
 
               <div>
@@ -311,7 +331,14 @@ function SideBar() {
                   className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
+              <button
+                    type="submit"
+                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva"
+                  >
+                    Publicar
+                  </button>
             </Box>
+                  </form>
           </devicePixelRatio>
         </div>
       </nav>
@@ -319,7 +346,7 @@ function SideBar() {
         <div className="bg-white">
           <div className="pt-6">
             {show.tittle ? (
-              <h1 className="title">{show.tittle}</h1>
+              <h1 className="title">{show.title}</h1>
             ) : (
               <h1 className="title">Titulo</h1>
             )}
@@ -401,10 +428,10 @@ function SideBar() {
                   <div>
                     <div className="space-y-6">
                       {inputValue ? (
-
+                        
                         <h3 className="text-base text-gray-900">{inputValue}</h3>
                         ): (
-                        <h3 className="text-base text-gray-900">Estadia</h3>
+                          <h3 className="text-base text-gray-900">Estadia</h3>
 
                         )}
                     </div>
@@ -416,41 +443,38 @@ function SideBar() {
                   <h3 className="sr-only">Reviews</h3>
                   <div className="flex items-center">
                     <div className="flex items-center">
-                      {[0, 1, 2, 3, 4].map((rating) => (
+                    {[0, 1, 2, 3, 4].map((rating) => (
                         <StarIcon
-                          key={rating}
-                          className={classNames(
-                            reviews.average > rating
-                              ? "text-gray-900"
-                              : "text-gray-200",
+                        key={rating}
+                        className={classNames(
+                          reviews.average > rating
+                          ? "text-gray-900"
+                          : "text-gray-200",
                             "h-5 w-5 flex-shrink-0"
-                          )}
-                          aria-hidden="true"
+                            )}
+                            aria-hidden="true"
                         />
-                      ))}
+                        ))}
                     </div>
                     <p className="sr-only">{reviews.average} out of 5 stars</p>
                     <a
-                      href={reviews.href}
-                      className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                    href={reviews.href}
+                    className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       {reviews.totalCount} reviews
-                    </a>
-                  </div>
-                </div> */}
+                      </a>
+                      </div>
+                    </div> */}
 
-                <form className="mt-10">
                   {/* Colors */}
 
                   {/* Sizes */}
 
                   <button
-                    type="submit"
                     className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva"
                   >
                     Reservar
                   </button>
-                </form>
               </div>
 
               <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">

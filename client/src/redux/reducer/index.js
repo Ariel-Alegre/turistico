@@ -31,7 +31,13 @@ export const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           datapersonal: action.payload
-        }
+        };
+
+        case 'TURISTIC_POST':
+
+        return {
+          ...state,
+        };
  
     
 

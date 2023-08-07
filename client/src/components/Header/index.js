@@ -7,7 +7,7 @@ import BasicMenu from "./ProfileMenu";
 import SimpleBottomNavigation from "./BottomNav";
 import MobileSearchBar from "../MobileSearchBar";
 import { Link } from "react-router-dom";
-import SearchMobile from "../SearchMobile/SearchMobile";
+import Search from "../Search/Search";
 
 function Header() {
   return (
@@ -16,7 +16,7 @@ function Header() {
       <img src={logo} alt="logo" className="navbar-logo" />
       </Link>
       <div className="search-bar">
-        <SearchMobile/>
+        <Search/>
      
       </div>
       <div className="profile-container">

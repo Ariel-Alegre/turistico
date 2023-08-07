@@ -70,7 +70,7 @@ function Continent() {
   return (
     <>
       <div className="continent-container">
-          <Button variant="contained" onClick={handleClickAmerica}>
+          <button variant="contained" onClick={handleClickAmerica}>
             <div className="continent">
              <p>
 
@@ -78,9 +78,9 @@ function Continent() {
              </p>
               <img src={america} alt="not found" />
             </div>
-          </Button>
+          </button>
 
-          <Button variant="contained" onClick={handleClickEurope}>
+          <button variant="contained" onClick={handleClickEurope}>
             <div className="continent">
             <p>
 
@@ -88,8 +88,8 @@ function Continent() {
             </p>
               <img src={europa} alt="not found" />
             </div>
-          </Button>
-          <Button variant="contained" onClick={handleClickAsia}>
+          </button>
+          <button variant="contained" onClick={handleClickAsia}>
             <div className="continent">
             <p>
 
@@ -98,8 +98,8 @@ function Continent() {
 
               <img src={asia} alt="not found" />
             </div>
-          </Button>
-          <Button variant="contained" onClick={handleClickAfrica}>
+          </button>
+          <button variant="contained" onClick={handleClickAfrica}>
             <div className="continent">
             <p>
 
@@ -108,17 +108,22 @@ function Continent() {
 
               <img src={africa} alt="not found" />
             </div>
-          </Button>
-          <Button variant="contained" onClick={handleClickOceania}>
+          </button>
+          <button variant="contained" onClick={handleClickOceania}>
             <div className="continent">
+              <div>
+
              <p>
 
               Oceania
              </p>
+              </div>
+             <div>
 
               <img src={oceania} alt="not found" />
+             </div>
             </div>
-          </Button>
+          </button>
       </div>
       {showAmerica ? (
         <CountryAmerica

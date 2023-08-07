@@ -52,4 +52,16 @@ export const dataPersonal = (token) => {
   }
 }
 
-/*   */
+export const turisticPost = (payload) => {
+  return async (dispatch) => {
+    const res = await axios.post('http://localhost:4000/post', payload);
+    const data =  await res.data;
+
+    return dispatch({
+      type: "TURISTIC_POST",
+      payload: data
+    })
+  }
+}
+
+/*  http://localhost:4000/post */

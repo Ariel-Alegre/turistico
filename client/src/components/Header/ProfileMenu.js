@@ -60,7 +60,7 @@ export default function BasicMenu() {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <Avatar sx={{ width: 32, height: 32 }}>{user.name && user.name[0].toUpperCase()}</Avatar>
+              <Avatar  sx={{ width: 32, height: 32 }}>{user.name && user.name[0].toUpperCase()}</Avatar>
             </IconButton>
           </Tooltip>
         </Box>

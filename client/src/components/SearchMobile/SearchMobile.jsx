@@ -12,7 +12,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import ContinentMobile from '../ContinentMobile/ContinentMobile';
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import './SearchMobile.scss';
+import  './SearchMobile.scss';
 
 
 export default function SearchMobile() {
@@ -67,7 +67,7 @@ export default function SearchMobile() {
     <div className='search-container'>
       {['top'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)} sx={{color: "#000"}}>
+          <Button onClick={toggleDrawer(anchor, true)} sx={{color: "#000",  }}>
              <div>
              <span>Buscar</span>
              <SearchRoundedIcon className="search-icon" />
@@ -79,6 +79,7 @@ export default function SearchMobile() {
             onClose={toggleDrawer(anchor, false)}
             className='continent'
           >
+          
            <ContinentMobile/>
           </Drawer>
         </React.Fragment>

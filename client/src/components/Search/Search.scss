@@ -1,9 +1,32 @@
 .search-icon-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--theme);
-    padding: 0.25rem;
-    border-radius: 50%;
-    color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--theme);
+  padding: 0.25rem;
+  border-radius: 50%;
+  color: var(--white);
+}
+
+.search-container {
+  .btn-search {
+    width: 480px;
   }
+}
+
+@media only screen and (max-width: 480px) {
+  .search-container {
+    .btn-search {
+      width: 80px;
+
+    }
+
+    .search-icon {
+
+     font-size: 16px;
+    }
+
+
+  }
+
+}

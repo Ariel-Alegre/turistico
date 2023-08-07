@@ -8,9 +8,11 @@ import { useSelector } from "react-redux";
 
 export default function ProfileShow() {
 
-  const [user, setUser] = React.useState({});
+/*   const [user, setUser] = React.useState({});
 
   const token = useSelector((state) => state.token);
+
+  console.log(user); */
   
   return (
     <div>
@@ -23,7 +25,7 @@ export default function ProfileShow() {
             <IconButton
        
             >
-              <Avatar sx={{ width: 32, height: 32 }}>{user.name && user.name[0].toUpperCase()}</Avatar>
+              <Avatar sx={{ width: 32, height: 32 }}></Avatar>
             </IconButton>
           </Tooltip>
         </Box>

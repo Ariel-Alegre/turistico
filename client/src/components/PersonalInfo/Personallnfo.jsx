@@ -15,7 +15,7 @@ export default function PersonalInfo() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const datapersonal = useSelector((state) => state.datapersonal);
-
+console.log(datapersonal);
 
   useEffect(() => {
     dispatch(dataPersonal(token));

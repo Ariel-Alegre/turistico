@@ -27,6 +27,15 @@ button:focus {
 
 }
 
+.input-search {
+
+    margin-left: 450px;
+}
+
+.input-search div {
+    color: black;
+}
+
 @media only screen and (max-width: 480px) {
     .continentMobile-container{
       display: grid;

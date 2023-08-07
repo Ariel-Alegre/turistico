@@ -5,13 +5,14 @@ import europa from "../../assets/icons/icons-europa.png";
 import asia from "../../assets/icons/icons-asia.png";
 import africa from "../../assets/icons/icons-africa.png";
 import oceania from "../../assets/icons/icons-oceania.png";
-
 import { useState } from "react";
 import CountryAmerica from "../Country/CountryAmerica";
 import CountryEuropa from "../Country/CountryEuropa";
 import CountryAsia from "../Country/CountryAsia";
 import CountryAfrica from "../Country/CountryAfrica";
 import CountryOceania from "../Country/CountryOceania";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+
 
 function ContinentMobile() {
   const [showAmerica, setShowAmerica] = useState(false);
@@ -67,7 +68,8 @@ function ContinentMobile() {
   };
 
   return (
-    <>
+    <div>
+  
       <div className="continentMobile-container">
         <div>
           <Button variant="contained" onClick={handleClickAmerica}>
@@ -157,7 +159,7 @@ function ContinentMobile() {
       ) : (
         <div></div>
       )}
-    </>
+    </div>
   );
 }
 
