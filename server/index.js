@@ -4,6 +4,7 @@ const app = express();
 const routers = require('./src/routes/index');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const PORT = process.env || 4000
 
 
 app.use(cors())
@@ -16,7 +17,7 @@ app.use(express.json())
 app.use('/', routers)
 
 
-app.listen(4000, () => {
+app.listen(PORT, () => {
 
     console.log('server on port 4000');
 })
