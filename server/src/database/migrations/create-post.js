@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      UserId: {
+ /*      UserId: {
         type: Sequelize.INTEGER, // Esto depende del tipo de ID en tu tabla de usuarios
         references: {
           model: 'Users',
@@ -17,7 +17,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-      },
+      }, */
       title: {
         type: Sequelize.STRING,
         allowNull: false

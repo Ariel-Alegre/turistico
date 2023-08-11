@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         target_key: 'idImages'
       });
       
-      Post.belongsTo(models.User, { foreignKey: 'UserId' });
     }
   }
 
