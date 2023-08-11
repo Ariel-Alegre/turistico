@@ -48,9 +48,8 @@ module.exports = {
         phone,   
         role, // Asignar el rol correspondiente
       });
-
       // Crear y firmar el token JWT
-      const token = jwt.sign({ id: newUser.id, role: newUser.role }, 'asfdafsdsdfasdfasdf', { expiresIn: '1h' });
+      const token = jwt.sign({ id: newUser.id, role: newUser.role }, 'asfdafsdsdfasdfasdf', { expiresIn: '8h' });
       const encrypt = encryptToken(token);
 
       // Enviar el token JWT en la respuesta

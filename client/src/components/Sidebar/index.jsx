@@ -4,77 +4,26 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Logo from "../../assets/logo/Logo.jpg";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { dataPersonal, turisticPost } from "../../redux/action";
+import { dataPersonal, createTuristicPostWithImages } from "../../redux/action";
 import { useSelector, useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDropzone } from "react-dropzone";
 import Autocomplete from "@mui/material/Autocomplete";
-
 import "./styles.css";
-
-const product = {
-  name: "Basic Tee 6-Pack",
-  price: "$192",
-  href: "#",
-  breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ],
-  images: [
-    {
-      src: "https://a0.muscache.com/im/pictures/1ef9b49c-6f99-4018-95f9-8471a9fbbd15.jpg?im_w=1200",
-      alt: "Two each of gray, white, and black shirts laying flat.",
-    },
-    {
-      src: "https://a0.muscache.com/im/pictures/d3041174-4fd1-4199-a8ac-a44907d07bcc.jpg?im_w=720",
-      alt: "Model wearing plain black basic tee.",
-    },
-    {
-      src: "https://a0.muscache.com/im/pictures/6f8e927e-c0d1-4952-ae0d-705ae391ff8a.jpg?im_w=720",
-      alt: "Model wearing plain gray basic tee.",
-    },
-    {
-      src: "https://a0.muscache.com/im/pictures/880cf735-ac0b-4ad8-93d4-c748564ec103.jpg?im_w=1200",
-      alt: "Model wearing plain white basic tee.",
-    },
-  ],
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-  ],
-  sizes: [
-    { name: "XXS", inStock: false },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: true },
-    { name: "2XL", inStock: true },
-    { name: "3XL", inStock: true },
-  ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton",
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-};
-const reviews = { href: "#", average: 4, totalCount: 117 };
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 const options = ["Por noche", "Por semana", "Por mes"];
 function SideBar() {
   const dispatch = useDispatch();
   const [value, setValue] = useState(options[0]);
   const [inputValue, setInputValue] = useState("");
+  const [show, setShow] = useState({
+    title: "",
+    price: "",
+    stay: "",
+    images: [],
+    summary: "",
+    description: "",
+  });
 
   const datapersonal = useSelector((state) => state.datapersonal);
   const token = useSelector((state) => state.token);
@@ -95,31 +44,20 @@ function SideBar() {
     (acceptedFiles) => {
       handleImage(acceptedFiles); // Llamamos a la función handleImage para manejar los archivos aceptados
     },
-    [handleImage]
+    [handleImage, dispatch]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  const [show, setShow] = useState({
-    title: "",
-    price: "",
-    stay: "",
-    images: [],
-    summary: "",
-    description: "",
-  });
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(turisticPost(show));
-  }
 
-  const handleAnfitrion = (e) => {
-    e.preventDefault();
-    setShow((prevState) => ({
-      ...prevState,
-      anfitrion: e.target.value,
-    }));
+    try {
+      await dispatch(createTuristicPostWithImages(show, show.images));
+      // Puedes realizar alguna acción aquí después de la publicación exitosa, si es necesario.
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleTittle = (e) => {
@@ -151,11 +89,10 @@ function SideBar() {
       price: e.target.value,
     }));
   };
-  const handleStay = (e) => {
-    e.preventDefault();
+  const handleStay = (event, newValue) => {
     setShow((prevState) => ({
       ...prevState,
-      stay: e.target.value,
+      stay: newValue, // Usamos el valor seleccionado directamente
     }));
   };
   /*   const handleImage = (e) => {
@@ -189,163 +126,138 @@ function SideBar() {
           </div>
 
           <devicePixelRatio>
-            <form action=""
-              onSubmit={handleSubmit}
-            
-            >
-
-            <Box
-              className="sidebar-container"
-              noValidate
-              autoComplete="off"
-              >
-              <TextField
-                id="outlined-basic"
-                label="Titulo"
-                variant="outlined"
-                onChange={handleTittle}
-                value={show.title}
-                name="title"
-                sx={{
-                  background: "#fff",
-                }}
-              />
-              <TextField
-                id="outlined-basic"
-                label="Precio"
-                variant="outlined"
-                onChange={handlePrice}
-                value={show.price}
-                name="price"
-                sx={{
-                  background: "#fff",
-                }}
+            <form action="" onSubmit={handleSubmit}>
+              <Box className="sidebar-container" noValidate autoComplete="off">
+                <TextField
+                  id="outlined-basic"
+                  label="Titulo"
+                  variant="outlined"
+                  onChange={handleTittle}
+                  value={show.title}
+                  name="title"
+                  sx={{
+                    background: "#fff",
+                  }}
                 />
-              <div>
-                <Autocomplete
-                  value={value}
-                  onChange={(event, newValue) => {
-                    setValue(newValue);
-                    
+                <TextField
+                  id="outlined-basic"
+                  label="Precio"
+                  variant="outlined"
+                  onChange={handlePrice}
+                  value={show.price}
+                  name="price"
+                  sx={{
+                    background: "#fff",
                   }}
-                  inputValue={inputValue}
-                  onInputChange={(event, newInputValue) => {
-                    setInputValue(newInputValue);
-                  }}
-                  id="controllable-states-demo"
-                  options={options}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Estadia"
-                      onChange={handleStay}
-                      value={show.stay}
-                      name="stay"
-                      sx={{
-                        background: "#fff",
-                      }}
-                    />
-                  )}
+                />
+                <div>
+                  <Autocomplete
+                    value={show.stay}
+                    onChange={handleStay} // Usamos la función handleStay para manejar el cambio de valor
+                    id="controllable-states-demo"
+                    options={options}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Estadia"
+                        sx={{
+                          background: "#fff",
+                        }}
+                      />
+                    )}
                   />
-              </div>
-              <div
-                {...getRootProps()}
-                style={{
-                  border: "2px dashed #ddd",
-                  borderRadius: "4px",
-                  padding: "20px",
-                  textAlign: "center",
-                  cursor: "pointer",
-                  backgroundColor: isDragActive ? "#f8f8f8" : "white",
-                }}
-              >
-                <input {...getInputProps()} />
-                {isDragActive ? (
-                  <p>Suelta las imagenes aquí...</p>
-                  ) : (
-                  <div>
-                    <p>
-                      Arrastra y suelta las imagenes aquí o haz clic para
-                      seleccionar.
-                    </p>
-                    <span>Puedes subir hasta 12 imagenes.</span>
-                  </div>
-                )}
-              </div>
-              <div>
-                {show.images &&
-                  show.images.map((photo) => <img src={photo} alt="" />)}
-                <div className="prev-mini">
-                  {show.images &&
-                    show.images.map((file, index) => (
-                      <div key={index}>
-                        {file && (
-                          <div>
-                            <img
-                              src={URL.createObjectURL(file)}
-                              alt={`Preview ${index}`}
-                              className="img-mini"
-                              />
-                          </div>
-                        )}
-                        <div className="btn-x">
-                          <button
-                            type="button"
-                            onClick={() => handleRemove(index)}
-                          >
-                            X
-                          </button>
-                        </div>
-                      </div>
-                    ))}
                 </div>
-              </div>
-              {/*        <TextField
-                id="outlined-basic"
-                label="Anfitrión"
-                variant="outlined"
-                onChange={handleAnfitrion}
-                value={show.anfitrion}
-                name="anfitrion"
-              /> */}
-              <div>
-                <textarea
-                  id="outlined-basic"
-                  placeholder="Resumen"
-                  onChange={handleSummary}
-                  value={show.summary}
-                  name="summary"
-                  rows={10}
-                  className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
-              </div>
+                <div
+                  {...getRootProps()}
+                  style={{
+                    border: "2px dashed #ddd",
+                    borderRadius: "4px",
+                    padding: "20px",
+                    textAlign: "center",
+                    cursor: "pointer",
+                    backgroundColor: isDragActive ? "#f8f8f8" : "white",
+                  }}
+                >
+                  <input {...getInputProps()} />
+                  {isDragActive ? (
+                    <p>Suelta las imagenes aquí...</p>
+                  ) : (
+                    <div>
+                      <p>
+                        Arrastra y suelta las imagenes aquí o haz clic para
+                        seleccionar.
+                      </p>
+                      <span>Puedes subir hasta 12 imagenes.</span>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  {show.images &&
+                    show.images.map((photo) => <img src={photo} alt="" />)}
+                  <div className="prev-mini">
+                    {show.images &&
+                      show.images.map((file, index) => (
+                        <div key={index}>
+                          {file && (
+                            <div>
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Preview ${index}`}
+                                className="img-mini"
+                              />
+                            </div>
+                          )}
+                          <div className="btn-x">
+                            <button
+                              type="button"
+                              onClick={() => handleRemove(index)}
+                            >
+                              X
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
 
-              <div>
-                <textarea
-                  id="outlined-basic"
-                  placeholder="Descripción"
-                  onChange={handleDescription}
-                  value={show.description}
-                  name="description"
-                  rows={10}
-                  className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-              <button
-                    type="submit"
-                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva"
-                  >
-                    Publicar
-                  </button>
-            </Box>
-                  </form>
+                <div>
+                  <textarea
+                    id="outlined-basic"
+                    placeholder="Resumen"
+                    onChange={handleSummary}
+                    value={show.summary}
+                    name="summary"
+                    rows={10}
+                    className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                </div>
+
+                <div>
+                  <textarea
+                    id="outlined-basic"
+                    placeholder="Descripción"
+                    onChange={handleDescription}
+                    value={show.description}
+                    name="description"
+                    rows={10}
+                    className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva"
+                >
+                  Publicar
+                </button>
+              </Box>
+            </form>
           </devicePixelRatio>
         </div>
       </nav>
       <div className="responsive-phone-tablet">
         <div className="bg-white">
           <div className="pt-6">
-            {show.tittle ? (
+            {show.title ? (
               <h1 className="title">{show.title}</h1>
             ) : (
               <h1 className="title">Titulo</h1>
@@ -373,7 +285,7 @@ function SideBar() {
                         <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg ">
                           <img
                             src={URL.createObjectURL(show.images[1])}
-                            alt={product.images[1].alt}
+                            alt={show.images[1].alt}
                             className="h-full w-full object-cover object-center hover-image"
                           />
                         </div>
@@ -385,7 +297,7 @@ function SideBar() {
                         <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                           <img
                             src={URL.createObjectURL(show.images[2])}
-                            alt={product.images[2].alt}
+                            alt={show.images[2].alt}
                             className="h-full w-full object-cover object-center hover-image"
                           />
                         </div>
@@ -397,7 +309,7 @@ function SideBar() {
                       <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
                         <img
                           src={URL.createObjectURL(show.images[3])}
-                          alt={product.images[3].alt}
+                          alt={show.images[3].alt}
                           className="h-full w-full object-cover object-center hover-image"
                         />
                       </div>
@@ -409,7 +321,7 @@ function SideBar() {
               </React.Fragment>
             ))}
 
-            {/* Product info */}
+            {/* show info */}
             <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
               <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
@@ -428,53 +340,19 @@ function SideBar() {
                   <div>
                     <div className="space-y-6">
                       {inputValue ? (
-                        
-                        <h3 className="text-base text-gray-900">{inputValue}</h3>
-                        ): (
-                          <h3 className="text-base text-gray-900">Estadia</h3>
-
-                        )}
+                        <h3 className="text-base text-gray-900">
+                          {inputValue}
+                        </h3>
+                      ) : (
+                        <h3 className="text-base text-gray-900">Estadia</h3>
+                      )}
                     </div>
                   </div>
                 </p>
 
-                {/* Reviews */}
-                {/*        <div className="mt-6">
-                  <h3 className="sr-only">Reviews</h3>
-                  <div className="flex items-center">
-                    <div className="flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
-                        <StarIcon
-                        key={rating}
-                        className={classNames(
-                          reviews.average > rating
-                          ? "text-gray-900"
-                          : "text-gray-200",
-                            "h-5 w-5 flex-shrink-0"
-                            )}
-                            aria-hidden="true"
-                        />
-                        ))}
-                    </div>
-                    <p className="sr-only">{reviews.average} out of 5 stars</p>
-                    <a
-                    href={reviews.href}
-                    className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      {reviews.totalCount} reviews
-                      </a>
-                      </div>
-                    </div> */}
-
-                  {/* Colors */}
-
-                  {/* Sizes */}
-
-                  <button
-                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva"
-                  >
-                    Reservar
-                  </button>
+                <button className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva">
+                  Reservar
+                </button>
               </div>
 
               <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
@@ -486,25 +364,6 @@ function SideBar() {
                     </p>
                   </div>
                 </div>
-
-                {/*  <div className="mt-10">
-                  <h3 className="text-sm font-medium text-gray-900">
-                    Highlights
-                  </h3>
-
-                  <div className="mt-4">
-                    <ul
-                      role="list"
-                      className="list-disc space-y-2 pl-4 text-sm"
-                    >
-                      {product.highlights.map((highlight) => (
-                        <li key={highlight} className="text-gray-400">
-                          <span className="text-gray-600">{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div> */}
 
                 <div className="mt-10">
                   <h2 className="text-sm font-medium text-gray-900">

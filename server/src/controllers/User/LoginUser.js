@@ -62,7 +62,7 @@ module.exports = {
             role: role, // Incluir el rol del usuario en el token
           },
           'asfdafsdsdfasdfasdf',
-          { expiresIn: '1h' }
+          { expiresIn: '8h' }
         );
         const encrypt = encryptToken(token);
   

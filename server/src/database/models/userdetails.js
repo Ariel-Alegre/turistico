@@ -7,10 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   class UserDetails extends Model {
     static associate(models) {
       // Relación uno a uno con User
-      UserDetails.belongsTo(models.User, {
-        foreignKey: 'userId', // Nombre de la clave foránea en UserDetails
-        as: 'user', // Alias para acceder al usuario asociado
-      });
+  
     }
   }
   UserDetails.init(

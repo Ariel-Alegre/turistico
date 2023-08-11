@@ -1,24 +1,39 @@
-const { User } = require('../../database/models');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-const algorithm = 'aes-192-cbc';
-const key = '111111111111111111111111'; // hard code
-const iv = '2222222222222222'; // Vector de inicialización aleatorio (16 bytes)
-
-function encryptToken(token) {
-  const cipher = crypto.createCipheriv(algorithm, key, iv);
-  let encryptedToken = cipher.update(token, 'utf8', 'hex');
-  encryptedToken += cipher.final('hex');
-  return encryptedToken;
-}
+const { Post } = require('../../database/models');
 
 module.exports = {
-  RegisterUser: async (req, res) => {
-    const { name, lastName, password, email, phone } = req.body;
+  PostTuristic: async (req, res) => {
+    const { title, price, stay, summary, description } = req.body;
 
     try {
+      const user = req.user; // Usuario autenticado desde el middleware
 
+      if (!user || !user.id) {
+        return res.status(401).json({ message: 'Usuario no autorizado' });
+      }
+
+      // Crear el post
+      const newPost = await Post.create({
+        title,
+        price,
+        stay,
+        summary,
+        description,
+        UserId: user.id, // Asocia el post al usuario autenticado
+      });
+
+      // Obtener los detalles de las imágenes subidas y asociarlas al post
+      const images = req.files.map(file => ({
+        filename: file.originalname,
+        mimetype: file.mimetype,
+        size: file.size,
+        PostId: newPost.id, // Asocia la imagen al post recién creado
+      }));
+      
+      // Insertar las imágenes en la base de datos
+      await Post.bulkCreate(images);
+
+      console.log('Post creado correctamente');
+      res.status(200).json({ newPost });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error en el servidor' });

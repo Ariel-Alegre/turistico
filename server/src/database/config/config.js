@@ -3,10 +3,10 @@ require('dotenv').config()
 module.exports = {
   development: {
     database: "turistic",
-    username: "root",
+    username: "postgres",
     password: "password",
     host: "localhost",
-    port: "3306",
-    dialect: "mysql",
+    port: "5432",
+    dialect: "postgres",
   }
 }

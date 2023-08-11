@@ -1,10 +1,13 @@
-const { User } = require('../../database/models') 
+const { User, Post } = require('../../database/models') 
 
 module.exports = {
   AllUser: async (req, res) => {
 
     try {
-        const users = await User.findAll()
+        const users = await User.findAll({
+        includes: [{model: Post }]
+
+        })
         console.log(users);
         if (users) {
             

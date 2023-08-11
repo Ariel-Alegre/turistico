@@ -1,7 +1,10 @@
 const initialState = {
-  loginUser: [],
+  loginUser: {},
+  loginError: null,
   token: localStorage.getItem('token'),
   datapersonal: [],
+  createdPostId: null,
+  createdImageIds: [],
 
   }
 
@@ -13,19 +16,23 @@ export const rootReducer = (state = initialState, action) => {
         ...state
       };
 
-      case 'USER_LOGIN':
-
+      case 'LOGIN_SUCCESS':
       return {
         ...state,
-        loginUser: action.payload
+        token: action.payload,
       };
-
-      case 'LOGIN_SUCCESS':
+      case 'LOGOUT_USER':
+        // Limpia el token en el estado
         return {
           ...state,
-          token: action.payload,
-         
+          token: null,
         };
+
+    case 'LOGIN_ERROR':
+      return {
+        ...state,
+        loginError: true,
+      };
 
         case 'SET_DATA_PERSONAL': 
         return {
@@ -33,11 +40,14 @@ export const rootReducer = (state = initialState, action) => {
           datapersonal: action.payload
         };
 
-        case 'TURISTIC_POST':
+      
 
-        return {
-          ...state,
-        };
+        case 'CREATE_TURISTIC_POST_WITH_IMAGES_SUCCESS':
+          return {
+            ...state,
+            createdPostId: action.payload.postId,
+            createdImageIds: action.payload.imageIds,
+          };
  
     
 

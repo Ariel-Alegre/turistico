@@ -16,11 +16,12 @@
 }
 
 .summary-card {
-  display: none;
   transition: transform 0.5s ease, width 0.3s ease; /* Agrega la propiedad "width" a la transición */
   font-size: 11px;
   color: gray;
   width: 270px;
+  margin-top: 10px;
+  display: none;
 }
 
 .card-box:hover {
@@ -30,7 +31,6 @@
 
 .card-box:hover .summary-card {
   display: grid;
-  margin-top: 10px;
   transform: scale(1); /* Corrige "trasition" a "transform" y ajusta el valor a 1 para mantener el tamaño original */
   
 }

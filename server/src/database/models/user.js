@@ -1,16 +1,10 @@
-// models/User.js
-
-'use strict';
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // Relación uno a uno con UserDetails
-      User.hasOne(models.UserDetails, {
-        foreignKey: 'userId', // Nombre de la clave foránea en UserDetails
-        as: 'details', // Alias para acceder a los detalles del usuario
-      });
+      // Relación muchos a muchos con Post a través de UserPost
+      User.hasMany(models.Post, { foreignKey: 'UserId' });
     }
   }
   User.init(
