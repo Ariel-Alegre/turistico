@@ -4,6 +4,7 @@ import { UserLogin } from "../../redux/action";
 import "./LoginForms.scss";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo/Logo.jpg";
+
 /* import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -17,6 +18,7 @@ export default function LoginForms() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
@@ -34,9 +36,12 @@ export default function LoginForms() {
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false); // Cambiar el estado a "false" después de cierto tiempo
+    }, 2000);
     if (token) {
+     
       navigate("/");
-      window.location.reload(); // Recargar la página
     } else if (loginError) {
       alert("El correo y la contraseña no coinciden, porfavor intentelo de nuevo.");
     }
@@ -44,6 +49,8 @@ export default function LoginForms() {
 
   return (
     <>
+     
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <a href="/">
@@ -98,7 +105,7 @@ export default function LoginForms() {
                   <a
                     href="#"
                     className="font-semibold text-indigo-600  text-color "
-                  >
+                    >
                     Olvidaste tu contraseña?
                   </a>
                 </div>
@@ -113,13 +120,13 @@ export default function LoginForms() {
                   className="block w-full rounded-md border-0 py-1.5 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:leading-6 input-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                />
+                  />
            {/*      <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
-                >
+                  >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton> */}
               </div>
@@ -128,7 +135,7 @@ export default function LoginForms() {
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md button-login px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
+                >
                 Iniciar sesión
               </button>
             </div>

@@ -1,4 +1,3 @@
-import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
 import PaymentAndCharges from "../components/PaymentAndCharges/PaymentAndCharges";
 
@@ -9,7 +8,6 @@ export default function PaymentUser() {
             <div>
             <PaymentAndCharges/>
             </div>
-            <Footer/>
         </div>
     )
 }

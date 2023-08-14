@@ -1,4 +1,3 @@
-import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
 import PersonalInfo from "../components/PersonalInfo/Personallnfo";
 
@@ -10,7 +9,6 @@ export default  function InfoPersonal() {
 
             <PersonalInfo/>
             </div>
-            <Footer/>
         </div>
     )
 }

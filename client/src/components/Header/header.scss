@@ -20,6 +20,14 @@
   display: flex;
 
 }
+.logo-modal {
+  width: 150px;
+}
+
+.cancel-btn {
+  background-color: #05A1A1;
+  color: #05A1A1;
+}
 
 .button-continent button {
   width: 150px;
@@ -32,12 +40,7 @@
 
   }
 
-  .search-bar {
-    margin-top: 5px;
-    margin-left: -50px;
-    display: flex;
-    justify-content: center;
-  }
+
 
 
 
@@ -149,9 +152,8 @@ a {
 
   .profile-menu-flex {
     position: fixed;
-    top: 0.5rem;
+    top: 0.3rem;
     right: 1.5rem;
-    margin-top: 10px;
   }
 
   .bottom-nav {

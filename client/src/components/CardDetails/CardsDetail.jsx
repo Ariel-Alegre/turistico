@@ -13,10 +13,11 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Header from "../Header";
-import Footer from "../Footer/Footer";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Carousel from 'react-bootstrap/Carousel';
+import Carousel from "react-bootstrap/Carousel";
+import Skeleton from "@mui/material/Skeleton";
+import Grid from "@mui/material/Grid";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -84,7 +85,13 @@ export default function CardDetails() {
     right: false,
   });
   const [show, setShow] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false); // Cambiar el estado de isLoading a "false" después de cierto tiempo
+    }, 3000);
+  }, []);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -100,58 +107,51 @@ export default function CardDetails() {
   };
 
   const [VistPreview, setVistPreview] = React.useState(false);
-  
+
   const handleShowVistPreview = () => {
-
-    setVistPreview(true)
-  }
+    setVistPreview(true);
+  };
   const Close = () => {
-
-    setVistPreview(false)
-  }
+    setVistPreview(false);
+  };
 
   const list = (anchor) => (
     <div>
       <Box
         sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
         role="presentation"
-        >
+      >
         <List className="list-drawer">
           <ListItemText
             className="btn-x"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
-            >
+          >
             &times;
           </ListItemText>
           <div className="drawer-details img-container">
             {product.images.map((img, index) => (
               <div className="aspect-h-4 aspect-w-3  overflow-hidden rounded-lg lg:block">
-                 <div onClick={handleShowVistPreview}>
+                <div onClick={handleShowVistPreview}>
                   <img src={img.src} alt="not found" className="hover-image" />
-                  </div>
-                  
-      
-                { VistPreview && (
-                
-                  
+                </div>
+
+                {VistPreview && (
                   <div class="overlay">
-                <span onClick={Close} class="close-button-modal">&times;</span>
-                <Carousel interval={null} className="carrusel-container" >
-                {product.images.map((img, index) => (
-                  <Carousel.Item>
-
-                  <img src={img.src} alt="Not found"/>
-                  </Carousel.Item>
-                  ))}
-                  </Carousel>
-                </div> 
-                    )
-                }
-      </div>
-
-        
-          ))}
+                    <span onClick={Close} class="close-button-modal">
+                      &times;
+                    </span>
+                    <Carousel interval={null} className="carrusel-container">
+                      {product.images.map((img, index) => (
+                        <Carousel.Item>
+                          <img src={img.src} alt="Not found" />
+                        </Carousel.Item>
+                      ))}
+                    </Carousel>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
           <Divider />
         </List>
@@ -168,52 +168,102 @@ export default function CardDetails() {
           <h1 className="title">Skylodge Adventure Suites</h1>
 
           {/* Image gallery */}
-          {["top"].map((anchor) => (
-            <React.Fragment key={anchor}>
-              <div onClick={toggleDrawer(anchor, true)}>
-                <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                  <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-                    <img
-                      src={product.images[0].src}
-                      alt={product.images[0].alt}
-                      className="h-full w-full object-cover object-center hover-image"
-                    />
-                  </div>
-
-                  <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                    <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg ">
-                      <img
-                        src={product.images[1].src}
-                        alt={product.images[1].alt}
-                        className="h-full w-full object-cover object-center hover-image"
-                      />
-                    </div>
-                    <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                      <img
-                        src={product.images[2].src}
-                        alt={product.images[2].alt}
-                        className="h-full w-full object-cover object-center hover-image"
-                      />
-                    </div>
-                  </div>
-                  <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-                    <img
-                      src={product.images[3].src}
-                      alt={product.images[3].alt}
-                      className="h-full w-full object-cover object-center hover-image"
-                    />
-                  </div>
+          {isLoading ? (
+            <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+              <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+                <Skeleton
+                  variant="rectangular"
+                  sx={{
+                    width: "370px",
+                    height: "535px",
+                    objectFit: "cover",
+                    borderRadius: "10px",
+                  }}
+                />
+              </div>
+              <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+                <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg ">
+                  <Skeleton
+                    variant="rectangular"
+                    sx={{
+                      height: "250px",
+                      borderRadius: "10px",
+                    }}
+                  />
+                </div>
+                <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+                  <Skeleton
+                    variant="rectangular"
+                    sx={{
+                      height: "250px",
+                      borderRadius: "10px",
+                    }}
+                  />
                 </div>
               </div>
-              <Drawer
-                anchor={anchor}
-                open={state[anchor]}
-                onClose={toggleDrawer(anchor, false)}
-              >
-                {list(anchor)}
-              </Drawer>
-            </React.Fragment>
-          ))}
+
+              <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+                <Skeleton
+                  variant="rectangular"
+                  sx={{
+                    width: "370px",
+                    height: "535px",
+                    objectFit: "cover",
+                    borderRadius: "10px",
+                  }}
+                />
+              </div>
+            </div>
+          ) : (
+            <div>
+              {["top"].map((anchor) => (
+                <React.Fragment key={anchor}>
+                  <div onClick={toggleDrawer(anchor, true)}>
+                    <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+                      <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+                        <img
+                          src={product.images[0].src}
+                          alt={product.images[0].alt}
+                          className="h-full w-full object-cover object-center hover-image"
+                        />
+                      </div>
+
+                      <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+                        <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg ">
+                          <img
+                            src={product.images[1].src}
+                            alt={product.images[1].alt}
+                            className="h-full w-full object-cover object-center hover-image"
+                          />
+                        </div>
+                        <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+                          <img
+                            src={product.images[2].src}
+                            alt={product.images[2].alt}
+                            className="h-full w-full object-cover object-center hover-image"
+                          />
+                        </div>
+                      </div>
+                      <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+                        <img
+                          src={product.images[3].src}
+                          alt={product.images[3].alt}
+                          className="h-full w-full object-cover object-center hover-image"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <Drawer
+                    anchor={anchor}
+                    open={state[anchor]}
+                    onClose={toggleDrawer(anchor, false)}
+                  >
+                    {list(anchor)}
+                  </Drawer>
+                </React.Fragment>
+              ))}
+            </div>
+          )}
 
           {/* Product info */}
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
@@ -229,15 +279,11 @@ export default function CardDetails() {
               <p className="text-3xl tracking-tight text-gray-900">
                 {product.price}
                 <div>
-
-                <div className="space-y-6">
-                  <h3 className="text-base text-gray-900">
-             Por noche
-                  </h3>
+                  <div className="space-y-6">
+                    <h3 className="text-base text-gray-900">Por noche</h3>
+                  </div>
                 </div>
-              </div>
               </p>
-         
 
               {/* Reviews */}
               <div className="mt-6">
@@ -311,8 +357,6 @@ export default function CardDetails() {
                 </div>
               </div>
 
-     
-
               <div className="mt-10">
                 <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
@@ -344,7 +388,6 @@ export default function CardDetails() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

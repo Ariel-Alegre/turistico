@@ -4,7 +4,6 @@ import Cards from "../components/Cards";
 import Filter from "../components/Filter";
 import Header from "../components/Header";
 import Continent from "../components/Continent/Continent";
-import Footer from "../components/Footer/Footer";
 
 function App() {
   const [selectedFilter, setSelectedFilter] = useState(0);
@@ -16,7 +15,6 @@ function App() {
 
       {selectedFilter == 0 ? <Cards list={list} /> : <Cards list={list2} />}
    </div>
-   <Footer/>
     </div>
   );
 }

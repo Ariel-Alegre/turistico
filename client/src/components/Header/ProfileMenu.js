@@ -15,6 +15,9 @@ import Tooltip from "@mui/material/Tooltip";
 import { useDispatch } from 'react-redux'
 import Box from "@mui/material/Box";
 import { dataPersonal, logoutUser } from "../../redux/action";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Logo from '../../assets/logo/Logo.jpg';
 
 
 
@@ -22,8 +25,10 @@ export default function BasicMenu() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const datapersonal = useSelector(state => state.datapersonal);
+  const [show, setShow] =  React.useState(false);
 
-  console.log(datapersonal);
+  const handleCloseModal = () => setShow(false);
+  const handleShowModal = () => setShow(true);
 
 
   const navigate = useNavigate()
@@ -44,10 +49,10 @@ export default function BasicMenu() {
     // Realizar el cierre de sesión en Redux
     dispatch(logoutUser());
     
-    navigate('/');
+    localStorage.removeItem('token');
     // Limpiar token en Local Storage
     
-    localStorage.removeItem('token');
+    navigate('/');
     // Redirigir al usuario a la página de inicio de sesión
   };
   return (
@@ -166,14 +171,33 @@ export default function BasicMenu() {
                 Publicar
               </MenuItem>
             </Link>
-
-            <MenuItem onClick={handleLogout}>
+            <>
+            <Button variant="transparent" onClick={handleShowModal}>
+            <MenuItem >
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
               Cerrar sesión
             </MenuItem>
+      </Button>
+     
+            </>
           </Menu>)}
+          <Modal show={show} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title><img src= {Logo} alt="not found" className="logo-modal"/></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>¿Está seguro de que desea cerrar sesión?</Modal.Body>
+        <Modal.Footer>
+          <Button  onClick={handleLogout}>
+          Cerrar sesion
+          </Button>
+          <Button  className="cancel-btn" onClick={handleCloseModal}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
+/* onClick={handleLogout} */
