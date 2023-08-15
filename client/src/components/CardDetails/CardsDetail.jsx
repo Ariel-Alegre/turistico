@@ -90,7 +90,7 @@ export default function CardDetails() {
   React.useEffect(() => {
     setTimeout(() => {
       setIsLoading(false); // Cambiar el estado de isLoading a "false" después de cierto tiempo
-    }, 3000);
+    }, 1000);
   }, []);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

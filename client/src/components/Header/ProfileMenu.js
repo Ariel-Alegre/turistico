@@ -2,7 +2,7 @@ import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+
 import "./header.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,20 +16,51 @@ import { useDispatch } from 'react-redux'
 import Box from "@mui/material/Box";
 import { dataPersonal, logoutUser } from "../../redux/action";
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Logo from '../../assets/logo/Logo.jpg';
-
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Skeleton from "@mui/material/Skeleton";
+import Grid from "@mui/material/Grid";
 
 export default function BasicMenu() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const datapersonal = useSelector(state => state.datapersonal);
-  const [show, setShow] =  React.useState(false);
+  const [show, setShow] = React.useState(false);
+  const [openPublic, setOpenPublic] = React.useState(false);
+  const [openLogout, setOpenLogout] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-  const handleCloseModal = () => setShow(false);
-  const handleShowModal = () => setShow(true);
+  React.useEffect(() => {
+ setTimeout(() => {
+      setIsLoading(false); // Cambiar el estado de isLoading a "false" después de cierto tiempo
+    }, 1000);
+  }, []);
 
+  const handleClickOpenLogout = () => {
+    setAnchorEl(null);
+    setOpenLogout(true);
+
+  };
+
+  const handleCloseLogout = () => {
+    setAnchorEl(null);
+    setOpenLogout(false);
+
+  };
+
+  const handleClickOpenPublic = () => {
+    setAnchorEl(null);
+
+    setOpenPublic(true);
+  };
+
+  const handleClosePublic = () => {
+    setAnchorEl(null);
+    setOpenPublic(false);
+  };
 
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -48,13 +79,15 @@ export default function BasicMenu() {
   const handleLogout = () => {
     // Realizar el cierre de sesión en Redux
     dispatch(logoutUser());
-    
+
     localStorage.removeItem('token');
     // Limpiar token en Local Storage
-    
-    navigate('/');
+    setOpenLogout(false);
+    navigate('/')
     // Redirigir al usuario a la página de inicio de sesión
   };
+
+
   return (
     <div className="account-menu">
       <div
@@ -79,45 +112,75 @@ export default function BasicMenu() {
               aria-expanded={open ? "true" : undefined}
 
             >
-              {token ? (
 
+
+{isLoading ? (
+        <div>
+          <Grid>
+                <Box>
+                  <Skeleton
+                    variant="rectangular"
+                    sx={{
+                      width: 32, height: 32, borderRadius: '50%'
+                    }}
+                  />
+
+             
+                </Box>
+          </Grid>
+        </div>
+      ) : (
+        <div>
+
+
+
+              {token ? (
+                
                 <Avatar sx={{ width: 32, height: 32 }}>{datapersonal.name && datapersonal.name[0].toUpperCase()}</Avatar>
-              ) : (
-                <Avatar sx={{ width: 32, height: 32 }}></Avatar>
-              )}
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </div>
+                ) : (
+                  <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+                  )}
+</div> )}
+
+                  </IconButton>
+                  </Tooltip>
+                  </Box>
+                  </div>
       {token === null ? (
         <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-          sx={{
-            ".MuiPaper-root": {
-              minWidth: "200px",
-              borderRadius: "1rem",
-              boxShadow: "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
-            },
-          }}
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+        sx={{
+          ".MuiPaper-root": {
+            minWidth: "200px",
+            borderRadius: "1rem",
+            boxShadow: "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
+          },
+        }}
         >
 
 
-          <Link to='/auth/login' className="text-link">
+          <a href='/auth/login' className="text-link">
             <MenuItem className="menu-items" onClick={handleClose}>
               Iniciar sesión
             </MenuItem>
-          </Link>
+          </a>
           <Link to='/auth/register' className="text-link">
             <MenuItem onClick={handleClose} className="menu-items">
               Registrate
             </MenuItem>
           </Link>
+
+
+          <MenuItem onClick={handleClickOpenPublic} className="menu-items">
+            Publicar
+          </MenuItem>
+
           <div
             style={{
               height: "1px",
@@ -143,7 +206,7 @@ export default function BasicMenu() {
                 boxShadow: "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
               },
             }}
-          >
+            >
 
 
 
@@ -153,7 +216,7 @@ export default function BasicMenu() {
                 backgroundColor: "var(--grey)",
                 width: "100%",
               }}
-            />
+              />
             <Link to='/account-settings'>
               <MenuItem className="menu-items" onClick={handleClose}>
                 Cuenta
@@ -172,31 +235,73 @@ export default function BasicMenu() {
               </MenuItem>
             </Link>
             <>
-            <Button variant="transparent" onClick={handleShowModal}>
-            <MenuItem >
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              Cerrar sesión
-            </MenuItem>
-      </Button>
-     
+
+              <Button variant="transparent" onClick={handleClickOpenLogout}>
+                <MenuItem >
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  Cerrar sesión
+                </MenuItem>
+              </Button>
+
             </>
           </Menu>)}
-          <Modal show={show} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title><img src= {Logo} alt="not found" className="logo-modal"/></Modal.Title>
-        </Modal.Header>
-        <Modal.Body>¿Está seguro de que desea cerrar sesión?</Modal.Body>
-        <Modal.Footer>
-          <Button  onClick={handleLogout}>
-          Cerrar sesion
-          </Button>
-          <Button  className="cancel-btn" onClick={handleCloseModal}>
+
+      <Dialog
+        open={openLogout}
+        onClose={handleClosePublic}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        >
+        <DialogTitle id="alert-dialog-title">
+          {"¿Está seguro de que desea cerrar la sesión? "}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Antes de continuar, nos gustaría confirmar: ¿Está seguro de que desea cerrar la sesión? Este paso finalizará su sesión actual. Agradecemos su uso de nuestros servicios y esperamos volver a verle pronto.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions >
+
+
+          <Button onClick={handleLogout}>Cerrar sesión</Button>
+          <Button onClick={handleCloseLogout} autoFocus>
             Cancelar
           </Button>
-        </Modal.Footer>
-      </Modal>
+        </DialogActions>
+
+      </Dialog>
+      <div>
+        <Dialog
+          open={openPublic}
+          onClose={handleClosePublic}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          >
+          <DialogTitle id="alert-dialog-title">
+            {"¿Tiene interés en generar una publicación en este momento?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Para dar inicio a la creación de una publicación, le invitamos cordialmente a acceder a su cuenta. En caso de no contar con un registro previo en nuestra plataforma, le recomendamos encarecidamente llevar a cabo el proceso de registro. Agradecemos de antemano su colaboración y comprensión.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions >
+<div>
+
+  <a href="/auth/login">
+
+            <Button >Iniciar sesión</Button>
+  </a>
+            <Button onClick={handleClosePublic} autoFocus>
+              Cancelar
+            </Button>
+</div>
+          </DialogActions>
+
+        </Dialog>
+      </div>
     </div>
   );
 }

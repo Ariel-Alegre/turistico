@@ -38,7 +38,7 @@ export default function LoginForms() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false); // Cambiar el estado a "false" después de cierto tiempo
-    }, 2000);
+    }, 1000);
     if (token) {
      
       navigate("/");

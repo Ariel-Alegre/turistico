@@ -72,6 +72,7 @@ function Continent() {
       <div className="continent-container">
           <button variant="contained" onClick={handleClickAmerica}>
             <div className="continent">
+
               <img src={america} alt="not found" />
              <p>
 
