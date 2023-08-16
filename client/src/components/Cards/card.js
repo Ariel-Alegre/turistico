@@ -27,12 +27,7 @@ function Card({ card }) {
                 <Box key={index} className="loading-skeleton">
                   <Skeleton
                     variant="rectangular"
-                    sx={{
-                      width: "270px",
-                      height: "270px",
-                      objectFit: "cover",
-                      borderRadius: "15px",
-                    }}
+                     id= "skeleton"
                   />
 
                   <Box sx={{ pt: 0.5 }}>
