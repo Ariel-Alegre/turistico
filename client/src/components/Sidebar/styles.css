@@ -1,5 +1,4 @@
 .sidebar {
-  top: 0;
   left: 0;
   width: 650px;
   height: 100vh;
@@ -159,3 +158,5 @@ input[type="file"] {
     margin-left: 0;
   }
 }
+
+

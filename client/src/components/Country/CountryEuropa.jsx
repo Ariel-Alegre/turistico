@@ -158,13 +158,7 @@ export default function CountryAmerica() {
 
   return (
     <Box
-      sx={{
-        bgcolor: "background.paper",
-        width: "100%",
-        position: "relative",
-        minHeight: 200,
-        marginTop: "20px",
-      }}
+    className = 'country-container'
     >
       <TabPanel>
         <Tabs

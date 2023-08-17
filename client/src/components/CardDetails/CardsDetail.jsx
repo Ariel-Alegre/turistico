@@ -173,31 +173,21 @@ export default function CardDetails() {
               <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
                 <Skeleton
                   variant="rectangular"
-                  sx={{
-                    width: "370px",
-                    height: "535px",
-                    objectFit: "cover",
-                    borderRadius: "10px",
-                  }}
+                  id="skeleton1"
                 />
               </div>
               <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                 <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg ">
                   <Skeleton
                     variant="rectangular"
-                    sx={{
-                      height: "250px",
-                      borderRadius: "10px",
-                    }}
+                    id="skeleton2"
+              
                   />
                 </div>
                 <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                   <Skeleton
                     variant="rectangular"
-                    sx={{
-                      height: "250px",
-                      borderRadius: "10px",
-                    }}
+                    id="skeleton2"
                   />
                 </div>
               </div>
@@ -205,14 +195,11 @@ export default function CardDetails() {
               <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
                 <Skeleton
                   variant="rectangular"
-                  sx={{
-                    width: "370px",
-                    height: "535px",
-                    objectFit: "cover",
-                    borderRadius: "10px",
-                  }}
+                  id="skeleton1"
+          
                 />
               </div>
+         
             </div>
           ) : (
             <div>
@@ -265,6 +252,7 @@ export default function CardDetails() {
             </div>
           )}
 
+
           {/* Product info */}
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
@@ -286,32 +274,7 @@ export default function CardDetails() {
               </p>
 
               {/* Reviews */}
-              <div className="mt-6">
-                <h3 className="sr-only">Reviews</h3>
-                <div className="flex items-center">
-                  <div className="flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
-                      <StarIcon
-                        key={rating}
-                        className={classNames(
-                          reviews.average > rating
-                            ? "text-gray-900"
-                            : "text-gray-200",
-                          "h-5 w-5 flex-shrink-0"
-                        )}
-                        aria-hidden="true"
-                      />
-                    ))}
-                  </div>
-                  <p className="sr-only">{reviews.average} out of 5 stars</p>
-                  <a
-                    href={reviews.href}
-                    className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    {reviews.totalCount} reviews
-                  </a>
-                </div>
-              </div>
+           
 
               <form className="mt-10">
                 {/* Colors */}
@@ -320,7 +283,7 @@ export default function CardDetails() {
 
                 <button
                   type="submit"
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserve"
                 >
                   Reservar
                 </button>

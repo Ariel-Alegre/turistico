@@ -17,16 +17,26 @@
 @media only screen and (max-width: 480px) {
   .search-container {
     .btn-search {
-      display: none;
-
+   display: none;
     }
 
     .search-icon {
 
-     font-size: 16px;
+      font-size: 16px;
     }
 
 
   }
 
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .search-container {
+    margin-top: -5px;
+
+    .btn-search {
+      width: 320px;
+      height: 30px;
+    }
+  }
 }

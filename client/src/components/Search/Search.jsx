@@ -37,7 +37,9 @@ export default function SearchMobile() {
         <React.Fragment key={anchor}>
           <Button
             onClick={toggleDrawer(anchor, true)}
-            sx={{ color: "#000" }}
+            sx={{
+              color: '#000'
+            }}
             className="btn-search"
           >
             <span>Buscar</span>

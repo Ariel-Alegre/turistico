@@ -79,8 +79,39 @@ cursor: pointer;
   }
 
 
+#skeleton1 {
+  width: 370px;
+  height: 535px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+#skeleton2 {
+height: 250px;
+border-radius: 10px;
+}
+
+.btn-reserve {
+  background-color: #05A1A1;
+}
+
+.btn-reserve:hover {
+  background-color: #05A1A1;
+}
 
 
+@media only screen and (max-width: 480px) {
+  #skeleton1 {
+    height: 250px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  #skeleton1 {
+    width: 750px;
+    height: 420px;
+  }
+}
 
 
 

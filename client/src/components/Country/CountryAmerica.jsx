@@ -15,6 +15,7 @@ import { green } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import { containerClasses } from "@mui/material";
 import "./index.scss";
+import Card from "../Cards/card";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -143,19 +144,14 @@ export default function CountryAmerica() {
   ];
 
   return (
-    <Box
-      sx={{
-        bgcolor: "background.paper",
-        width: "100%",
-        position: "relative",
-        minHeight: 200,
-        marginTop: "20px",
-      }}
 
-    >
+    <Box
+    className = 'country-container'
+      
+      >
       <TabPanel 
          sx={{
-          width: "100%",
+           width: "100%",
         }}
   
       >
@@ -171,6 +167,8 @@ export default function CountryAmerica() {
           ))}
         </Tabs>
       </TabPanel>
+   
     </Box>
+   
   );
 }
