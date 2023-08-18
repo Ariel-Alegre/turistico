@@ -59,13 +59,12 @@ input[type="file"] {
   padding: 2em;
 }
 .sidebar-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   justify-content: center;
-  width: 50ch;
   gap: 20px;
-  margin-left: 50px;
 }
+
+
 .sidebar-items {
   height: 100%;
   width: 100%;
@@ -160,3 +159,6 @@ input[type="file"] {
 }
 
 
+#steps {
+  margin-top: 50px;
+}

@@ -18,7 +18,6 @@ export default function LoginForms() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
@@ -36,9 +35,7 @@ export default function LoginForms() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false); // Cambiar el estado a "false" después de cierto tiempo
-    }, 1000);
+
     if (token) {
      
       navigate("/");

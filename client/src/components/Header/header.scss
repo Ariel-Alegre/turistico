@@ -39,7 +39,6 @@
    flex-direction: column;
 
   }
-  .navbar-container {}
 
 
 
@@ -106,6 +105,27 @@
   font-size: 0.9rem;
 }
 
+.btn-modal {
+  display: flex;
+  gap: 10px;
+}
+.btn-modal button{
+background: #05A1A1;
+border-color: #05A1A1;
+
+}
+
+.btn-modal button:hover {
+background-color: #05A1A1;
+border-color: #05A1A1;
+
+}
+
+.btn-modal button:active {
+  background-color: #05A1A1;
+  border-color: #05A1A1;
+  color: #fff; /* Añadir color de texto para asegurarse de que sea legible */
+}
 .airbnb-your-home:hover {
   background-color: var(--light-grey);
 }
@@ -134,6 +154,7 @@ a {
 
 .bottom-nav {
   display: none;
+
 }
 
 @media only screen and (max-width: 800px) {

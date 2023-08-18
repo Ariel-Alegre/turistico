@@ -34,7 +34,7 @@ export default function BasicMenu() {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
- setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false); // Cambiar el estado de isLoading a "false" después de cierto tiempo
     }, 1000);
   }, []);
@@ -114,54 +114,54 @@ export default function BasicMenu() {
             >
 
 
-{isLoading ? (
-        <div>
-          <Grid>
-                <Box>
-                  <Skeleton
-                    variant="rectangular"
-                    sx={{
-                      width: 32, height: 32, borderRadius: '50%'
-                    }}
-                  />
-
-             
-                </Box>
-          </Grid>
-        </div>
-      ) : (
-        <div>
+              {isLoading ? (
+                <div>
+                  <Grid>
+                    <Box>
+                      <Skeleton
+                        variant="rectangular"
+                        sx={{
+                          width: 32, height: 32, borderRadius: '50%'
+                        }}
+                      />
 
 
+                    </Box>
+                  </Grid>
+                </div>
+              ) : (
+                <div>
 
-              {token ? (
-                
-                <Avatar sx={{ width: 32, height: 32 }}>{datapersonal.name && datapersonal.name[0].toUpperCase()}</Avatar>
-                ) : (
-                  <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+
+
+                  {token ? (
+
+                    <Avatar sx={{ width: 32, height: 32 }}>{datapersonal.name && datapersonal.name[0].toUpperCase()}</Avatar>
+                  ) : (
+                    <Avatar sx={{ width: 32, height: 32 }}></Avatar>
                   )}
-</div> )}
+                </div>)}
 
-                  </IconButton>
-                  </Tooltip>
-                  </Box>
-                  </div>
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </div>
       {token === null ? (
         <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-        sx={{
-          ".MuiPaper-root": {
-            minWidth: "200px",
-            borderRadius: "1rem",
-            boxShadow: "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
-          },
-        }}
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+          sx={{
+            ".MuiPaper-root": {
+              minWidth: "200px",
+              borderRadius: "1rem",
+              boxShadow: "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
+            },
+          }}
         >
 
 
@@ -206,7 +206,7 @@ export default function BasicMenu() {
                 boxShadow: "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
               },
             }}
-            >
+          >
 
 
 
@@ -216,7 +216,7 @@ export default function BasicMenu() {
                 backgroundColor: "var(--grey)",
                 width: "100%",
               }}
-              />
+            />
             <Link to='/account-settings'>
               <MenuItem className="menu-items" onClick={handleClose}>
                 Cuenta
@@ -253,7 +253,7 @@ export default function BasicMenu() {
         onClose={handleClosePublic}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        >
+      >
         <DialogTitle id="alert-dialog-title">
           {"¿Está seguro de que desea cerrar la sesión? "}
         </DialogTitle>
@@ -262,7 +262,7 @@ export default function BasicMenu() {
             Antes de continuar, nos gustaría confirmar: ¿Está seguro de que desea cerrar la sesión? Este paso finalizará su sesión actual. Agradecemos su uso de nuestros servicios y esperamos volver a verle pronto.
           </DialogContentText>
         </DialogContent>
-        <DialogActions >
+        <DialogActions className="btn-modal" >
 
 
           <Button onClick={handleLogout}>Cerrar sesión</Button>
@@ -278,7 +278,7 @@ export default function BasicMenu() {
           onClose={handleClosePublic}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-          >
+        >
           <DialogTitle id="alert-dialog-title">
             {"¿Tiene interés en generar una publicación en este momento?"}
           </DialogTitle>
@@ -287,17 +287,15 @@ export default function BasicMenu() {
               Para dar inicio a la creación de una publicación, le invitamos cordialmente a acceder a su cuenta. En caso de no contar con un registro previo en nuestra plataforma, le recomendamos encarecidamente llevar a cabo el proceso de registro. Agradecemos de antemano su colaboración y comprensión.
             </DialogContentText>
           </DialogContent>
-          <DialogActions >
-<div>
+          <DialogActions className="btn-modal" >
 
-  <a href="/auth/login">
+              <Link to="/auth/login">
 
-            <Button >Iniciar sesión</Button>
-  </a>
-            <Button onClick={handleClosePublic} autoFocus>
-              Cancelar
-            </Button>
-</div>
+                <Button>Iniciar sesión</Button>
+              </Link>
+              <Button onClick={handleClosePublic} >
+                Cancelar
+              </Button>
           </DialogActions>
 
         </Dialog>

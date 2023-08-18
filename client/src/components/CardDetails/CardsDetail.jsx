@@ -122,13 +122,13 @@ export default function CardDetails() {
         role="presentation"
       >
         <List className="list-drawer">
-          <ListItemText
+          <h3
             className="btn-x"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
           >
             &times;
-          </ListItemText>
+          </h3>
           <div className="drawer-details img-container">
             {product.images.map((img, index) => (
               <div className="aspect-h-4 aspect-w-3  overflow-hidden rounded-lg lg:block">
