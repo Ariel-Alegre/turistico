@@ -40,6 +40,7 @@
 
 .summary-card {
   position: absolute;
+
   left: 0;
   width: 270px;
   margin-top: 5px;
@@ -59,7 +60,7 @@
 }
 
 .card-box:hover {
-  transform: scale(1.1);
+  transform:scale(1.1);
   position: relative;
 }
 
@@ -151,9 +152,7 @@
     display: none;
   }
 
-  .cards-flex {
-    margin-top: 50px;
-  }
+
 
 
 
@@ -222,4 +221,21 @@
     display: none;
   }
 
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1728px) {
+  .swiper-container,
+  .card-img {
+    max-height: 300px;
+    width: 20vw;
+  }
+  
+  .cards-flex {
+    gap: 50px;
+
+  }
+
+  .card-box {
+    margin-bottom: 100px;
+  }
 }
