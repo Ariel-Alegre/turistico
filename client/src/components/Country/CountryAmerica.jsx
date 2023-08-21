@@ -144,16 +144,9 @@ export default function CountryAmerica() {
   ];
 
   return (
-
-    <Box
-    className = 'country-container'
+    <Box className="country-container">
+      <TabPanel
       
-      >
-      <TabPanel 
-         sx={{
-           width: "100%",
-        }}
-  
       >
         <Tabs
           value={value}
@@ -161,14 +154,13 @@ export default function CountryAmerica() {
           variant="scrollable"
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
+          className="custom-tabs"
         >
           {america.map((country) => (
-            <Tab label={country} />
+            <Tab id="country" label={country} />
           ))}
         </Tabs>
       </TabPanel>
-   
     </Box>
-   
   );
 }

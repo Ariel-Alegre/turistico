@@ -6,7 +6,21 @@
     margin-top: 20px;
     justify-content: center;
     margin-bottom: -100px;
+
 }
+/* YourComponent.css */
+
+.custom-tabs .MuiTab-iconWrapper{
+    background-color: #05A1A1; /* Cambia esto al color deseado */
+    color: #05A1A1;
+
+}
+
+.custom-tabs #country:focus {
+    color: #05A1A1;
+
+  }
+
 
 
 

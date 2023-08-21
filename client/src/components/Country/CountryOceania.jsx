@@ -44,13 +44,6 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `action-tab-${index}`,
-    "aria-controls": `action-tabpanel-${index}`,
-  };
-}
-
 const fabStyle = {
   position: "absolute",
   bottom: 16,
@@ -117,13 +110,11 @@ export default function CountryAmerica() {
     "Samoa",
     "Tonga",
     "Tuvalu",
-    "Vanuatu"
+    "Vanuatu",
   ];
 
   return (
-    <Box
-    className = 'country-container'
-    >
+    <Box className="country-container">
       <TabPanel>
         <Tabs
           value={value}
@@ -131,9 +122,10 @@ export default function CountryAmerica() {
           variant="scrollable"
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
+          className="custom-tabs"
         >
           {oceania.map((country) => (
-            <Tab label={country} />
+            <Tab id="country" label={country} />
           ))}
         </Tabs>
       </TabPanel>

@@ -80,14 +80,34 @@ export default function BasicMenu() {
     // Realizar el cierre de sesión en Redux
     dispatch(logoutUser());
 
-    localStorage.removeItem('token');
-    // Limpiar token en Local Storage
     setOpenLogout(false);
+    localStorage.removeItem('token');
+
+    // Limpiar token en Local Storage
     navigate('/')
     // Redirigir al usuario a la página de inicio de sesión
   };
 
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+  const storedBackgroundColor = localStorage.getItem('avatarBackgroundColor');
+  const [avatarBackgroundColor, setAvatarBackgroundColor] = React.useState(
+    storedBackgroundColor || getRandomColor()
+  );
 
+  React.useEffect(() => {
+    if (!storedBackgroundColor) {
+      const newColor = getRandomColor();
+      setAvatarBackgroundColor(newColor);
+      localStorage.setItem('avatarBackgroundColor', newColor);
+    }
+  }, [storedBackgroundColor]);
   return (
     <div className="account-menu">
       <div
@@ -136,7 +156,7 @@ export default function BasicMenu() {
 
                   {token ? (
 
-                    <Avatar sx={{ width: 32, height: 32 }}>{datapersonal.name && datapersonal.name[0].toUpperCase()}</Avatar>
+                    <Avatar sx={{ width: 32, height: 32, backgroundColor: avatarBackgroundColor }} >{datapersonal.name && datapersonal.name[0].toUpperCase()}</Avatar>
                   ) : (
                     <Avatar sx={{ width: 32, height: 32 }}></Avatar>
                   )}
@@ -289,13 +309,13 @@ export default function BasicMenu() {
           </DialogContent>
           <DialogActions className="btn-modal" >
 
-              <Link to="/auth/login">
+            <Link to="/auth/login">
 
-                <Button>Iniciar sesión</Button>
-              </Link>
-              <Button onClick={handleClosePublic} >
-                Cancelar
-              </Button>
+              <Button>Iniciar sesión</Button>
+            </Link>
+            <Button onClick={handleClosePublic} >
+              Cancelar
+            </Button>
           </DialogActions>
 
         </Dialog>

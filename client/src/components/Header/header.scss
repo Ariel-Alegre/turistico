@@ -8,6 +8,7 @@
   background-color: var(--white);
   z-index: 1000;
   background-color: white;
+  box-shadow: 0px 0px 4px rgb(168, 168, 168);
 }
 
 
@@ -20,6 +21,7 @@
   display: flex;
 
 }
+
 .logo-modal {
   width: 150px;
 }
@@ -34,17 +36,6 @@
   height: 150px;
 }
 
-@media only screen and (max-width: 480px) {
-  .button-continent {
-   flex-direction: column;
-
-  }
-
-
-
-
-  
-}
 
 .navbar-logo {
   height: 3rem;
@@ -60,13 +51,15 @@
   border: 1px solid var(--grey);
   border-radius: 2rem;
   box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
+  width: 480px;
+
 }
 
 .search-bar:hover {
   box-shadow: 0 1px 2px rgb(0 0 0 / 15%), 0 4px 12px rgb(0 0 0 / 10%);
   transition: all 0.2s;
   cursor: pointer;
-} 
+}
 
 .search-bar-text {
   font-size: 0.85rem;
@@ -90,13 +83,16 @@
   align-items: center;
   gap: 0.25rem;
 }
+
 .airbnb-your-home button {
   background: #05A1A1;
 }
+
 .airbnb-your-home button:hover {
   background: #05A1A1;
 
 }
+
 .airbnb-your-home {
   padding: 1rem;
   font-weight: 600;
@@ -109,23 +105,26 @@
   display: flex;
   gap: 10px;
 }
-.btn-modal button{
-background: #05A1A1;
-border-color: #05A1A1;
+
+.btn-modal button {
+  background: #05A1A1;
+  border-color: #05A1A1;
 
 }
 
 .btn-modal button:hover {
-background-color: #05A1A1;
-border-color: #05A1A1;
+  background-color: #05A1A1;
+  border-color: #05A1A1;
 
 }
 
 .btn-modal button:active {
   background-color: #05A1A1;
   border-color: #05A1A1;
-  color: #fff; /* Añadir color de texto para asegurarse de que sea legible */
+  color: #fff;
+  /* Añadir color de texto para asegurarse de que sea legible */
 }
+
 .airbnb-your-home:hover {
   background-color: var(--light-grey);
 }
@@ -145,8 +144,9 @@ border-color: #05A1A1;
   padding: 0.5rem 1rem !important;
   font-size: 0.8rem;
   color: var(--font-grey);
-  
+
 }
+
 a {
   text-decoration: none;
   color: black;
@@ -158,18 +158,18 @@ a {
 }
 
 @media only screen and (max-width: 800px) {
-  
+
 
   #icons-lenguage {
     display: none;
   }
 
-  
+
   .navbar {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
-  
+
 
   .profile-menu-flex {
     position: fixed;
@@ -189,5 +189,37 @@ a {
 
   .navbar-logo {
     height: 2rem;
+  }
+
+
+}
+
+@media only screen and (max-width: 480px) {
+  .button-continent {
+    flex-direction: column;
+
+  }
+  .search-bar {
+    display: none;
+
+
+  }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .search-bar {
+    display: none;
+
+
+  }
+  .bottom-nav {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid var(--grey);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
   }
 }

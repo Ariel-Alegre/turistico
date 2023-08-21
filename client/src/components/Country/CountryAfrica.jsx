@@ -171,10 +171,10 @@ export default function CountryAmerica() {
           variant="scrollable"
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
-          className="tab"
+          className="custom-tabs"
         >
           {africa.map((country) => (
-            <Tab label={country}  />
+            <Tab id="country" label={country}  />
           ))}
         </Tabs>
       </TabPanel>

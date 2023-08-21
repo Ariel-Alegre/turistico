@@ -30,21 +30,23 @@ export default function SearchMobile() {
     setState({ ...state, [anchor]: open });
   };
 
-
   return (
     <div className="search-container">
       {["top"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button
+          <div className="search-span">
+
+          <span>Buscar...</span> 
+          </div>
+          <button
             onClick={toggleDrawer(anchor, true)}
             sx={{
-              color: '#000'
+           
             }}
             className="btn-search"
           >
-            <span>Buscar</span>
             <SearchRoundedIcon className="search-icon" />
-          </Button>
+          </button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
