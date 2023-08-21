@@ -155,6 +155,7 @@ export default function CountryAmerica() {
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
           className="custom-tabs"
+       
         >
           {america.map((country) => (
             <Tab id="country" label={country} />

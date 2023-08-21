@@ -6,7 +6,7 @@ import asia from "../../assets/icons/icons-asia.png";
 import africa from "../../assets/icons/icons-africa.png";
 import oceania from "../../assets/icons/icons-oceania.png";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import CountryAmerica from "../Country/CountryAmerica";
 import CountryEuropa from "../Country/CountryEuropa";
 import CountryAsia from "../Country/CountryAsia";
@@ -67,6 +67,26 @@ function Continent() {
     setShowOceania(true);
   };
 
+  const componentRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (componentRef.current && !componentRef.current.contains(event.target)) {
+        setShowAmerica(false);
+        setShowEurope(false);
+        setShowAsia(false);
+        setShowAfrica(false);
+        setShowOceania(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div className="continent-container">
@@ -122,38 +142,46 @@ function Continent() {
             </div>
           </button>
       </div>
+      <div  ref={componentRef}>
+
       {showAmerica ? (
+        <div className="transition-country">
+
         <CountryAmerica
           showAmerica={showAmerica}
           setShowAmerica={setShowAmerica}
-        />
-      ) : (
+          />
+          </div>
+        ) : (
         <div></div>
-      )}
+        )}
       {showEurope ? (
         <CountryEuropa showEurope={showEurope} setShowEurope={setShowEurope} />
-      ) : (
+        ) : (
         <div></div>
       )}
       {showAsia ? (
         <CountryAsia showAsia={showAsia} setShowAsia={setShowAsia} />
       ) : (
         <div></div>
-      )}
+        )}
       {showAfrica ? (
         <CountryAfrica showAfrica={showAfrica} setShowAfrica={setShowAfrica} />
       ) : (
         <div></div>
-      )}
+        )}
       {showOceania ? (
         <CountryOceania
-          showOceania={showOceania}
-          setShowOceania={setShowOceania}
+        showOceania={showOceania}
+        setShowOceania={setShowOceania}
         />
-      ) : (
+        ) : (
         <div></div>
       )}
-    </>
+
+    
+        </div>
+      </>
   );
 }
 
