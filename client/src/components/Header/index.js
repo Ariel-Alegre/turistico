@@ -1,11 +1,8 @@
 import React from "react";
 import logo from "../../assets/logo/Logo.jpg";
-import "./header.scss";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import LanguageIcon from "@mui/icons-material/Language";
 import BasicMenu from "./ProfileMenu";
 import SimpleBottomNavigation from "./BottomNav";
-import MobileSearchBar from "../MobileSearchBar";
 import { Link } from "react-router-dom";
 import Search from "../Search/Search";
 

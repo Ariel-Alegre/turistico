@@ -8,7 +8,7 @@ import FooterHome from "../components/FooterHome/FooterHome";
 function App() {
   const [selectedFilter, setSelectedFilter] = useState(0);
   return (
-    <div className="App">
+    <div >
       <Header />
    <Continent/>
    <div>
