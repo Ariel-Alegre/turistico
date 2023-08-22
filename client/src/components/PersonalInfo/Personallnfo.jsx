@@ -29,7 +29,7 @@ console.log(datapersonal);
         </h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           {" "}
-          <a href="/account-settings">Cuenta</a> {">"} Información personal{" "}
+          <a href="/account-settings" className="count">Cuenta</a> {">"} Información personal{" "}
         </p>
       </div>
       <div className="mt-6 border-t border-gray-100">

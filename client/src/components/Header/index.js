@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../assets/logo/Logo.jpg";
+import "./header.scss";
 import LanguageIcon from "@mui/icons-material/Language";
 import BasicMenu from "./ProfileMenu";
 import SimpleBottomNavigation from "./BottomNav";
@@ -8,7 +9,7 @@ import Search from "../Search/Search";
 
 function Header() {
   return (
-    <div className="navbar-container">
+    <div className="navbar-container2">
       <Link to = '/'>
       <img src={logo} alt="logo" className="navbar-logo" />
       </Link>

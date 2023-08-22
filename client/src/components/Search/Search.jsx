@@ -10,9 +10,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import ContinentMobile from "../ContinentMobile/ContinentMobile";
+import Continent from "../Continent/Continent";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import "./Search.scss";
+import Tabs from '@mui/material/Tabs';
+import FilterCard from '../FilterCard/FilterCard';
+
 
 export default function SearchMobile() {
   const [state, setState] = React.useState({
@@ -29,7 +32,11 @@ export default function SearchMobile() {
 
     setState({ ...state, [anchor]: open });
   };
+  const [value, setValue] = React.useState(0);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
     <div className="search-container">
       {["top"].map((anchor) => (
@@ -51,9 +58,17 @@ export default function SearchMobile() {
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
-            className="continent"
           >
-            <ContinentMobile />
+               <h3
+            className="x-search"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+          >
+            &times;
+          </h3>
+            <Continent />
+            <FilterCard />
+
           </Drawer>
         </React.Fragment>
       ))}

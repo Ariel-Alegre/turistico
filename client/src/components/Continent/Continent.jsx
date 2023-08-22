@@ -87,8 +87,11 @@ function Continent() {
     };
   }, []);
 
+ 
+
   return (
     <>
+       
       <div className="continent-container">
           <button variant="contained" onClick={handleClickAmerica}>
             <div className="continent">
@@ -145,13 +148,11 @@ function Continent() {
       <div  ref={componentRef}>
 
       {showAmerica ? (
-        <div className="transition-country">
 
         <CountryAmerica
           showAmerica={showAmerica}
           setShowAmerica={setShowAmerica}
           />
-          </div>
         ) : (
         <div></div>
         )}

@@ -1,4 +1,4 @@
-/* .navbar-container {
+.navbar-container2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,8 +6,8 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: rgb(0, 0, 0);
-  box-shadow: 0px 0px 4px rgb(168, 168, 168);
+  background-color: white;
+  box-shadow: 0px 0px 3px rgb(229, 229, 229);
 }
 
 
@@ -143,10 +143,6 @@
 
 }
 
-a {
-  text-decoration: none;
-  color: black;
-}
 
 .bottom-nav {
   display: none;
@@ -218,4 +214,4 @@ a {
     border-top: 1px solid var(--grey);
     box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
   }
-} */
+}

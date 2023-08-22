@@ -1,10 +1,12 @@
-import { PaperClipIcon } from '@heroicons/react/20/solid'
+import { PaperClipIcon } from '@heroicons/react/20/solid';
+import './LoginAndSecurity.scss';
+
 export default function PersonalInfo() {
   return (
     <div className='personal-container'>
       <div className="px-4 sm:px-0">
         <h3 className="text-base font-semibold leading-7 text-gray-900">Inicio de sesión y seguridad</h3>
-        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500"> <a href="/account-settings">Cuenta</a> {'>'} Inicio de sesión y seguridad </p>
+        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500"> <a href="/account-settings" className='count-security'>Cuenta</a> {'>'} Inicio de sesión y seguridad </p>
       </div>
       <div className="mt-6 border-t border-gray-100">
 

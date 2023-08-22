@@ -7,6 +7,12 @@
   gap: 100px;
   margin-top: 30px;
   margin-bottom: 150px;
+  align-self: flex-start;
+
+  @trigger house {
+    scrollTrigger:100vh;
+    x:500px;
+  }
 }
 
 #skeleton {
@@ -81,21 +87,21 @@
 
 }
 
-.text-link {
+/* .text-link {
   text-decoration: none;
   color: black;
 
-}
+} */
 
 .text-link img {
   border-radius: 15px;
 
 }
 
-.card-title {
+/* .card-title {
   text-decoration: none;
   color: black;
-}
+} */
 
 .swiper-container {
   height: 270px;
