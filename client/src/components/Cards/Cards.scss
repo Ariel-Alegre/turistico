@@ -20,17 +20,19 @@
   height: 270px;
   object-fit: cover;
   border-radius: 15px;
+  
 }
 
 .loading-skeleton {
-  position: relative;
-
-  margin-bottom: 2rem;
+  display: flex;
   justify-content: center;
-  display: grid;
-  transition: transform 0.3s ease;
-  /* Transición del cambio de escala durante 0.3 segundos con función de timing "ease" */
-  transform-origin: center center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem ;
+  gap: 100px;
+  margin-top: 30px;
+  margin-bottom: 150px;
+  align-self: flex-start;
 }
 
 .card-box {
@@ -61,6 +63,7 @@
   position: absolute;
 }
 
+
 .card-box:hover .stay-price {
   display: none;
 }
@@ -73,7 +76,12 @@
 .card-box:hover .summary-card {
   display: grid;
   transform: scale(1);
+
+
   /* Corrige "trasition" a "transform" y ajusta el valor a 1 para mantener el tamaño original */
+}
+.card-box:hover .card-info-flex {
+
 }
 
 .shadow-card:hover {
@@ -87,11 +95,11 @@
 
 }
 
-/* .text-link {
+.text-link {
   text-decoration: none;
   color: black;
 
-} */
+} 
 
 .text-link img {
   border-radius: 15px;
@@ -164,7 +172,7 @@
 
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
 
   .swiper-container,
   .card-img {

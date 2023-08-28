@@ -1,5 +1,5 @@
-import React from "react";
-import Card from "./card";
+/* import React from "react";
+import Card from "./Card";
 import "./Cards.scss";
 function Cards({ list }) {
   return (
@@ -11,4 +11,4 @@ function Cards({ list }) {
   );
 }
 
-export default Cards;
+export default Cards; */

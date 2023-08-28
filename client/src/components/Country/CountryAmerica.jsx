@@ -15,7 +15,6 @@ import { green } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import { containerClasses } from "@mui/material";
 import "./index.scss";
-import Card from "../Cards/card";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

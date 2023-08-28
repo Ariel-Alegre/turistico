@@ -15,6 +15,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import "./Search.scss";
 import Tabs from '@mui/material/Tabs';
 import FilterCard from '../FilterCard/FilterCard';
+import InputSearch from "../InputSearch/InputSearch";
 
 
 export default function SearchMobile() {
@@ -66,9 +67,15 @@ export default function SearchMobile() {
           >
             &times;
           </h3>
-            <Continent />
+          <div>
+
+            <InputSearch/>
+          </div>
+          <div>
+
             <FilterCard />
 
+          </div>
           </Drawer>
         </React.Fragment>
       ))}

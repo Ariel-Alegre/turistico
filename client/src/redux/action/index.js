@@ -1,8 +1,61 @@
 import axios from 'axios';
 
+
+
+
+export const AllPostTuristic = () => {
+  return async (dispach) => {
+    const res = await axios.get('http://localhost:4000/turistic');
+    const data = res.data.User
+    return dispach({
+        type: "ALL_POST_TURISTIC",
+        payload: data
+    })
+  }
+};
+
+export const DetailsPostTuristic = (idTuristic) => {
+  return async (dispach) => {
+    const res = await axios.get(`http://localhost:4000/turistic/${idTuristic}`);
+    const data = res.data.details
+    return dispach({
+        type: "DETAIL_POST_TURISTIC",
+        payload: data
+    })
+  }
+};
+
+
+
+// postActions.js
+
+export const createPost = (postData, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post('http://localhost:4000/post', postData, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+
+      const createdPost = response.data.post;
+
+      dispatch({
+        type: 'POST_CREATED',
+        payload: createdPost,
+      });
+
+      return createdPost;
+    } catch (error) {
+      console.error('Error creating post:', error);
+      throw error;
+    }
+  };
+};
+
 export const UserRegister = (payload) => {
   return async (dispach) => {
-    const res = await axios.post('https://turistico-production.up.railway.app/auth/register', payload);
+    const res = await axios.post('http://localhost:4000/auth/register', payload);
     const data = res.data
     return dispach({
         type: "USER_REGISTER",
@@ -15,7 +68,7 @@ export const UserRegister = (payload) => {
 export const UserLogin = (email, password) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post("https://turistico-production.up.railway.app/auth/login", {
+      const response = await axios.post("http://localhost:4000/auth/login", {
         email,
         password,
       });
@@ -44,7 +97,7 @@ export const UserLogin = (email, password) => {
 
 export const UserLogout = (payload) => {
   return async (dispach) => {
-    const res = await axios.post('https://turistico-production.up.railway.app/logout', payload);
+    const res = await axios.post('http://localhost:4000/logout', payload);
     const data = res.data
     return dispach({
         type: "LOGOUT_USER",
@@ -62,9 +115,11 @@ export const logoutUser = () => {
     type: 'LOGOUT_USER',
   };
 };
+
+
 export const dataPersonal = (token) => {
   return async (dispatch) => {
-   const res = await axios.get('https://turistico-production.up.railway.app/user', {
+   const res = await axios.get('http://localhost:4000/user', {
     method: "GET",
     headers: {
       Authorization: `${token}`,
@@ -79,30 +134,3 @@ export const dataPersonal = (token) => {
    })
   }
 }
-
-export const createTuristicPostWithImages = (postPayload, imagesPayload) => {
-  return async (dispatch) => {
-    try {
-      const postResponse = await axios.post('https://turistico-production.up.railway.app/post', postPayload);
-      const postId = postResponse.data.id;
-
-      // Obtener las IDs de imágenes del postResponse
-      const imageIds = postResponse.data.images.map(image => image.id);
-
-      // Asocia las imágenes al post (si tu backend permite esto)
-      const associateImagesResponse = await axios.post(`https://turistico-production.up.railway.app/post/${postId}/associate-images`, { imageIds });
-
-      // Dispatch para indicar que la creación se completó exitosamente
-      dispatch({
-        type: 'CREATE_TURISTIC_POST_WITH_IMAGES_SUCCESS',
-        payload: {
-          postId,
-          imageIds: associateImagesResponse.data.imageIds
-        }
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-};
-

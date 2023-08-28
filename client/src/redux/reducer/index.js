@@ -3,8 +3,9 @@ const initialState = {
   loginError: null,
   token: localStorage.getItem('token'),
   datapersonal: [],
-  createdPostId: null,
-  createdImageIds: [],
+  posts: [],
+  allPost: [],
+  detailpost: []
 
   }
 
@@ -39,15 +40,26 @@ export const rootReducer = (state = initialState, action) => {
           ...state,
           datapersonal: action.payload
         };
-
-      
-
-        case 'CREATE_TURISTIC_POST_WITH_IMAGES_SUCCESS':
+        case 'POST_CREATED':
           return {
             ...state,
-            createdPostId: action.payload.postId,
-            createdImageIds: action.payload.imageIds,
+            posts: [...state.posts, action.payload],
           };
+
+        case 'ALL_POST_TURISTIC': 
+        return {
+          ...state,
+          allPost: action.payload
+        }; 
+
+        case 'DETAIL_POST_TURISTIC': 
+        return {
+          ...state,
+          detailpost: action.payload
+        }
+      
+      
+
  
     
 

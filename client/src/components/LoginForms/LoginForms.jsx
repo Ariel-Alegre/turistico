@@ -35,19 +35,17 @@ export default function LoginForms() {
   };
 
   useEffect(() => {
-
     if (token) {
-     
       navigate("/");
     } else if (loginError) {
-      alert("El correo y la contraseña no coinciden, porfavor intentelo de nuevo.");
+      alert(
+        "El correo y la contraseña no coinciden, porfavor intentelo de nuevo."
+      );
     }
   }, [token, loginError, navigate]);
 
   return (
     <>
-     
-
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <a href="/">
@@ -102,7 +100,7 @@ export default function LoginForms() {
                   <a
                     href="#"
                     className="font-semibold text-indigo-600  text-color "
-                    >
+                  >
                     Olvidaste tu contraseña?
                   </a>
                 </div>
@@ -117,8 +115,8 @@ export default function LoginForms() {
                   className="block w-full rounded-md border-0 py-1.5 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:leading-6 input-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  />
-           {/*      <IconButton
+                />
+                {/*      <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
@@ -132,7 +130,7 @@ export default function LoginForms() {
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md button-login px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
+              >
                 Iniciar sesión
               </button>
             </div>

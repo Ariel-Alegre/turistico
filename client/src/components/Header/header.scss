@@ -47,7 +47,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.35rem 1rem;
-  border: 1px solid var(--grey);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .05);
+
   border-radius: 2rem;
   width: 480px;
 
@@ -56,12 +57,16 @@
 .search-bar:hover {
   transition: all 0.2s;
   cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, 0.122);
+
+
+
 }
 
 .search-bar-text {
   font-size: 0.85rem;
   font-weight: 600;
-  border-right: 1px solid var(--grey);
+  border-right: 1px solid black;
   padding-right: 0.5rem;
 }
 
@@ -191,6 +196,7 @@
     flex-direction: column;
 
   }
+
   .search-bar {
     display: none;
 
@@ -199,12 +205,13 @@
 }
 
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
+@media only screen and (min-width: 480px) and (max-width: 1024px) {
   .search-bar {
     display: none;
 
 
   }
+
   .bottom-nav {
     display: block;
     position: fixed;

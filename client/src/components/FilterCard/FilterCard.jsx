@@ -1,80 +1,64 @@
-import lagos from '../../assets/icons-filter/lagos.png';
-import montañas from '../../assets/icons-filter/montañas.png';
-import areas_verdes from '../../assets/icons-filter/areas-verdes.png';
-import parques_acuaticos from '../../assets/icons-filter/parques-acuaticos.jpg';
-import playas from '../../assets/icons-filter/playas.png';
-import Parques_arqueologicos from '../../assets/icons-filter/parques-arqueologicos.png';
+import lagos from "../../assets/icons-filter/lagos.png";
+import montañas from "../../assets/icons-filter/montañas.png";
+import areas_verdes from "../../assets/icons-filter/areas-verdes.png";
+import parques_acuaticos from "../../assets/icons-filter/parques-acuaticos.jpg";
+import playas from "../../assets/icons-filter/playas.png";
+import Parques_arqueologicos from "../../assets/icons-filter/parques-arqueologicos.png";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/splide/dist/css/themes/splide-default.min.css";
+import React, { useEffect } from "react";
 
-
-
-
-import './FilterCard.scss';
+import "./FilterCard.scss";
 
 export default function FilterCard() {
-    return (
-        <div className="filter-container">
-        <button variant="contained">
-          <div className="filter">
-
+  return (
+    <div className="filter-container">
+      <Splide
+        options={{
+          type: "slide", // Tipo de transición (slide)
+          perPage: 2, // Número de elementos a mostrar en un slide
+          perMove: 1, // Número de elementos a mover en cada transición
+        }}
+        className="slide"
+      >
+        <SplideSlide>
+          <button variant="contained" className="filter-type no-spacing">
             <img src={lagos} alt="not found" />
-           <p>
-
-            Lagos
-           </p>
-          </div>
-        </button>
-
-        <button variant="contained" >
-          <div className="filter">
+            <p>Lagos</p>
+          </button>
+        </SplideSlide>
+        <SplideSlide>
+          <button variant="contained" className="filter-type no-spacing">
             <img src={montañas} alt="not found" />
-          <p>
-
-            Montañas
-          </p>
-          </div>
-        </button>
-        <button variant="contained" >
-          <div className="filter">
+            <p>Montañas</p>
+          </button>
+        </SplideSlide>
+        <SplideSlide>
+          <button variant="contained" className="filter-type no-spacing">
             <img src={areas_verdes} alt="not found" />
-          <p>
-
-            Areas verdes
-          </p>
-
-          </div>
-        </button>
-        <button variant="contained" >
-          <div className="filter">
+            <p>Areas verdes</p>
+          </button>
+        </SplideSlide>
+        <SplideSlide>
+          <button variant="contained" className="filter-type">
             <img src={parques_acuaticos} alt="not found" />
-          <p>
+            <p>Parques acuaticos</p>
+          </button>
+        </SplideSlide>
 
-           Parques acuaticos
-          </p>
-
-          </div>
-        </button>
-        <button variant="contained" >
-          <div className="filter">
-
+        <SplideSlide>
+          <button variant="contained" className="filter-type">
             <img src={playas} alt="not found" />
-           <p>
-
-            Playas
-           </p>
-
-          </div>
-        </button>
-        <button variant="contained" >
-          <div className="filter">
-
+            <p>Playas</p>
+          </button>
+        </SplideSlide>
+        <SplideSlide>
+          <button variant="contained" className="filter-type">
             <img src={Parques_arqueologicos} alt="not found" />
-           <p>
-
-            Parques arqueologicos
-           </p>
-
-          </div>
-        </button>
+            <p>Parques arqueologicos</p>
+          </button>
+        </SplideSlide>
+      </Splide>
     </div>
-    )
+  );
 }

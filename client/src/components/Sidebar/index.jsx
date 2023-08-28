@@ -11,9 +11,9 @@ import { useSelector, useDispatch } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDropzone } from "react-dropzone";
 import Autocomplete from "@mui/material/Autocomplete";
-import { dataPersonal, createTuristicPostWithImages } from "../../redux/action";
+import { dataPersonal, createPost } from "../../redux/action";
 import Modal from "@mui/material/Modal";
-import './styles.css'
+import "./styles.css";
 import { Link } from "react-router-dom";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
@@ -31,9 +31,10 @@ export default function FormStepper() {
     title: "",
     price: "",
     stay: "",
-    images: [],
+    imageFile: [],
     summary: "",
     description: "",
+    type: "",
   });
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -43,10 +44,10 @@ export default function FormStepper() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleFormChange = (event) => {
+  /* const handleFormChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
+  }; */
   const handleImage = useCallback((acceptedFiles) => {
     setShow((prevState) => ({
       ...prevState,
@@ -64,16 +65,38 @@ export default function FormStepper() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      await dispatch(createTuristicPostWithImages(show, show.images));
-      // Puedes realizar alguna acción aquí después de la publicación exitosa, si es necesario.
+      const formData = new FormData();
+      formData.append('title', show.title);
+      formData.append('price', show.price);
+      formData.append('stay', show.stay);
+      formData.append('summary', show.summary);
+      formData.append('description', show.description);
+  
+      show.images.forEach((image, index) => {
+        formData.append('imageFile', image);
+      });
+  
+      const createdPost = await dispatch(createPost(formData, token));
+      console.log('Post creado exitosamente:', createdPost);
+      // Puedes realizar alguna navegación o mostrar un mensaje de éxito aquí
     } catch (error) {
-      console.error(error);
+      console.error('Error al crear el post:', error);
+      // Manejo de error, muestra un mensaje de error, etc.
     }
   };
+  
+  
+  
+  
+  
+  
+  
 
   const handleTittle = (e) => {
     e.preventDefault();
@@ -124,71 +147,102 @@ export default function FormStepper() {
     switch (step) {
       case 0:
         return (
-          <div >
-           
+          <div>
             <Box className="sidebar-container" noValidate autoComplete="off">
-                <TextField
-                  id="outlined-basic"
-                  label="Titulo"
-                  variant="outlined"
-                  onChange={handleTittle}
-                  value={show.title}
-                  name="title"
-                 
-                  sx={{
-                    background: "#fff",
-                  
-                  }}
-                />
-              
-                <TextField
-                  id="outlined-basic"
-                  label="Precio"
-                  variant="outlined"
-                  onChange={handlePrice}
-                  value={show.price}
-                  name="price"
-                  sx={{
-                    background: "#fff",
-                  }}
-                />
-             
-                <Autocomplete
-                  value={show.stay}
-                  onChange={handleStay} // Usamos la función handleStay para manejar el cambio de valor
-                  id="controllable-states-demo"
-                  options={options}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Estadia"
-                      sx={{
-                        background: "#fff",
-                      }}
-                    />
-                  )}
-                />
-        
-                <textarea
-                  id="outlined-basic"
-                  placeholder="Resumen"
-                  onChange={handleSummary}
-                  value={show.summary}
-                  name="summary"
-                  rows={10}
-                  className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-            
-                <textarea
-                  id="outlined-basic"
-                  placeholder="Descripción"
-                  onChange={handleDescription}
-                  value={show.description}
-                  name="description"
-                  rows={10}
-                  className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
+              <TextField
+                id="outlined-basic"
+                label="Titulo"
+                variant="outlined"
+                onChange={handleTittle}
+                value={show.title}
+                name="title"
+                sx={{
+                  background: "#fff",
+                }}
+              />
+
+              <TextField
+                id="outlined-basic"
+                label="Precio"
+                variant="outlined"
+                onChange={handlePrice}
+                value={show.price}
+                name="price"
+                sx={{
+                  background: "#fff",
+                }}
+              />
+
+              <Autocomplete
+                value={show.stay}
+                onChange={handleStay} // Usamos la función handleStay para manejar el cambio de valor
+                id="controllable-states-demo"
+                options={options}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Estadia"
+                    sx={{
+                      background: "#fff",
+                    }}
+                  />
+                )}
+              />
+
+              <textarea
+                id="outlined-basic"
+                placeholder="Resumen"
+                onChange={handleSummary}
+                value={show.summary}
+                name="summary"
+                rows={10}
+                className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+
+              <textarea
+                id="outlined-basic"
+                placeholder="Descripción"
+                onChange={handleDescription}
+                value={show.description}
+                name="description"
+                rows={10}
+                className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
             </Box>
+            <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          pt: 2,
+          justifyContent: "center",
+          gap: "60px",
+          bottom: "30px",
+        }}
+      >
+        <Button
+          color="inherit"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          sx={{ mr: 1 }}
+        >
+          regresar
+        </Button>
+        <Box />
+      
+       
+          <Button
+            onClick={handleNext}
+            sx={{
+              backgroundColor: "#05A1A1",
+              color: "white",
+              ":hover": { backgroundColor: "#05A1A1", color: "white" },
+            }}
+            type="button"
+          >
+            Siguiente
+          </Button>
+   
+      </Box>
           </div>
         );
       case 1:
@@ -246,6 +300,40 @@ export default function FormStepper() {
                   ))}
               </div>
             </div>
+            <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          pt: 2,
+          justifyContent: "center",
+          gap: "60px",
+          bottom: "30px",
+        }}
+      >
+        <Button
+          color="inherit"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          sx={{ mr: 1 }}
+        >
+          regresar
+        </Button>
+        <Box />
+      
+       
+          <Button
+            onClick={handleNext}
+            sx={{
+              backgroundColor: "#05A1A1",
+              color: "white",
+              ":hover": { backgroundColor: "#05A1A1", color: "white" },
+            }}
+            type="button"
+          >
+            Siguiente
+          </Button>
+   
+      </Box>
           </>
         );
       case 2:
@@ -346,9 +434,9 @@ export default function FormStepper() {
                       </div>
                     </p>
 
-                    <button className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva">
+                    <div className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva">
                       Reservar
-                    </button>
+                    </div>
                   </div>
 
                   <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
@@ -371,11 +459,24 @@ export default function FormStepper() {
                           {show.description}
                         </p>
                       </div>
+     
                     </div>
                   </div>
+                  <Button
+          sx={{
+            backgroundColor: "#05A1A1",
+            color: "white",
+            ":hover": { backgroundColor: "#05A1A1", color: "white" },
+          }}
+          type="submit"
+
+          >
+            Publicar
+          </Button>
                 </div>
               </div>
             </div>
+         
           </div>
         );
       default:
@@ -383,36 +484,36 @@ export default function FormStepper() {
     }
   };
   return (
-  
-
-        <Box>
-          <Link to='/'>
-         <Button variant="contained"  sx={{ marginBottom:5, matginTop: 5, backgroundColor: '#05A1A1', color: "white", ":hover": {backgroundColor: '#05A1A1', color: "white" }}}>Cancelar</Button>
-          </Link>
-          <Stepper activeStep={activeStep}>
-            {steps.map((label, index) => (
-              <Step key={label}>
-                <StepLabel >{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <Typography  sx={{display: 'grid', justifyContent: 'center', mt: 5 }}>
-            {renderForm(activeStep)}
-          </Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2, justifyContent: 'center', gap: '60px', bottom: "30px"}}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              regresar
-            </Button>
-            <Box />
-            <Button onClick={handleNext} sx={{backgroundColor: '#05A1A1', color: "white", ":hover": {backgroundColor: '#05A1A1', color: "white"}}} >
-              {activeStep === steps.length - 1 ? "Publicar" : "Siguiente"}
-            </Button>
-          </Box>
+    <Box>
+      <Link to="/">
+        <Button
+          variant="contained"
+          sx={{
+            marginBottom: 5,
+            matginTop: 5,
+            backgroundColor: "#05A1A1",
+            color: "white",
+            ":hover": { backgroundColor: "#05A1A1", color: "white" },
+          }}
+        >
+          Cancelar
+        </Button>
+      </Link>
+      <Stepper activeStep={activeStep}>
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <Typography sx={{ display: "grid", justifyContent: "center", mt: 5 }}>
+           
+        <form action="" method="post" onSubmit={handleSubmit} >
+            
+          {renderForm(activeStep)}
+        </form>
+      </Typography>
+    
     </Box>
   );
 }

@@ -33,6 +33,7 @@ export default function BasicMenu() {
   const [openLogout, setOpenLogout] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
 
+  console.log(datapersonal);
   React.useEffect(() => {
     setTimeout(() => {
       setIsLoading(false); // Cambiar el estado de isLoading a "false" después de cierto tiempo
