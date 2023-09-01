@@ -1,10 +1,8 @@
 import Home from './pages/Home';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import CardDetails from './components/CardDetails/CardsDetail';
-import HomeAdmin from './AdminPage/pages/home/HomeAdmin';
-import DetailsUsers from "./AdminPage/pages/detailsUsers/DetailsUsers";
 import AccountSettings from './pages/AccountSettings';
 import InfoPersonal from './pages/InfoPersonal';
 import Security from './pages/Security';
@@ -12,16 +10,44 @@ import PaymentUser from './pages/PaymentUser';
 import TuristicPost from './pages/PostTuristic';
 import Test from './pages/test';
 import Profile from './pages/Profile';
+/* import HomeAdmin from "./pagesAdmin/home/HomeAdmin";
+import LoginAdmin from "./pagesAdmin/login/Login"; */
+import List from "./pagesAdmin/list/List";
+import Single from "./pagesAdmin/single/Single";
+import New from "./pagesAdmin/new/New";
+import { productInputs, userInputs } from "./formSource";
+import "./styleAdmin/dark.scss";
+/* import { useContext} from "react";
+import { DarkModeContext} from "./contextAdmin/darkModeContext"; */
+
+
+
 
 function App() {
+
+
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/admin">
-            <Route index element={<HomeAdmin />} />
-            <Route path="user/:UserId" element={<DetailsUsers />} />
-          </Route>
+
+      <Route> 
+    {/*   <Route path="/" element={<HomeAdmin/>} />
+      <Route path="login" element={<LoginAdmin/>}/> */}
+      <Route path="users">
+        <Route index element={<List/>}/>
+        <Route path=":userId" element={<Single/>}/>
+        <Route path="new" element={<New inputs={userInputs} title="Add New User"/>}/>
+      </Route>
+      <Route path="products">
+        <Route index element={<List/>}/>
+        <Route path=":productId" element={<Single/>}/>
+        <Route path="new" element={<New inputs={productInputs} title="Add New Product"/>}/>
+      </Route>
+      </Route>
+
+
+
           <Route exact path='/' element={<Home />} />
           <Route exact path='/auth/login' element={<Login />} />
           <Route exact path='/auth/register' element={<Register />} />

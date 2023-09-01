@@ -12,21 +12,31 @@
 input[type="file"] {
   color: transparent;
 }
-
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
 .x {
   text-align: center;
 }
 
 .prev-mini {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 70px);
+  grid-template-columns: repeat(auto-fit, 100px);
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .prev-mini img {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   margin: 5px;
+  opacity: 0.6;
 }
 .file-container {
   height: 50px;
@@ -38,16 +48,29 @@ input[type="file"] {
   background-color: transparent;
 }
 
+.btn-x {
+margin-top: 0px;
+position: absolute;
+margin-left: 100px;
+background-color: red;
+width: 15px;
+height: 15px;
+font-size: 10px;
+text-align: center;
+border-radius: 50%;
+
+}
+
 .btn-x button {
-  position: absolute;
-  margin-top: -60px;
   color: white;
-  background-color: black;
-  border-radius: 50%;
-  border: none;
-  width: 25px;
-  cursor: pointer;
-  color: white;
+  
+ 
+
+}
+
+.btn-x span {
+  font-size: 15px;
+  text-align: center;
 }
 
 .sidebar-logo-container {
@@ -124,6 +147,10 @@ input[type="file"] {
 
 .btn-reserva:active {
   border-color: #05a1a1;
+}
+
+.img-mini img {
+  width: 150px;;
 }
 
 @media only screen and (max-width: 480px) {

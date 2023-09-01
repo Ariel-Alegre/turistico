@@ -15,21 +15,23 @@
   height: 100vh;
 }
 
-.img-container {
-  margin-bottom: 50px;
-}
 
+.drawer-image img {
 
-.hover-image {
   cursor: pointer;
+  min-height:  450px;
+  max-width: 850px;
+  
 }
+
+
 
 
 .drawer-details {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 450px);
+  grid-template-columns: repeat(auto-fit, 850px);
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .image-container-row {
@@ -65,20 +67,11 @@
   /* Centra el contenido verticalmente */
 }
 
-.overlay img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  /* Mantener la imagen centrada y proporcional */
+
+.img-carrusel img {
+  width: 850px;
+  height: 550px;
 }
-
-.carrusel-container {
-  max-width: 800px;
-  max-height: 800px;
-
-  overflow: hidden;
-}
-
 .close-button-modal {
   position: absolute;
   top: 10px;

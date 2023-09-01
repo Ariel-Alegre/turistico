@@ -15,18 +15,69 @@ import { dataPersonal, createPost } from "../../redux/action";
 import Modal from "@mui/material/Modal";
 import "./styles.css";
 import { Link } from "react-router-dom";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Row from "react-bootstrap/Row";
+import { Upload } from "antd";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
+const validate = (input) => {
+  let errors = {};
 
+  if (!input.title) {
+    errors.title = "el nombre es requerido";
+  }
+
+  if (!input.description) {
+    errors.description = "la descripcion es requerido";
+  }
+
+  if (!input.price) {
+    errors.price = "el precio es requerido required";
+  }
+
+  if (!input.stay) {
+    errors.stay = "la estadia es requerida";
+  }
+  if (!input.summary) {
+    errors.summary = "la descripcion es requerido";
+  }
+
+  if (!input.summary) {
+    errors.summary = "la descripcion es requerido";
+  }
+
+  return errors;
+};
+
+const validateImage = (input) => {
+  let errors = {};
+
+  if (input.imageFile.length >= 4) {
+    errors.imageFile = "Debes subir al menos 4 imágenes";
+  }
+
+  return errors;
+};
+
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 export default function FormStepper() {
+  const [errors, setErrors] = useState({});
   const [activeStep, setActiveStep] = useState(0);
-  const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const options = ["Por noche", "Por semana", "Por mes"];
-  const [value, setValue] = useState(options[0]);
   const [inputValue, setInputValue] = useState("");
   const datapersonal = useSelector((state) => state.datapersonal);
   const token = useSelector((state) => state.token);
+  const [validated, setValidated] = useState(false);
+
   const [show, setShow] = useState({
     title: "",
     price: "",
@@ -36,18 +87,41 @@ export default function FormStepper() {
     description: "",
     type: "",
   });
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+  const handleNext = (event) => {
+    const newErrors = validate(show); // Validar los campos
+    console.log("New errors:", newErrors); // Agregar este log
+
+    setErrors(newErrors);
+
+    const form = event.currentTarget;
+    console.log("Form validity:", form.checkValidity()); // Agregar este log
+
+    if (form.checkValidity() === false || Object.keys(newErrors).length > 0) {
+      event.preventDefault();
+      event.stopPropagation();
+      setValidated(true); // Mostrar mensajes de error en los campos requeridos
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setValidated(false); // Reiniciar la validación para el siguiente paso
+    }
+  };
+
+  const handleNextImage = () => {
+    const newErrors = validateImage(show); // Validar las imágenes
+    console.log("New errors:", newErrors); // Agregar este log
+
+    if (Object.keys(newErrors).length === 0) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+      alert("Llene los campos correctamente");
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  /* const handleFormChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  }; */
   const handleImage = useCallback((acceptedFiles) => {
     setShow((prevState) => ({
       ...prevState,
@@ -65,38 +139,33 @@ export default function FormStepper() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const formData = new FormData();
-      formData.append('title', show.title);
-      formData.append('price', show.price);
-      formData.append('stay', show.stay);
-      formData.append('summary', show.summary);
-      formData.append('description', show.description);
-  
+      formData.append("title", show.title);
+      formData.append("price", show.price);
+      formData.append("stay", show.stay);
+      formData.append("summary", show.summary);
+      formData.append("description", show.description);
+
       show.images.forEach((image, index) => {
-        formData.append('imageFile', image);
+        formData.append("imageFile", image);
       });
-  
+
       const createdPost = await dispatch(createPost(formData, token));
-      console.log('Post creado exitosamente:', createdPost);
+      console.log("Post creado exitosamente:", createdPost);
+
+      const newErrors = validate(show); // Validar los campos
+      setErrors(newErrors); // Actualizar los errores
+
       // Puedes realizar alguna navegación o mostrar un mensaje de éxito aquí
     } catch (error) {
-      console.error('Error al crear el post:', error);
+      console.error("Error al crear el post:", error);
       // Manejo de error, muestra un mensaje de error, etc.
     }
   };
-  
-  
-  
-  
-  
-  
-  
 
   const handleTittle = (e) => {
     e.preventDefault();
@@ -127,10 +196,11 @@ export default function FormStepper() {
       price: e.target.value,
     }));
   };
-  const handleStay = (event, newValue) => {
+  const handleStay = (event) => {
+    const newValue = event.target.value;
     setShow((prevState) => ({
       ...prevState,
-      stay: newValue, // Usamos el valor seleccionado directamente
+      stay: newValue,
     }));
   };
 
@@ -142,198 +212,243 @@ export default function FormStepper() {
       images: newFilesArray,
     }));
   };
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+
+  const handleCancelMiniImage = () => setPreviewOpen(false);
+  const handlePreviewMiniImage = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
+  };
+  const handleChangeMiniImage = ({ fileList: newFileList }) =>
+    setShow(newFileList);
 
   const renderForm = (step) => {
     switch (step) {
       case 0:
         return (
           <div>
-            <Box className="sidebar-container" noValidate autoComplete="off">
-              <TextField
-                id="outlined-basic"
-                label="Titulo"
-                variant="outlined"
-                onChange={handleTittle}
-                value={show.title}
-                name="title"
-                sx={{
-                  background: "#fff",
-                }}
-              />
-
-              <TextField
-                id="outlined-basic"
-                label="Precio"
-                variant="outlined"
-                onChange={handlePrice}
-                value={show.price}
-                name="price"
-                sx={{
-                  background: "#fff",
-                }}
-              />
-
-              <Autocomplete
-                value={show.stay}
-                onChange={handleStay} // Usamos la función handleStay para manejar el cambio de valor
-                id="controllable-states-demo"
-                options={options}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Estadia"
-                    sx={{
-                      background: "#fff",
-                    }}
+            <Form noValidate validated={validated}>
+              <Row className="mb-3">
+                <Form.Group as={Col} md="4" controlId="validationCustomTitle">
+                  <Form.Label>Titulo</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    placeholder="Titulo"
+                    defaultValue={show.title}
+                    onChange={handleTittle}
                   />
-                )}
-              />
-
-              <textarea
-                id="outlined-basic"
-                placeholder="Resumen"
-                onChange={handleSummary}
-                value={show.summary}
-                name="summary"
-                rows={10}
-                className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-
-              <textarea
-                id="outlined-basic"
-                placeholder="Descripción"
-                onChange={handleDescription}
-                value={show.description}
-                name="description"
-                rows={10}
-                className="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </Box>
+                  <Form.Control.Feedback type="invalid">
+                    Por favor se requiere un titulo.
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="validationCustomPrecio">
+                  <Form.Label>Precio</Form.Label>
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text>$</InputGroup.Text>
+                    <Form.Control
+                      aria-label="Amount (to the nearest dollar)"
+                      required
+                      type="number"
+                      defaultValue={show.price}
+                      onChange={handlePrice}
+                    />
+                    <InputGroup.Text>.00</InputGroup.Text>
+                    <Form.Control.Feedback type="invalid">
+                      Por favor se requiere un precio.
+                    </Form.Control.Feedback>
+                  </InputGroup>
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="validationCustomStay">
+                  <Form.Label>Estadia</Form.Label>
+                  <Form.Select
+                    defaultValue={show.stay}
+                    onChange={handleStay}
+                    aria-label="Estadia"
+                    required
+                  >
+                    <option value="">Seleccione una opción</option>
+                    {options.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    Por favor seleccione una opción de estadía.
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Row>
+              <Row className="mb-3">
+                <Form.Group
+                  className="mb-3"
+                  controlId="validationCustomSummary"
+                >
+                  <Form.Label>Resumen del lugar.</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    required
+                    defaultValue={show.summary}
+                    onChange={handleSummary}
+                  />
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="validationCustomDescription"
+                  required
+                >
+                  <Form.Label>Descripción</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    required
+                    defaultValue={show.description}
+                    onChange={handleDescription}
+                  />
+                </Form.Group>
+              </Row>
+            </Form>
             <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          pt: 2,
-          justifyContent: "center",
-          gap: "60px",
-          bottom: "30px",
-        }}
-      >
-        <Button
-          color="inherit"
-          disabled={activeStep === 0}
-          onClick={handleBack}
-          sx={{ mr: 1 }}
-        >
-          regresar
-        </Button>
-        <Box />
-      
-       
-          <Button
-            onClick={handleNext}
-            sx={{
-              backgroundColor: "#05A1A1",
-              color: "white",
-              ":hover": { backgroundColor: "#05A1A1", color: "white" },
-            }}
-            type="button"
-          >
-            Siguiente
-          </Button>
-   
-      </Box>
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pt: 2,
+                justifyContent: "center",
+                gap: "60px",
+                bottom: "30px",
+              }}
+            >
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                regresar
+              </Button>
+              <Box />
+
+              <Button
+                onClick={handleNext}
+                sx={{
+                  backgroundColor: "#05A1A1",
+                  color: "white",
+                  ":hover": { backgroundColor: "#05A1A1", color: "white" },
+                }}
+                type="button"
+              >
+                Siguiente
+              </Button>
+            </Box>
           </div>
         );
       case 1:
         return (
           <>
-            <div
-              {...getRootProps()}
-              style={{
-                border: "2px dashed #ddd",
-                borderRadius: "4px",
-                padding: "20px",
-                textAlign: "center",
-                cursor: "pointer",
-                backgroundColor: isDragActive ? "#f8f8f8" : "white",
-              }}
-            >
-              <input {...getInputProps()} />
-              {isDragActive ? (
-                <p>Suelta las imagenes aquí...</p>
-              ) : (
+            <div>
+              <div
+                {...getRootProps()}
+                style={{
+                  border: "2px dashed #ddd",
+                  borderRadius: "4px",
+                  padding: "20px",
+                  textAlign: "center",
+                  cursor: "pointer",
+                  backgroundColor: isDragActive ? "#f8f8f8" : "white",
+                }}
+              >
+                <input {...getInputProps()} />
+                {isDragActive ? (
+                  <p>Suelta las imágenes aquí...</p>
+                ) : (
+                  <div>
+                    <p>
+                      Arrastra y suelta las imágenes aquí o haz clic para
+                      seleccionar.
+                    </p>
+                    <span>Puedes subir hasta 100 imágenes.</span>
+                  </div>
+                )}
+              </div>
+              {errors.imageFile && (
                 <div>
-                  <p>
-                    Arrastra y suelta las imagenes aquí o haz clic para
-                    seleccionar.
-                  </p>
-                  <span>Puedes subir hasta 12 imagenes.</span>
+                  <p>{errors.imageFile}</p>
                 </div>
               )}
-            </div>
-            <div>
-              {show.images &&
-                show.images.map((photo) => <img src={photo} alt="" />)}
-              <div className="prev-mini">
+
+              <div>
                 {show.images &&
-                  show.images.map((file, index) => (
-                    <div key={index}>
-                      {file && (
-                        <div>
-                          <img
-                            src={URL.createObjectURL(file)}
-                            alt={`Preview ${index}`}
-                            className="img-mini"
-                          />
+                  show.images.map((photo) => <img src={photo} alt="" />)}
+                <div className="prev-mini">
+                  {show.images &&
+                    show.images.map((file, index) => (
+                      <div key={index}>
+                             <div className="btn-x">
+                          <button
+                            type="button"
+                            onClick={() => handleRemove(index)}
+                          >
+                           <strong>
+                             X
+                            </strong>
+                          </button>
                         </div>
-                      )}
-                      <div className="btn-x">
-                        <button
-                          type="button"
-                          onClick={() => handleRemove(index)}
-                        >
-                          X
-                        </button>
+                        {file && (
+                          <Upload listType="picture-card" disabled>
+                            <img
+                              alt={`Preview ${index}`}
+                              src={URL.createObjectURL(file)}
+                            />
+                          </Upload>
+                        )}
+                   
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                </div>
               </div>
             </div>
+
             <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          pt: 2,
-          justifyContent: "center",
-          gap: "60px",
-          bottom: "30px",
-        }}
-      >
-        <Button
-          color="inherit"
-          disabled={activeStep === 0}
-          onClick={handleBack}
-          sx={{ mr: 1 }}
-        >
-          regresar
-        </Button>
-        <Box />
-      
-       
-          <Button
-            onClick={handleNext}
-            sx={{
-              backgroundColor: "#05A1A1",
-              color: "white",
-              ":hover": { backgroundColor: "#05A1A1", color: "white" },
-            }}
-            type="button"
-          >
-            Siguiente
-          </Button>
-   
-      </Box>
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pt: 2,
+                justifyContent: "center",
+                gap: "60px",
+                bottom: "30px",
+              }}
+            >
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                regresar
+              </Button>
+              <Box />
+
+              <Button
+                onClick={handleNextImage}
+                sx={{
+                  backgroundColor: "#05A1A1",
+                  color: "white",
+                  ":hover": { backgroundColor: "#05A1A1", color: "white" },
+                }}
+                type="button"
+              >
+                Siguiente
+              </Button>
+            </Box>
           </>
         );
       case 2:
@@ -459,24 +574,46 @@ export default function FormStepper() {
                           {show.description}
                         </p>
                       </div>
-     
                     </div>
                   </div>
-                  <Button
-          sx={{
-            backgroundColor: "#05A1A1",
-            color: "white",
-            ":hover": { backgroundColor: "#05A1A1", color: "white" },
-          }}
-          type="submit"
 
-          >
-            Publicar
-          </Button>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      pt: 2,
+                      justifyContent: "center",
+                      gap: "60px",
+                      bottom: "30px",
+                    }}
+                  >
+                    <Button
+                      color="inherit"
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      sx={{ mr: 1 }}
+                    >
+                      regresar
+                    </Button>
+                    <Box />
+                    <Button
+                      sx={{
+                        backgroundColor: "#05A1A1",
+                        color: "white",
+                        ":hover": {
+                          backgroundColor: "#05A1A1",
+                          color: "white",
+                        },
+                      }}
+                      type="submit"
+                      onSubmit={handleSubmit}
+                    >
+                      Publicar
+                    </Button>
+                  </Box>
                 </div>
               </div>
             </div>
-         
           </div>
         );
       default:
@@ -507,13 +644,10 @@ export default function FormStepper() {
         ))}
       </Stepper>
       <Typography sx={{ display: "grid", justifyContent: "center", mt: 5 }}>
-           
-        <form action="" method="post" onSubmit={handleSubmit} >
-            
+        <form action="" method="post" onSubmit={handleSubmit}>
           {renderForm(activeStep)}
         </form>
       </Typography>
-    
     </Box>
   );
 }
