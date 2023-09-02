@@ -8,7 +8,6 @@ import {
   IconButton,
   styled,
 } from "@mui/material";
-import LightTextField from "../../utils/LightTextField";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -123,7 +122,7 @@ const AddNewUser = () => {
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   <Grid item sm={6} xs={12}>
-                    <LightTextField
+                    <input
                       fullWidth
                       name="fullName"
                       placeholder="Full Name"
@@ -135,7 +134,7 @@ const AddNewUser = () => {
                   </Grid>
 
                   <Grid item sm={6} xs={12}>
-                    <LightTextField
+                    <input
                       fullWidth
                       name="email"
                       placeholder="Email Address"
@@ -147,7 +146,7 @@ const AddNewUser = () => {
                   </Grid>
 
                   <Grid item sm={6} xs={12}>
-                    <LightTextField
+                    <input
                       fullWidth
                       name="phone"
                       placeholder="Phone Number"
@@ -159,7 +158,7 @@ const AddNewUser = () => {
                   </Grid>
 
                   <Grid item sm={6} xs={12}>
-                    <LightTextField
+                    <input
                       fullWidth
                       name="country"
                       placeholder="Country"
@@ -171,7 +170,7 @@ const AddNewUser = () => {
                   </Grid>
 
                   <Grid item sm={6} xs={12}>
-                    <LightTextField
+                    <input
                       fullWidth
                       name="state"
                       placeholder="State/Region"
@@ -183,7 +182,7 @@ const AddNewUser = () => {
                   </Grid>
 
                   <Grid item sm={6} xs={12}>
-                    <LightTextField
+                    <input
                       fullWidth
                       name="city"
                       placeholder="City"
@@ -195,7 +194,7 @@ const AddNewUser = () => {
                   </Grid>
 
                   <Grid item sm={6} xs={12}>
-                    <LightTextField
+                    <input
                       fullWidth
                       name="address"
                       placeholder="Address"
@@ -207,7 +206,7 @@ const AddNewUser = () => {
                   </Grid>
 
                   <Grid item sm={6} xs={12}>
-                    <LightTextField
+                    <input
                       fullWidth
                       name="zip"
                       placeholder="Zip/Code"
@@ -219,7 +218,7 @@ const AddNewUser = () => {
                   </Grid>
 
                   <Grid item xs={12}>
-                    <LightTextField
+                    <input
                       multiline
                       fullWidth
                       rows={10}
