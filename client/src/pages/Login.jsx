@@ -14,7 +14,7 @@ export default function Login() {
 
 
   return (
-    <div>
+    <>
       {isLoading ? (
         <div className="loading-container">
 
@@ -25,7 +25,7 @@ export default function Login() {
           <LoginForms />
         </div>
       )}
-    </div>
+    </>
   );
 }
 

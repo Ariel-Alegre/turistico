@@ -7,20 +7,28 @@
 
     .filter-type {
         color: white;
-        background-color: #05A1A1;
+        background: linear-gradient(to top, #fff 50%, #05A1A1  50%); /* Cambia 'otro-color' al color que desees */
         border-radius: 10px;
-        height: 350px;
-        width: 250px;
+        height: 650px;
+        width: 450px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .05);
+   
 
     }
 
 
     .slide {
-        height: 50vh;
-        width: 31%;
+        height: 70vh;
+        width: 50%; /* Cambia esto a 25% para mostrar 2 elementos a la vez */
         display: flex;
         justify-content: center;
-    }
+      }
+      
+      .splide-slide {
+        display: flex;
+        margin-right: 0; /* Evita espacios innecesarios entre las tarjetas */
+      }
+      
 
     .filter-type img {
         width: 120px;
@@ -30,6 +38,16 @@
         margin: 0 auto;
     }
 
+    .filter-type p {
+        color: black;
+    }
+    .slide-card { 
+        display: flex;
+        gap: 50px;
+    }
+
+   
+  
 
 
 }
@@ -37,30 +55,31 @@
 
 @media only screen and (max-width: 480px) {
     .filter-container {
-          .filter-type {
-              color: white;
-              background-color: #05A1A1;
-              border-radius: 10px;
-              height: 250px;
-              width: 150px;
-      
-          }
-          .slide {
-              display: flex;
-              justify-content: center;
-              width: 90%;
-              
-  
-          }
-  
-          .filter-type img {
-              width: 80px;
-              height: 80px;
-              border-radius: 50%;
-              display: block;
-              margin: 0 auto;
-          }
-      }
+        .filter-type {
+            color: white;
+            background-color: #05A1A1;
+            border-radius: 10px;
+            height: 250px;
+            width: 150px;
+
+        }
+
+        .slide {
+            display: flex;
+            justify-content: center;
+            width: 90%;
+
+
+        }
+
+        .filter-type img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto;
+        }
+    }
 }
 
 ;

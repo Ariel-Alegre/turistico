@@ -16,48 +16,44 @@ export default function FilterCard() {
       <Splide
         options={{
           type: "slide", // Tipo de transición (slide)
-          perPage: 2, // Número de elementos a mostrar en un slide
+          perPage: 1, // Número de elementos a mostrar en un slide
           perMove: 1, // Número de elementos a mover en cada transición
         }}
         className="slide"
       >
-        <SplideSlide>
+        <SplideSlide className="slide-card">
           <button variant="contained" className="filter-type no-spacing">
             <img src={lagos} alt="not found" />
             <p>Lagos</p>
           </button>
-        </SplideSlide>
-        <SplideSlide>
           <button variant="contained" className="filter-type no-spacing">
             <img src={montañas} alt="not found" />
             <p>Montañas</p>
           </button>
         </SplideSlide>
-        <SplideSlide>
+        <SplideSlide className="slide-card">
           <button variant="contained" className="filter-type no-spacing">
             <img src={areas_verdes} alt="not found" />
             <p>Areas verdes</p>
           </button>
-        </SplideSlide>
-        <SplideSlide>
           <button variant="contained" className="filter-type">
             <img src={parques_acuaticos} alt="not found" />
             <p>Parques acuaticos</p>
           </button>
         </SplideSlide>
+    
 
-        <SplideSlide>
+        <SplideSlide className="slide-card">
           <button variant="contained" className="filter-type">
             <img src={playas} alt="not found" />
             <p>Playas</p>
           </button>
-        </SplideSlide>
-        <SplideSlide>
           <button variant="contained" className="filter-type">
             <img src={Parques_arqueologicos} alt="not found" />
             <p>Parques arqueologicos</p>
           </button>
         </SplideSlide>
+  
       </Splide>
     </div>
   );

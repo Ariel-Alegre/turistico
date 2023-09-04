@@ -9,7 +9,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import Continent from "../Continent/Continent";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import "./Search.scss";
@@ -42,19 +41,22 @@ export default function SearchMobile() {
     <div className="search-container">
       {["top"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <div className="search-span">
+          <div className="search-button">
 
-          <span>Buscar...</span> 
-          </div>
           <button
             onClick={toggleDrawer(anchor, true)}
             sx={{
-           
+              
             }}
             className="btn-search"
-          >
-            <SearchRoundedIcon className="search-icon" />
+            >
+            Buscar por... <span className="linea">|</span>
           </button>
+          <div className="input-container">
+            <input type="text" placeholder="Buscar..." />
+            <button><SearchRoundedIcon/></button>
+          </div>
+            </div>
           <Drawer
             anchor={anchor}
             open={state[anchor]}

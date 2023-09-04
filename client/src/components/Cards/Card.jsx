@@ -48,7 +48,7 @@ function Card() {
   }, [dispatch, storedBackgroundColor, token]);
 
   return (
-    <div>
+    <div className="card-container">
       {isLoading ? (
         <Grid className="loading-skeleton">
           {Array.from(new Array(allPost.length)).map((item, index) => (
