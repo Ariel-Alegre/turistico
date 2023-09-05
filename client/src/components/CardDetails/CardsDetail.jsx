@@ -128,7 +128,7 @@ export default function CardDetails() {
       <Box sx={{ display: "grids" }}>
         <List className="list-drawer">
           <h3
-            className="btn-x"
+            className="btn-list"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
           >
