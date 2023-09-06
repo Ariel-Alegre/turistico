@@ -52,6 +52,10 @@
 
 }
 
+.search-formobile h2{
+    text-align: center;
+    margin-top: 50px;
+  }
 
 @media only screen and (max-width: 480px) {
     .filter-container {
@@ -60,9 +64,10 @@
             background-color: #05A1A1;
             border-radius: 10px;
             height: 250px;
-            width: 150px;
+            width: 250px;
 
         }
+    
 
         .slide {
             display: flex;
@@ -71,10 +76,13 @@
 
 
         }
+        .slide-card { 
+            gap: 10px;
+        }
 
         .filter-type img {
-            width: 80px;
-            height: 80px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             display: block;
             margin: 0 auto;

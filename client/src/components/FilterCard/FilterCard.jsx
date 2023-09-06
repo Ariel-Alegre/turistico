@@ -12,6 +12,10 @@ import "./FilterCard.scss";
 
 export default function FilterCard() {
   return (
+    <>
+     <div className="search-formobile">
+                <h2>Buscar por</h2>
+              </div>
     <div className="filter-container">
       <Splide
         options={{
@@ -20,7 +24,7 @@ export default function FilterCard() {
           perMove: 1, // Número de elementos a mover en cada transición
         }}
         className="slide"
-      >
+        >
         <SplideSlide className="slide-card">
           <button variant="contained" className="filter-type no-spacing">
             <img src={lagos} alt="not found" />
@@ -56,5 +60,6 @@ export default function FilterCard() {
   
       </Splide>
     </div>
+        </>
   );
 }

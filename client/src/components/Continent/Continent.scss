@@ -7,7 +7,7 @@
         background-color: transparent;
         color: black;
         width: 100%;
-        height: 16vh;
+        height: 35vh;
         border-color: white;
         transition: box-shadow 0.5s ease;
         border-radius: 10px;
@@ -27,12 +27,12 @@
         display: grid;
         justify-content: center;
         gap: 10px;
+        text-align: center;
     }
 
-    .continent img {
-        width: 150px;
-        height: 100px;
-    }
+  
+
+ 
 
 
 }
@@ -43,10 +43,14 @@
 @media only screen and (max-width: 480px) {
     .continent-container {
         margin-top: 30px;
- 
+        button {
+       
+            height: 15vh;
+       
+        }
         .continent img {
-            width: 80px;
-           height: 60px;
+            width: 150px;
+           height:60px;
   
         }
   
@@ -56,8 +60,24 @@
 @media only screen and (min-width: 1025px) and (max-width: 1728px) {
     .continent-container {
         button {
-        height: 20vh;
-
+            button {
+       
+                height: 15vh;
+           
+            }
+        }
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .continent-container {
+        button {
+       
+                height: 15vh;
+           
+        }
+        .continent img {
+            width: 180px;
+  
         }
     }
   }
