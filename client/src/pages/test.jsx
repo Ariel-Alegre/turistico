@@ -1,68 +1,46 @@
-import React, { useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Modal, Upload } from 'antd';
-const getBase64 = (file) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-const App = () => {
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
- 
-  ]);
-  const handleCancelMiniImage = () => setPreviewOpen(false);
-  const handlePreviewMiniImage = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
-    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Fade from '@mui/material/Fade';
+import CountryAmerica from '../components/Country/CountryAmerica';
+
+export default function SimpleFade() {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleButtonClick = (e) => {
+    e.stopPropagation(); // Evita que el evento se propague y cierre inmediatamente
+    setChecked((prev) => !prev);
   };
-  const handleChangeMiniImage = ({ fileList: newFileList }) => setFileList(newFileList);
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
-    </div>
-  );
+
+  const handleDocumentClick = (e) => {
+    // Verificar si el clic ocurrió dentro del componente CountryAmerica
+    if (!e.target.closest('#countryAmericaContainer')) {
+      setChecked(false); // Ocultar el componente si se hizo clic fuera de él
+    }
+  };
+
+  React.useEffect(() => {
+    // Agregar el manejador de clics al documento cuando el componente está montado
+    document.addEventListener('click', handleDocumentClick);
+
+    // Limpia el manejador de clics cuando el componente se desmonta
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
+
   return (
-    <>
-      <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        listType="picture-card"
-        fileList={fileList}
-        onPreview={handlePreviewMiniImage}
-        onChange={handleChangeMiniImage}
-        disabled
-      >
-      </Upload>
-      <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancelMiniImage}>
-        <img
-          alt="example"
-          style={{
-            width: '100%',
-          }}
-          src={previewImage}
-        />
-      </Modal>
-    </>
+    <Box sx={{ height: 180 }}>
+      <Button onClick={handleButtonClick} variant="contained" color="primary">
+        {checked ? 'Hide' : 'Show'}
+      </Button>
+      <Box sx={{ display: 'flex' }}>
+        <Fade in={checked}>
+          <div id="countryAmericaContainer">
+            {checked && <CountryAmerica />}
+          </div>
+        </Fade>
+      </Box>
+    </Box>
   );
-};
-export default App;
+}

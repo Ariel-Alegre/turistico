@@ -155,7 +155,6 @@ border-radius: 50%;
 
 @media only screen and (max-width: 480px) {
   .responsive-phone-tablet {
-    display: none;
   }
   .sidebar {
     width: 100%;
@@ -171,7 +170,6 @@ border-radius: 50%;
 
 @media only screen and (min-width: 768px) and (max-width: 1114px) {
   .responsive-phone-tablet {
-    display: none;
   }
   .sidebar {
     width: 100%;

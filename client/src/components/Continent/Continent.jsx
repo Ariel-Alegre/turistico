@@ -12,7 +12,7 @@ import CountryEuropa from "../Country/CountryEuropa";
 import CountryAsia from "../Country/CountryAsia";
 import CountryAfrica from "../Country/CountryAfrica";
 import CountryOceania from "../Country/CountryOceania";
-
+import Fade from "@mui/material/Fade";
 
 function Continent() {
   const [showAmerica, setShowAmerica] = useState(false);
@@ -22,167 +22,153 @@ function Continent() {
   const [showOceania, setShowOceania] = useState(false);
 
   const handleClickAmerica = (e) => {
-    e.preventDefault();
-    setShowAfrica(false);
-    setShowAsia(false);
-    setShowOceania(false);
-    setShowEurope(false);
-    setShowAmerica(true);
+    e.stopPropagation(); // Evita que el evento se propague y cierre inmediatamente
+    setShowAmerica((prev) => !prev);
+    setShowEurope(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowAsia(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowAfrica(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowOceania(false); // Ocultar el componente si se hizo clic fuera de él
 
   };
-
   const handleClickEurope = (e) => {
-    e.preventDefault();
-    setShowAmerica(false);
-    setShowAsia(false);
-    setShowOceania(false);
-    setShowAfrica(false);
+    e.stopPropagation(); // Evita que el evento se propague y cierre inmediatamente
+    setShowEurope((prev) => !prev);
+    setShowAmerica(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowAsia(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowAfrica(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowOceania(false); // Ocultar el componente si se hizo clic fuera de él
 
-    setShowEurope(true);
   };
-
   const handleClickAsia = (e) => {
-    e.preventDefault();
-    setShowAfrica(false);
-    setShowOceania(false);
-    setShowAmerica(false);
-    setShowEurope(false);
-    setShowAsia(true);
+    e.stopPropagation(); // Evita que el evento se propague y cierre inmediatamente
+    setShowAsia((prev) => !prev);
+    setShowAmerica(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowEurope(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowAfrica(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowOceania(false); // Ocultar el componente si se hizo clic fuera de él
+
   };
   const handleClickAfrica = (e) => {
-    e.preventDefault();
-    setShowAmerica(false);
-    setShowEurope(false);
-    setShowAsia(false);
-    setShowOceania(false);
-    setShowAfrica(true);
-  };
+    e.stopPropagation(); // Evita que el evento se propague y cierre inmediatamente
+    setShowAfrica((prev) => !prev);
+    setShowAmerica(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowEurope(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowAsia(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowOceania(false); // Ocultar el componente si se hizo clic fuera de él
 
+  };
   const handleClickOceania = (e) => {
-    e.preventDefault();
-    setShowAmerica(false);
-    setShowEurope(false);
-    setShowAsia(false);
-    setShowAfrica(false);
-    setShowOceania(true);
+    e.stopPropagation(); // Evita que el evento se propague y cierre inmediatamente
+    setShowOceania((prev) => !prev);
+    setShowAmerica(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowEurope(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowAsia(false); // Ocultar el componente si se hizo clic fuera de él
+    setShowAfrica(false); // Ocultar el componente si se hizo clic fuera de él
+
   };
 
-  const componentRef = useRef(null);
+  const handleDocumentClick = (e) => {
+    // Verificar si el clic ocurrió dentro del componente CountryAmerica
+    if (!e.target.closest("#countryAmericaContainer")) {
+      setShowAmerica(false); // Ocultar el componente si se hizo clic fuera de él
 
+   
+    }
+    if (!e.target.closest("#countryEuropeContainer")) {
+    // Ocultar el componente si se hizo clic fuera de él
+    
+      setShowEurope(false); // Ocultar el componente si se hizo clic fuera de él
+    }
+    if (!e.target.closest("#countryAsiaContainer")) {
+     // Ocultar el componente si se hizo clic fuera de él
+    setShowAsia(false); // Ocultar el componente si se hizo clic fuera de él
+
+    }
+
+    if (!e.target.closest("#countryAfricaContainer")) {
+      // Ocultar el componente si se hizo clic fuera de él
+      setShowAfrica(false); // Ocultar el componente si se hizo clic fuera de él
+ 
+     }
+     if (!e.target.closest("#handleClickOceania")) {
+      // Ocultar el componente si se hizo clic fuera de él
+      setShowOceania(false); // Ocultar el componente si se hizo clic fuera de él
+ 
+     }
+  };
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (componentRef.current && !componentRef.current.contains(event.target)) {
-        setShowAmerica(false);
-        setShowEurope(false);
-        setShowAsia(false);
-        setShowAfrica(false);
-        setShowOceania(false);
-      }
-    };
+    // Agregar el manejador de clics al documento cuando el componente está montado
+    document.addEventListener("click", handleDocumentClick);
 
-    document.addEventListener("mousedown", handleClickOutside);
-
+    // Limpia el manejador de clics cuando el componente se desmonta
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleDocumentClick);
     };
   }, []);
 
- 
-
   return (
     <>
-       
       <div className="continent-container">
-          <button variant="contained" onClick={handleClickAmerica}>
-            <div className="continent">
-
-              <img src={america} alt="not found" />
-             <p>
-
-              America
-             </p>
-            </div>
-          </button>
-
-          <button variant="contained" onClick={handleClickEurope}>
-            <div className="continent">
-              <img src={europa} alt="not found" />
-            <p>
-
-              Europa
-            </p>
-            </div>
-          </button>
-          <button variant="contained" onClick={handleClickAsia}>
-            <div className="continent">
-              <img src={asia} alt="not found" />
-            <p>
-
-              Asia
-            </p>
-
-            </div>
-          </button>
-          <button variant="contained" onClick={handleClickAfrica}>
-            <div className="continent">
-              <img src={africa} alt="not found" />
-            <p>
-
-              Africa
-            </p>
-
-            </div>
-          </button>
-          <button variant="contained" onClick={handleClickOceania}>
-            <div className="continent">
-
-              <img src={africa} alt="not found" />
-             <p>
-
-              Oceania
-             </p>
-
-            </div>
-          </button>
+        <button variant="contained" onClick={handleClickAmerica}>
+          <div className="continent">
+            <img src={america} alt="not found" />
+            <p>America</p>
+          </div>
+        </button>
+        <button variant="contained" onClick={handleClickEurope}>
+          <div className="continent">
+            <img src={europa} alt="not found" />
+            <p>Europa</p>
+          </div>
+        </button>
+        <button variant="contained" onClick={handleClickAsia}>
+          <div className="continent">
+            <img src={asia} alt="not found" />
+            <p>Asia</p>
+          </div>
+        </button>
+        <button variant="contained" onClick={handleClickAfrica}>
+          <div className="continent">
+            <img src={africa} alt="not found" />
+            <p>Africa</p>
+          </div>
+        </button>
+        <button variant="contained" onClick={handleClickOceania}>
+          <div className="continent">
+            <img src={america} alt="not found" />
+            <p>Oceania</p>
+          </div>
+        </button>
       </div>
-      <div  ref={componentRef}>
-
-      {showAmerica ? (
-
-        <CountryAmerica
-          showAmerica={showAmerica}
-          setShowAmerica={setShowAmerica}
-          />
-        ) : (
-        <div></div>
-        )}
-      {showEurope ? (
-        <CountryEuropa showEurope={showEurope} setShowEurope={setShowEurope} />
-        ) : (
-        <div></div>
-      )}
-      {showAsia ? (
-        <CountryAsia showAsia={showAsia} setShowAsia={setShowAsia} />
-      ) : (
-        <div></div>
-        )}
-      {showAfrica ? (
-        <CountryAfrica showAfrica={showAfrica} setShowAfrica={setShowAfrica} />
-      ) : (
-        <div></div>
-        )}
-      {showOceania ? (
-        <CountryOceania
-        showOceania={showOceania}
-        setShowOceania={setShowOceania}
-        />
-        ) : (
-        <div></div>
-      )}
-
-    
-        </div>
-      </>
+      <div>
+        <Fade in={showAmerica}>
+          <div id="countryAmericaContainer">
+            {showAmerica && <CountryAmerica />}
+          </div>
+        </Fade>
+        <Fade in={showEurope}>
+          <div id="countryEuropeContainer">
+            {showEurope && <CountryEuropa />}
+          </div>
+        </Fade>
+        <Fade in={showAsia}>
+          <div id="countryAsiaContainer" >
+            {showAsia && <CountryAsia />}
+          </div>
+        </Fade>
+        <Fade in={showAfrica}>
+          <div id="countryAfricaContainer" >
+            {showAfrica && <CountryAfrica />}
+          </div>
+        </Fade>
+        <Fade in={showOceania}>
+          <div id="countryOceaniaContainer" >
+            {showOceania && <CountryOceania />}
+          </div>
+        </Fade>
+      </div>
+      
+    </>
   );
 }
 

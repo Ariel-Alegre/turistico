@@ -9,6 +9,9 @@
     .icons {
         font-size: 30px;
     }
+    a {
+        text-decoration: none;
+    }
 }
 
 .text-account h1 {
@@ -35,11 +38,11 @@
         font-size: 18px;
 
     }
-    a {
-        color: #05A1A1;
-        text-decoration: underline;
-    }
 }
+.sub-text a {
+     color: #05A1A1;
+     text-decoration: underline;
+ }
 
 @media only  screen and (max-width: 480px) {
     .card-container {

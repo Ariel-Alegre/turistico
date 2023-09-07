@@ -33,19 +33,18 @@ const validate = (input) => {
     errors.description = "la descripcion es requerido";
   }
 
-  if (!input.price) {
-    errors.price = "el precio es requerido required";
+  if (input.status !== "Público") {
+    if (!input.price) {
+      errors.price = "El precio es requerido";
+    }
+    
+    if (!input.stay) {
+      errors.stay = "La estadía es requerida";
+    }
   }
 
-  if (!input.stay) {
-    errors.stay = "la estadia es requerida";
-  }
   if (!input.summary) {
-    errors.summary = "la descripcion es requerido";
-  }
-
-  if (!input.summary) {
-    errors.summary = "la descripcion es requerido";
+    errors.summary = "El resumen es requerido";
   }
 
   return errors;
@@ -55,6 +54,10 @@ const validateImage = (input) => {
   let errors = {};
 
   if (input.imageFile.length >= 4) {
+    errors.imageFile = "Debes subir al menos 4 imágenes";
+  }
+
+  if (!input.imageFile) {
     errors.imageFile = "Debes subir al menos 4 imágenes";
   }
 
@@ -72,7 +75,6 @@ export default function FormStepper() {
   const [errors, setErrors] = useState({});
   const [activeStep, setActiveStep] = useState(0);
   const dispatch = useDispatch();
-  const options = ["Por noche", "Por semana", "Por mes"];
   const [inputValue, setInputValue] = useState("");
   const datapersonal = useSelector((state) => state.datapersonal);
   const token = useSelector((state) => state.token);
@@ -86,6 +88,7 @@ export default function FormStepper() {
     summary: "",
     description: "",
     type: "",
+    status: "",
   });
 
   const handleNext = (event) => {
@@ -96,7 +99,8 @@ export default function FormStepper() {
 
     const form = event.currentTarget;
     console.log("Form validity:", form.checkValidity()); // Agregar este log
-
+ 
+   
     if (form.checkValidity() === false || Object.keys(newErrors).length > 0) {
       event.preventDefault();
       event.stopPropagation();
@@ -109,14 +113,15 @@ export default function FormStepper() {
 
   const handleNextImage = () => {
     const newErrors = validateImage(show); // Validar las imágenes
-    console.log("New errors:", newErrors); // Agregar este log
-
-    if (Object.keys(newErrors).length === 0) {
+    console.log("New errors:", newErrors);
+  
+    if (Object.keys(newErrors).length === 0 && show.images.length >= 4) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
-      alert("Llene los campos correctamente");
+      alert("Debes subir al menos 4 imágenes correctamente.");
     }
   };
+  
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -203,6 +208,13 @@ export default function FormStepper() {
       stay: newValue,
     }));
   };
+  const handleStatus = (event) => {
+    const newValue = event.target.value;
+    setShow((prevState) => ({
+      ...prevState,
+      status: newValue,
+    }));
+  };
 
   const handleRemove = (index) => {
     const newFilesArray = [...show.images];
@@ -230,14 +242,36 @@ export default function FormStepper() {
   const handleChangeMiniImage = ({ fileList: newFileList }) =>
     setShow(newFileList);
 
+  const options = ["Por noche", "Por semana", "Por mes"];
+  const status = ["Público", "Privado"];
+
   const renderForm = (step) => {
     switch (step) {
       case 0:
         return (
           <div>
             <Form noValidate validated={validated}>
+              <Form.Group as={Col} md="15" controlId="validationCustomStatus">
+                <Form.Label>Estado</Form.Label>
+                <Form.Select
+                  defaultValue={show.status}
+                  onChange={handleStatus}
+                  aria-label="Estado"
+                  required
+                >
+                  <option value="">Seleccione una opción</option>
+                  {status.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Form.Select>
+                <Form.Control.Feedback type="invalid">
+                  Por favor seleccione una opción.
+                </Form.Control.Feedback>
+              </Form.Group>
               <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustomTitle">
+                <Form.Group as={Col} md="15" controlId="validationCustomTitle">
                   <Form.Label>Titulo</Form.Label>
                   <Form.Control
                     required
@@ -250,46 +284,61 @@ export default function FormStepper() {
                     Por favor se requiere un titulo.
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomPrecio">
-                  <Form.Label>Precio</Form.Label>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text>$</InputGroup.Text>
-                    <Form.Control
-                      aria-label="Amount (to the nearest dollar)"
-                      required
-                      type="number"
-                      defaultValue={show.price}
-                      onChange={handlePrice}
-                    />
-                    <InputGroup.Text>.00</InputGroup.Text>
-                    <Form.Control.Feedback type="invalid">
-                      Por favor se requiere un precio.
-                    </Form.Control.Feedback>
-                  </InputGroup>
-                </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomStay">
-                  <Form.Label>Estadia</Form.Label>
-                  <Form.Select
-                    defaultValue={show.stay}
-                    onChange={handleStay}
-                    aria-label="Estadia"
-                    required
+
+                {show.status === "Privado" ? (
+                  <Form.Group
+                    as={Col}
+                    md="15"
+                    controlId="validationCustomPrecio"
                   >
-                    <option value="">Seleccione una opción</option>
-                    {options.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </Form.Select>
-                  <Form.Control.Feedback type="invalid">
-                    Por favor seleccione una opción de estadía.
-                  </Form.Control.Feedback>
-                </Form.Group>
+                    <Form.Label>Precio</Form.Label>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Text>$</InputGroup.Text>
+                      <Form.Control
+                        aria-label="Amount (to the nearest dollar)"
+                        type="number"
+                        defaultValue={show.price}
+                        onChange={handlePrice}
+                        required={show.status === "Privado"} 
+                      />
+                      <InputGroup.Text>.00</InputGroup.Text>
+                      <Form.Control.Feedback type="invalid">
+                        Por favor se requiere un precio.
+                      </Form.Control.Feedback>
+                    </InputGroup>
+                  </Form.Group>
+                ) : (
+                  <div></div>
+                )}
+                {show.status === "Privado" ? (
+                  <Form.Group as={Col} md="15" controlId="validationCustomStay">
+                    <Form.Label>Estadia</Form.Label>
+                    <Form.Select
+                      defaultValue={show.stay}
+                      onChange={handleStay}
+                      aria-label="Estadia"
+                      required={show.status === "Privado"} 
+                    >
+                      <option value="">Seleccione una opción</option>
+                      {options.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">
+                      Por favor seleccione una opción de estadía.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                ) : (
+                  <div></div>
+                )}
               </Row>
               <Row className="mb-3">
                 <Form.Group
                   className="mb-3"
+                  md="15"
+
                   controlId="validationCustomSummary"
                 >
                   <Form.Label>Resumen del lugar.</Form.Label>
@@ -338,7 +387,7 @@ export default function FormStepper() {
               <Box />
 
               <Button
-                onClick={handleNext}
+                onClick={ handleNext }
                 sx={{
                   backgroundColor: "#05A1A1",
                   color: "white",
@@ -366,7 +415,7 @@ export default function FormStepper() {
                   backgroundColor: isDragActive ? "#f8f8f8" : "white",
                 }}
               >
-                <input {...getInputProps()} />
+                <input {...getInputProps()} required />
                 {isDragActive ? (
                   <p>Suelta las imágenes aquí...</p>
                 ) : (
@@ -392,14 +441,12 @@ export default function FormStepper() {
                   {show.images &&
                     show.images.map((file, index) => (
                       <div key={index}>
-                             <div className="btn-x">
+                        <div className="btn-x">
                           <button
                             type="button"
                             onClick={() => handleRemove(index)}
                           >
-                           <strong>
-                             X
-                            </strong>
+                            <strong>X</strong>
                           </button>
                         </div>
                         {file && (
@@ -410,7 +457,6 @@ export default function FormStepper() {
                             />
                           </Upload>
                         )}
-                   
                       </div>
                     ))}
                 </div>
@@ -529,6 +575,8 @@ export default function FormStepper() {
                   </div>
 
                   {/* Options */}
+                  {show.status === "Privado" ? (
+
                   <div className="mt-4 lg:row-span-3 lg:mt-0">
                     <p className="text-3xl tracking-tight text-gray-900">
                       {show.price ? (
@@ -553,6 +601,27 @@ export default function FormStepper() {
                       Reservar
                     </div>
                   </div>
+                  ):     <div className="mt-4 lg:row-span-3 lg:mt-0">
+                  <p className="text-3xl tracking-tight text-gray-900">
+                  <img src={require("../../assets/logo/Logo.jpg")} alt="" />
+                    <div>
+                      <div className="space-y-6">
+                        {inputValue ? (
+                          <h3 className="text-base text-gray-900">
+                            {inputValue}
+                          </h3>
+                        ) : (
+                          <h3 className="text-base text-gray-900"></h3>
+                        )}
+                      </div>
+                    </div>
+                  </p>
+
+                  <div className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva">
+                   Gratis
+                  </div>
+                </div>}
+
 
                   <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
                     {/* Description and details */}
