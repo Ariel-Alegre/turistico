@@ -24,7 +24,6 @@ import Skeleton from "@mui/material/Skeleton";
 import Grid from "@mui/material/Grid";
 import LoginForms from "../LoginForms/LoginForms";
 import {  Modal } from 'antd';
-import Modal2 from 'react-bootstrap/Modal';
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 
@@ -44,7 +43,9 @@ export default function BasicMenu() {
 
   const showModalRegister = () => {
     setAnchorEl(null);
+    setIsModalOpen(false);
     setIsModalOpenRegister(true);
+
   };
 
   const handleOkRegister = () => {
@@ -57,7 +58,9 @@ export default function BasicMenu() {
 
   const showModal = () => {
     setAnchorEl(null);
+    setIsModalOpenRegister(false);
     setIsModalOpen(true);
+
   };
 
   const handleOk = () => {
@@ -78,12 +81,15 @@ export default function BasicMenu() {
   const handleClickOpenLogout = () => {
     setAnchorEl(null);
     setOpenLogout(true);
+    setIsModalOpen(false);
+
 
   };
 
   const handleCloseLogout = () => {
     setAnchorEl(null);
     setOpenLogout(false);
+    
 
   };
 
