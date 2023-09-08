@@ -1,6 +1,5 @@
 .login-container {
     background: white;
-    height: 100vh;
 }
 
 .button-login  {
@@ -45,3 +44,25 @@ outline: none;
         color: #05A1A1;
         margin-left: 50%;
     }
+
+/* LoginForms.scss */
+
+.horizontal-line-with-o {
+    width: 100%;
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+    margin: 20px 0; /* Ajusta el margen superior e inferior según sea necesario */
+  }
+  
+  .line {
+    flex: 1;
+    height: 1px; /* Altura de la línea */
+    background-color: #ccc; /* Color de la línea */
+    margin: 0 10px; /* Espacio entre la línea y la letra "O" */
+  }
+  
+  .letter {
+    font-size: 20px; /* Ajusta el tamaño de la letra "O" según tus preferencias */
+    color: #909090; /* Color de la línea */
+    /* Otros estilos de la letra "O" */
+  }

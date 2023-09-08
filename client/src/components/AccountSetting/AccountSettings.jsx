@@ -1,8 +1,5 @@
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "./AccountSettings.scss";
 import { Link } from "react-router-dom";
@@ -22,6 +19,8 @@ export default function BasicCard() {
   useEffect(() => {
     dispatch(dataPersonal(token));
   }, [token]);
+
+  
   return (
     <div>
       <div className="text-account">

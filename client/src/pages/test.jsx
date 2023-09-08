@@ -1,46 +1,54 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Fade from '@mui/material/Fade';
-import CountryAmerica from '../components/Country/CountryAmerica';
-
-export default function SimpleFade() {
-  const [checked, setChecked] = React.useState(false);
-
-  const handleButtonClick = (e) => {
-    e.stopPropagation(); // Evita que el evento se propague y cierre inmediatamente
-    setChecked((prev) => !prev);
+import React, { useState } from 'react';
+import { PoweroffOutlined } from '@ant-design/icons';
+import { Button, Space } from 'antd';
+const App = () => {
+  const [loadings, setLoadings] = useState([]);
+  const enterLoading = (index) => {
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = true;
+      return newLoadings;
+    });
+    setTimeout(() => {
+      setLoadings((prevLoadings) => {
+        const newLoadings = [...prevLoadings];
+        newLoadings[index] = false;
+        return newLoadings;
+      });
+    }, 6000);
   };
-
-  const handleDocumentClick = (e) => {
-    // Verificar si el clic ocurrió dentro del componente CountryAmerica
-    if (!e.target.closest('#countryAmericaContainer')) {
-      setChecked(false); // Ocultar el componente si se hizo clic fuera de él
-    }
-  };
-
-  React.useEffect(() => {
-    // Agregar el manejador de clics al documento cuando el componente está montado
-    document.addEventListener('click', handleDocumentClick);
-
-    // Limpia el manejador de clics cuando el componente se desmonta
-    return () => {
-      document.removeEventListener('click', handleDocumentClick);
-    };
-  }, []);
-
   return (
-    <Box sx={{ height: 180 }}>
-      <Button onClick={handleButtonClick} variant="contained" color="primary">
-        {checked ? 'Hide' : 'Show'}
-      </Button>
-      <Box sx={{ display: 'flex' }}>
-        <Fade in={checked}>
-          <div id="countryAmericaContainer">
-            {checked && <CountryAmerica />}
-          </div>
-        </Fade>
-      </Box>
-    </Box>
+    <Space direction="vertical">
+      <Space wrap>
+        <Button type="primary" loading>
+          Loading
+        </Button>
+        <Button type="primary" size="small" loading>
+          Loading
+        </Button>
+        <Button type="primary" icon={<PoweroffOutlined />} loading />
+      </Space>
+
+      <Space wrap>
+        <Button type="primary" loading={loadings[0]} onClick={() => enterLoading(0)}>
+          Click me!
+        </Button>
+        <Button
+          type="primary"
+          icon={<PoweroffOutlined />}
+          loading={loadings[1]}
+          onClick={() => enterLoading(1)}
+        >
+          Click me!
+        </Button>
+        <Button
+          type="primary"
+          icon={<PoweroffOutlined />}
+          loading={loadings[2]}
+          onClick={() => enterLoading(2)}
+        />
+      </Space>
+    </Space>
   );
-}
+};
+export default App;

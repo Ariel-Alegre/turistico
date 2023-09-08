@@ -2,7 +2,6 @@ import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-
 import "./header.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -23,17 +22,53 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Skeleton from "@mui/material/Skeleton";
 import Grid from "@mui/material/Grid";
+import LoginForms from "../LoginForms/LoginForms";
+import {  Modal } from 'antd';
+import Modal2 from 'react-bootstrap/Modal';
+import RegisterForm from "../RegisterForm/RegisterForm";
+
+
 
 export default function BasicMenu() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const datapersonal = useSelector(state => state.datapersonal);
-  const [show, setShow] = React.useState(false);
+
+
   const [openPublic, setOpenPublic] = React.useState(false);
   const [openLogout, setOpenLogout] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
 
-  console.log(datapersonal);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalOpenRegister, setIsModalOpenRegister] = React.useState(false);
+
+  const showModalRegister = () => {
+    setAnchorEl(null);
+    setIsModalOpenRegister(true);
+  };
+
+  const handleOkRegister = () => {
+    setIsModalOpenRegister(false);
+  };
+
+  const handleCancelRegister = () => {
+    setIsModalOpenRegister(false);
+  };
+
+  const showModal = () => {
+    setAnchorEl(null);
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+ 
+
   React.useEffect(() => {
     setTimeout(() => {
       setIsLoading(false); // Cambiar el estado de isLoading a "false" después de cierto tiempo
@@ -72,6 +107,7 @@ export default function BasicMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+   
   };
   React.useEffect(() => {
     dispatch(dataPersonal(token))
@@ -156,7 +192,7 @@ export default function BasicMenu() {
 
 
                   {token ? (
-
+                    
                     <Avatar sx={{ width: 32, height: 32, backgroundColor: avatarBackgroundColor }} >{datapersonal.name && datapersonal.name[0].toUpperCase()}</Avatar>
                   ) : (
                     <Avatar sx={{ width: 32, height: 32 }}></Avatar>
@@ -168,6 +204,7 @@ export default function BasicMenu() {
         </Box>
       </div>
       {token === null ? (
+        <div>
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
@@ -186,16 +223,15 @@ export default function BasicMenu() {
         >
 
 
-          <a href='/auth/login' className="text-link">
-            <MenuItem className="menu-items" onClick={handleClose}>
+
+            <MenuItem className="menu-items" onClick={showModal} >
               Iniciar sesión
             </MenuItem>
-          </a>
-          <Link to='/auth/register' className="text-link">
-            <MenuItem onClick={handleClose} className="menu-items">
+
+        
+            <MenuItem onClick={showModalRegister} className="menu-items">
               Registrate
             </MenuItem>
-          </Link>
 
 
           <MenuItem onClick={handleClickOpenPublic} className="menu-items">
@@ -208,9 +244,29 @@ export default function BasicMenu() {
               backgroundColor: "var(--grey)",
               width: "100%",
             }}
-          />
+            />
+        </Menu>
+        <Modal
+        visible={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null} // Esto quita los botones "Ok" y "Cancel"
+      >
+        <LoginForms />
+      </Modal>
+      <Modal
+        visible={isModalOpenRegister}
+        onOk={handleOkRegister}
+        onCancel={handleCancelRegister}
+        footer={null} // Esto quita los botones "Ok" y "Cancel"
+      >
+        <RegisterForm />
+      </Modal>
+        </div>
+     
 
-        </Menu>)
+      
+        )
         : (
           <Menu
             id="basic-menu"
