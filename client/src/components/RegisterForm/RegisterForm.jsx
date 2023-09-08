@@ -45,7 +45,7 @@ export default function RegisterForm() {
     Swal.fire({
       icon: "success",
       title: "Registrado con exito",
-      confirmButtonText: '<a href="/auth/login" class="swal-btn">Iniciar sesión</a>',
+      confirmButtonText: '<a href="/" class="swal-btn">Iniciar sesión</a>',
       confirmButtonColor: '#05A1A1',
     });
   };
