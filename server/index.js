@@ -5,7 +5,7 @@ const routers = require('./routes/index');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const PORT = process.env.PORT 
+const PORT = process.env.PORT || 4000
 const cloudinary = require('cloudinary').v2; // Importa la SDK de Cloudinary
 cloudinary.config({
     cloud_name: 'dz0lruj7k',
