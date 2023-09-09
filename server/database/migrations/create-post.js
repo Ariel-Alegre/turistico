@@ -30,7 +30,7 @@ module.exports = {
       imageFile: {
         type: Sequelize.ARRAY(Sequelize.STRING), // Almacena la ruta de la imagen en el sistema de archivos
       },
-      type: {
+      status: {
         type: Sequelize.STRING,
       },
       createdAt: {

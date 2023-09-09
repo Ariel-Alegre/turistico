@@ -46,24 +46,38 @@ module.exports = {
         if (err) {
           return res.sendStatus(401);
         } else {
-          const { title, price, stay, summary, description, type } = req.body;
+          const { title, price, stay, summary, description, status } = req.body;
 
-          const newPost = await Post.create({
-            title,
-            price,
-            stay,
-            summary,
-            description,
-            type,
-            imageFile: imageUrls,
-          });
+          if (status === "Privado") {
+            
+            const newPost = await Post.create({
+              title,
+              price,
+              stay,
+              summary,
+              description,
+              status,
+              imageFile: imageUrls,
+            });
+            // Asociamos automáticamente el usuario que está creando la publicación
+            const userId = decoded.id;
+            await newPost.addUser(userId);
+          } else if ("Público") {
+            const newPostPublic = await Post.create({
+              title,
+              summary,
+              description,
+              status,
+              imageFile: imageUrls,
+            });
+            const userId = decoded.id;
+            await newPostPublic.addUser(userId);
+          }
 
-          // Asociamos automáticamente el usuario que está creando la publicación
-          const userId = decoded.id;
-          await newPost.addUser(userId);
+
 
           console.log('Post creado correctamente');
-          res.status(201).json({ message: 'Post creado exitosamente', post: newPost });
+          res.status(201).json({ message: 'Post creado exitosamente' });
         }
       });
     } catch (error) {
