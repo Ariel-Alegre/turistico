@@ -2,17 +2,16 @@ import Header from "../components/Header";
 import Continent from "../components/Continent/Continent";
 import FooterHome from "../components/FooterHome/FooterHome";
 import Cards from "../components/Cards/Card";
-import '../styles/style.scss';
 
 function App() {
   return (
-    <div className="page-bg">
+    <div >
     <Header />
       <Continent />
-      <div className="card-bg">
+      <div >
         <Cards />
       </div>
-      <div className="footer-bg">
+      <div >
 
       <FooterHome />
       </div>

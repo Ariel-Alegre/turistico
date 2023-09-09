@@ -14,12 +14,13 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { dataPersonal, createPost } from "../../redux/action";
 import Modal from "@mui/material/Modal";
 import "./styles.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import { Upload } from "antd";
+import { Upload, } from "antd";
+import BeatLoader from "react-loading";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
@@ -64,13 +65,7 @@ const validateImage = (input) => {
   return errors;
 };
 
-const getBase64 = (file) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
+
 export default function FormStepper() {
   const [errors, setErrors] = useState({});
   const [activeStep, setActiveStep] = useState(0);
@@ -79,7 +74,8 @@ export default function FormStepper() {
   const datapersonal = useSelector((state) => state.datapersonal);
   const token = useSelector((state) => state.token);
   const [validated, setValidated] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
   const [show, setShow] = useState({
     title: "",
     price: "",
@@ -87,9 +83,9 @@ export default function FormStepper() {
     imageFile: [],
     summary: "",
     description: "",
-    type: "",
     status: "",
   });
+
 
   const handleNext = (event) => {
     const newErrors = validate(show); // Validar los campos
@@ -148,20 +144,22 @@ export default function FormStepper() {
     e.preventDefault();
 
     try {
-      const formData = new FormData();
-      formData.append("title", show.title);
-      formData.append("price", show.price);
-      formData.append("stay", show.stay);
-      formData.append("summary", show.summary);
-      formData.append("description", show.description);
+        const formData = new FormData();
+        formData.append("title", show.title);
+        formData.append("price", show.price);
+        formData.append("stay", show.stay);
+        formData.append("summary", show.summary);
+        formData.append("description", show.description);
+      formData.append("status", show.status);
+
 
       show.images.forEach((image, index) => {
         formData.append("imageFile", image);
       });
-
+      setIsLoading(true);
       const createdPost = await dispatch(createPost(formData, token));
       console.log("Post creado exitosamente:", createdPost);
-
+      
       const newErrors = validate(show); // Validar los campos
       setErrors(newErrors); // Actualizar los errores
 
@@ -169,8 +167,12 @@ export default function FormStepper() {
     } catch (error) {
       console.error("Error al crear el post:", error);
       // Manejo de error, muestra un mensaje de error, etc.
-    }
+    } 
+    setTimeout(async () => {
+      navigate('/')
+    }, 1000)
   };
+  
 
   const handleTittle = (e) => {
     e.preventDefault();
@@ -224,7 +226,7 @@ export default function FormStepper() {
       images: newFilesArray,
     }));
   };
-  const [previewOpen, setPreviewOpen] = useState(false);
+/*   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
 
@@ -240,7 +242,9 @@ export default function FormStepper() {
     );
   };
   const handleChangeMiniImage = ({ fileList: newFileList }) =>
-    setShow(newFileList);
+    setShow(newFileList); */
+
+    
 
   const options = ["Por noche", "Por semana", "Por mes"];
   const status = ["Público", "Privado"];
@@ -499,18 +503,29 @@ export default function FormStepper() {
         );
       case 2:
         return (
-          <div className="responsive-phone-tablet">
-            <div className="bg-white">
+
+            <div className= "responsive-phone-tablet">
+              {isLoading ? (
+  <div className="loading-overlay">
+    <div>
+          <BeatLoader color="#05A1A1" size="80" />
+
+    </div>
+  </div>
+): (
+
+  
+  <div className="bg-white">
               <div className="pt-6">
-                {show.title ? (
-                  <h1 className="title">{show.title}</h1>
+              {show.title ? (
+                <h1 className="title">{show.title}</h1>
                 ) : (
                   <h1 className="title">Titulo</h1>
-                )}
-
-                {/* Image gallery */}
-                {["top"].map((anchor) => (
-                  <React.Fragment key={anchor}>
+                  )}
+                  
+                  {/* Image gallery */}
+                  {["top"].map((anchor) => (
+                    <React.Fragment key={anchor}>
                     <div>
                       <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                         {show.images && show.images.length > 0 ? (
@@ -519,7 +534,7 @@ export default function FormStepper() {
                               src={URL.createObjectURL(show.images[0])}
                               alt={show.error}
                               className="h-full w-full object-cover object-center hover-image"
-                            />
+                              />
                           </div>
                         ) : (
                           <div className="x">+</div>
@@ -532,7 +547,7 @@ export default function FormStepper() {
                                 src={URL.createObjectURL(show.images[1])}
                                 alt={show.images[1].alt}
                                 className="h-full w-full object-cover object-center hover-image"
-                              />
+                                />
                             </div>
                           ) : (
                             <div className="x">+</div>
@@ -544,7 +559,7 @@ export default function FormStepper() {
                                 src={URL.createObjectURL(show.images[2])}
                                 alt={show.images[2].alt}
                                 className="h-full w-full object-cover object-center hover-image"
-                              />
+                                />
                             </div>
                           ) : (
                             <div className="x"> +</div>
@@ -556,7 +571,7 @@ export default function FormStepper() {
                               src={URL.createObjectURL(show.images[3])}
                               alt={show.images[3].alt}
                               className="h-full w-full object-cover object-center hover-image"
-                            />
+                              />
                           </div>
                         ) : (
                           <div className="x">+</div>
@@ -565,46 +580,45 @@ export default function FormStepper() {
                     </div>
                   </React.Fragment>
                 ))}
-
+                
                 {/* show info */}
                 <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
                   <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                    <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                      Lugar para quedarse. Anfitrión: {datapersonal.name}
-                    </h1>
+                  <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                  Lugar para quedarse. Anfitrión: {datapersonal.name}
+                  </h1>
                   </div>
-
+                  
                   {/* Options */}
                   {show.status === "Privado" ? (
 
-                  <div className="mt-4 lg:row-span-3 lg:mt-0">
-                    <p className="text-3xl tracking-tight text-gray-900">
+                    <div className="mt-4 lg:row-span-3 lg:mt-0">
+                  <p className="text-3xl tracking-tight text-gray-900">
                       {show.price ? (
                         <span>$ {show.price}</span>
-                      ) : (
-                        <span>precio</span>
+                        ) : (
+                          <span>precio</span>
                       )}
                       <div>
-                        <div className="space-y-6">
-                          {inputValue ? (
+                      <div className="space-y-6">
+                      {inputValue ? (
                             <h3 className="text-base text-gray-900">
-                              {inputValue}
+                            {inputValue}
                             </h3>
                           ) : (
                             <h3 className="text-base text-gray-900">Estadia</h3>
-                          )}
-                        </div>
+                            )}
+                            </div>
                       </div>
-                    </p>
-
-                    <div className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva">
+                      </p>
+                      
+                      <div className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva">
                       Reservar
-                    </div>
-                  </div>
-                  ):     <div className="mt-4 lg:row-span-3 lg:mt-0">
-                  <p className="text-3xl tracking-tight text-gray-900">
-                  <img src={require("../../assets/logo/Logo.jpg")} alt="" />
-                    <div>
+                      </div>
+                      </div>
+                      ):     <div className="mt-4 lg:row-span-3 lg:mt-0">
+                      <p className="text-3xl tracking-tight text-gray-900">
+                      <div>
                       <div className="space-y-6">
                         {inputValue ? (
                           <h3 className="text-base text-gray-900">
@@ -616,36 +630,36 @@ export default function FormStepper() {
                       </div>
                     </div>
                   </p>
-
+                  
                   <div className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserva">
                    Gratis
-                  </div>
-                </div>}
-
-
-                  <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-                    {/* Description and details */}
-                    <div>
-                      <div className="space-y-6">
-                        <p className="text-base text-gray-900">
-                          {show.summary && show.summary}
+                   </div>
+                   </div>}
+                   
+                   
+                   <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+                   {/* Description and details */}
+                   <div>
+                   <div className="space-y-6">
+                   <p className="text-base text-gray-900">
+                   {show.summary && show.summary}
                         </p>
                       </div>
                     </div>
 
                     <div className="mt-10">
-                      <h2 className="text-sm font-medium text-gray-900">
-                        Descripción
+                    <h2 className="text-sm font-medium text-gray-900">
+                    Descripción
                       </h2>
 
                       <div className="mt-4 space-y-6 des">
-                        <p className="text-sm text-gray-600 ">
-                          {show.description}
-                        </p>
+                      <p className="text-sm text-gray-600 ">
+                      {show.description}
+                      </p>
                       </div>
-                    </div>
-                  </div>
-
+                      </div>
+                      </div>
+                      
                   <Box
                     sx={{
                       display: "flex",
@@ -655,17 +669,17 @@ export default function FormStepper() {
                       gap: "60px",
                       bottom: "30px",
                     }}
-                  >
+                    >
                     <Button
-                      color="inherit"
-                      disabled={activeStep === 0}
+                    color="inherit"
+                    disabled={activeStep === 0}
                       onClick={handleBack}
                       sx={{ mr: 1 }}
-                    >
+                      >
                       regresar
-                    </Button>
-                    <Box />
-                    <Button
+                      </Button>
+                      <Box />
+                      <Button
                       sx={{
                         backgroundColor: "#05A1A1",
                         color: "white",
@@ -675,14 +689,14 @@ export default function FormStepper() {
                         },
                       }}
                       type="submit"
-                      onSubmit={handleSubmit}
                     >
                       Publicar
                     </Button>
                   </Box>
-                </div>
+                  </div>
               </div>
             </div>
+          )}
           </div>
         );
       default:
@@ -714,6 +728,7 @@ export default function FormStepper() {
       </Stepper>
       <Typography sx={{ display: "grid", justifyContent: "center", mt: 5 }}>
         <form action="" method="post" onSubmit={handleSubmit}>
+
           {renderForm(activeStep)}
         </form>
       </Typography>

@@ -18,7 +18,7 @@ function Card() {
   const datapersonal = useSelector((state) => state.datapersonal);
   const token = useSelector((state) => state.token);
 
-  console.log(allPost.map((s) => s.Posts.map((d) => d.id)));
+  console.log(datapersonal);
 
   function getRandomColor() {
     const letters = "0123456789ABCDEF";
@@ -97,33 +97,69 @@ function Card() {
                   </div>
                 </div>
                 <Link to="/rooms" className="text-link">
-                  <p className="summary-card">
-                    {info.summary}
+     
+                  {info.status === "Público" ? (
+                    <div>
+
+                          <p className="summary-card">
+                          {info.summary}
+                          <p
+                            style={{
+                              margin: "0.2rem",
+                              fontSize: "1rem",
+                              color: "var(--black)",
+                            }}
+                            >
+                            <span style={{ fontWeight: "600" }}>Gratis</span>{" "}
+                       
+                          </p>
+                        </p>
+
                     <p
-                      style={{
-                        margin: "0.2rem",
-                        fontSize: "1rem",
-                        color: "var(--black)",
-                      }}
-                    >
-                      <span style={{ fontWeight: "600" }}>${info.price}</span>{" "}
-                      {info.stay}
-                    </p>
-                  </p>
-                  <p
                     className="stay-price"
                     style={{
                       margin: "0.2rem",
                       fontSize: "1rem",
                       color: "var(--black)",
                     }}
-                  >
-                    <span style={{ fontWeight: "600" }}>${info.price}</span>{" "}
-                    {info.stay}
+                    >
+                    <span style={{ fontWeight: "600" }}>Gratis</span>{" "}
                   </p>
+                      </div>
+                    )
+                    : (
+                      <div>
+
+                      <p className="summary-card">
+                      {info.summary}
+                      <p
+                        style={{
+                          margin: "0.2rem",
+                          fontSize: "1rem",
+                          color: "var(--black)",
+                        }}
+                        >
+                        <span style={{ fontWeight: "600" }}>${info.price}</span>{" "}
+                        {info.stay}
+                      </p>
+                    </p>
+                      <p
+                      className="stay-price"
+                      style={{
+                        margin: "0.2rem",
+                        fontSize: "1rem",
+                        color: "var(--black)",
+                      }}
+                      >
+                      <span style={{ fontWeight: "600" }}>${info.price}</span>{" "}
+                      {info.stay}
+                  </p>
+                  </div>
+                  )
+                  }
                 </Link>
               </div>
-          </div>
+              </div>
             ))
           )}
         </div>
