@@ -1,4 +1,4 @@
-/* import axios from 'axios';
+ import axios from 'axios';
 
 
 
@@ -133,9 +133,9 @@ export const dataPersonal = (token) => {
     payload: data
    })
   }
-}   */
+}   
 
- import axios from 'axios';
+/*  import axios from 'axios';
 
 
 
@@ -270,4 +270,4 @@ export const dataPersonal = (token) => {
     payload: data
    })
   }
-}  
+}   */

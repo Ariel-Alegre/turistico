@@ -1,27 +1,29 @@
 require('dotenv').config()
-console.log(process.env.POSTGRES_USER);
-console.log(process.env.POSTGRES_PASSWORD);
-console.log(process.env.POSTGRES_DATABASE);
-console.log(process.env.POSTGRES_HOST);
+console.log(process.env.PGUSER);
+console.log(process.env.PGPASSWORD);
+console.log(process.env.PGDATABASE);
+console.log(process.env.PGPORT);
+console.log(process.env.PGHOST);
+
 
 
 
 module.exports = {
-  
    development: {
-    
-    username:process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DATABASE,
-    host: process.env.POSTGRES_HOST,
+    username:'postgres',
+    password: 'PAD6PVvBXV7mcePPdtAJ',
+    database: 'railway',
+    host: 'containers-us-west-41.railway.app',
+    port: '5953',
     dialect: "postgres"
   },
 
   production: {
-    username:process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DATABASE,
-    host: process.env.POSTGRES_HOST,
+    username:'postgres',
+    password: 'PAD6PVvBXV7mcePPdtAJ',
+    database: 'railway',
+    host: 'containers-us-west-41.railway.app',
+    port: '5953',
     dialect: "postgres"
   },   
 
