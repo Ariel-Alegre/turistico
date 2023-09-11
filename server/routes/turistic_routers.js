@@ -4,6 +4,8 @@ const { authenticate } = require('../helpers/middleware');
 const { PostTuristic } = require('../controllers/User/PostTuristic')
 const { AllTuristic } = require('../controllers/User/AllPost')
 const { DetailsTuristic } = require('../controllers/User/DetailsTuristic');
+const { HostessUser } = require('../controllers/User/HostessUser');
+
 const path = require('path');
 
 const multer = require('multer');
@@ -24,6 +26,8 @@ router.post('/post', authenticate, upload.array('imageFile', 100), PostTuristic)
 router.get('/turistic', AllTuristic)
 
 router.get('/turistic/:idTuristic', DetailsTuristic)
+router.get('/hostess/:idHostess', HostessUser)
+
 
 
 

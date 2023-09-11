@@ -1,4 +1,4 @@
- import axios from 'axios';
+/*  import axios from 'axios';
 
 
 
@@ -133,9 +133,9 @@ export const dataPersonal = (token) => {
     payload: data
    })
   }
-}   
+}  */  
 
-/*  import axios from 'axios';
+  import axios from 'axios';
 
 
 
@@ -157,6 +157,16 @@ export const DetailsPostTuristic = (idTuristic) => {
     const data = res.data.details
     return dispach({
         type: "DETAIL_POST_TURISTIC",
+        payload: data
+    })
+  }
+};
+export const HostesstUser = (idHostess) => {
+  return async (dispach) => {
+    const res = await axios.get(`http://localhost:4000/hostess/${idHostess}`);
+    const data = res.data.details
+    return dispach({
+        type: "HOSTESS_USER",
         payload: data
     })
   }
@@ -270,4 +280,4 @@ export const dataPersonal = (token) => {
     payload: data
    })
   }
-}   */
+}   

@@ -9,7 +9,7 @@ console.log(process.env.PGHOST);
 
 
 module.exports = {
-   development: {
+/*    development: {
     username:'postgres',
     password: 'PAD6PVvBXV7mcePPdtAJ',
     database: 'railway',
@@ -26,8 +26,8 @@ module.exports = {
     port: '5953',
     dialect: "postgres"
   },   
-
-/*   development: {
+ */
+   development: {
     username:'postgres',
     password: 'password',
     database: 'turistic',
@@ -43,7 +43,7 @@ module.exports = {
     host: 'localhost',
     port: '5432',
     dialect: "postgres"
-  }, */
+  }, 
 }  
 
 

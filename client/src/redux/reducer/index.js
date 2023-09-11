@@ -5,7 +5,8 @@ const initialState = {
   datapersonal: [],
   posts: [],
   allPost: [],
-  detailpost: []
+  detailpost: [],
+  hostessuser:[]
 
   }
 
@@ -56,6 +57,13 @@ export const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           detailpost: action.payload
+        }; 
+
+        case 'HOSTESS_USER': 
+
+        return {
+          ...state,
+          hostessuser: action.payload
         }
       
       

@@ -10,6 +10,7 @@ import PaymentUser from './pages/PaymentUser';
 import TuristicPost from './pages/PostTuristic';
 import Test from './pages/test';
 import Profile from './pages/Profile';
+import Hostess from './pages/Hostess';
 
 
 
@@ -37,6 +38,8 @@ function App() {
           <Route exact path='/account-settings/payment-methods' element={<PaymentUser />} />
           <Route exact path='/public' element={<TuristicPost />} />
           <Route exact path='/user/show' element={<Profile />} />
+          <Route exact path='/anfitrion/:idHostess' element={<Hostess/>} />
+
 
 
 
