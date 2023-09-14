@@ -47,7 +47,16 @@
     }
 
    
-  
+    .splide__arrow--prev,
+    .splide__arrow--next {
+      background-color: #05A1A1; /* Cambia a tu color deseado */
+    }
+    
+    /* Cambia el color del icono de flecha (usualmente una fuente de iconos) */
+    .splide__arrow::before {
+      color: #ffffff; /* Cambia a tu color deseado */
+    }
+    
 
 
 }

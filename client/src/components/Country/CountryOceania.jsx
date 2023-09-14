@@ -15,6 +15,10 @@ import { green } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import { containerClasses } from "@mui/material";
 import "./index.scss";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Table, Flag } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -97,38 +101,50 @@ export default function CountryAmerica() {
   ];
 
   const oceania = [
-    "Australia",
-    "Fiyi",
-    "Islas Marshall",
-    "Islas Salomón",
-    "Kiribati",
-    "Micronesia",
-    "Nauru",
-    "Nueva Zelanda",
-    "Palaos",
-    "Papúa Nueva Guinea",
-    "Samoa",
-    "Tonga",
-    "Tuvalu",
-    "Vanuatu",
+    { name: 'Australia', countryCode: 'au' },
+    { name: 'Fiyi', countryCode: 'fj' },
+    { name: 'Islas Marshall', countryCode: 'mh' },
+    { name: 'Islas Salomón', countryCode: 'sb' },
+    { name: 'Kiribati', countryCode: 'ki' },
+    { name: 'Micronesia', countryCode: 'fm' },
+    { name: 'Nauru', countryCode: 'nr' },
+    { name: 'Nueva Zelanda', countryCode: 'nz' },
+    { name: 'Palaos', countryCode: 'pw' },
+    { name: 'Papúa Nueva Guinea', countryCode: 'pg' },
+    { name: 'Samoa', countryCode: 'ws' },
+    { name: 'Timor Oriental', countryCode: 'tl' },
+    { name: 'Tonga', countryCode: 'to' },
+    { name: 'Tuvalu', countryCode: 'tv' },
+    { name: 'Vanuatu', countryCode: 'vu' },
   ];
+  
+  
 
+  const flagRenderer = (item) => <Flag name={item.countryCode}/>
+  
   return (
-    <Box className="country-container">
-      <TabPanel>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-          className="custom-tabs"
+    <div className="country-container">
+        <Splide
+        options={{
+          type: "slide", // Tipo de transición (slide)
+          perMove: 1, // Número de elementos a mover en cada transición
+          perPage: window.innerWidth < 480 ? 2 : 7,
+        }}
         >
-          {oceania.map((country) => (
-            <Tab id="country" label={country} />
-          ))}
-        </Tabs>
-      </TabPanel>
-    </Box>
+  {oceania.map((country) => (
+    <SplideSlide
+      key={country}
+      label={country}
+      
+    >
+      <label className="country-filter">
+
+      {flagRenderer(country)}{country.name}
+      </label>
+    </SplideSlide>
+  ))}
+
+      </Splide>
+    </div>
   );
 }

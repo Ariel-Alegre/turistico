@@ -15,7 +15,9 @@ import { green } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import { containerClasses } from "@mui/material";
 import "./index.scss";
-
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Table, Flag } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   const [values, setValues] = React.useState(0);
@@ -104,63 +106,63 @@ export default function CountryAmerica() {
   ];
 
   const america = [
-    "Canadá",
-    "Estados Unidos",
-    "México",
-    "Belice",
-    "Costa Rica",
-    "El Salvador",
-    "Guatemala",
-    "Honduras",
-    "Nicaragua",
-    "Panamá",
-    "Antigua y Barbuda",
-    "Bahamas",
-    "Barbados",
-    "Cuba",
-    "Dominica",
-    "Granada",
-    "Haití",
-    "Jamaica",
-    "Puerto Rico",
-    "República Dominicana",
-    "San Cristóbal y Nieves",
-    "Santa Lucía",
-    "San Vicente y las Granadinas",
-    "Trinidad y Tobago",
-    "Argentina",
-    "Bolivia",
-    "Brasil",
-    "Chile",
-    "Colombia",
-    "Ecuador",
-    "Guyana",
-    "Paraguay",
-    "Perú",
-    "Surinam",
-    "Uruguay",
-    "Venezuela",
+    { name: 'Argentina', countryCode: 'ar' },
+    { name: 'Bolivia', countryCode: 'bo' },
+    { name: 'Brazil', countryCode: 'br' },
+    { name: 'Canada', countryCode: 'ca' },
+    { name: 'Chile', countryCode: 'cl' },
+    { name: 'Colombia', countryCode: 'co' },
+    { name: 'Costa Rica', countryCode: 'cr' },
+    { name: 'Cuba', countryCode: 'cu' },
+    { name: 'Dominican Republic', countryCode: 'do' },
+    { name: 'Ecuador', countryCode: 'ec' },
+    { name: 'El Salvador', countryCode: 'sv' },
+    { name: 'Guatemala', countryCode: 'gt' },
+    { name: 'Haiti', countryCode: 'ht' },
+    { name: 'Honduras', countryCode: 'hn' },
+    { name: 'Jamaica', countryCode: 'jm' },
+    { name: 'Mexico', countryCode: 'mx' },
+    { name: 'Nicaragua', countryCode: 'ni' },
+    { name: 'Panama', countryCode: 'pa' },
+    { name: 'Paraguay', countryCode: 'py' },
+    { name: 'Peru', countryCode: 'pe' },
+    { name: 'Puerto Rico', countryCode: 'pr' },
+    { name: 'Trinidad and Tobago', countryCode: 'tt' },
+    { name: 'United States', countryCode: 'us', alias: 'America' },
+    { name: 'Uruguay', countryCode: 'uy' },
+    { name: 'Venezuela', countryCode: 've' }
   ];
+  
+  // Puedes acceder a la lista de países de América a través de la variable 'countries'
+  
 
+
+
+const flagRenderer = (item) => <Flag name={item.countryCode}/>
+  
   return (
-    <Box className="country-container">
-      <TabPanel
-      
-      >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-          className="custom-tabs"
-       
+    <div className="country-container">
+        <Splide
+        options={{
+          type: "slide", // Tipo de transición (slide)
+          perMove: 1, // Número de elementos a mover en cada transición
+          perPage: window.innerWidth < 480 ? 2 : 7,
+        }}
         >
-          {america.map((country) => (
-            <Tab id="country" label={country} />
-          ))}
-        </Tabs>
-      </TabPanel>
-    </Box>
+  {america.map((country) => (
+    <SplideSlide
+      key={country}
+      label={country}
+      
+    >
+      <label className="country-filter">
+
+      {flagRenderer(country)}{country.name}
+      </label>
+    </SplideSlide>
+  ))}
+
+      </Splide>
+    </div>
   );
 }

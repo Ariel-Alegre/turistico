@@ -15,7 +15,9 @@ import { green } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import { containerClasses } from "@mui/material";
 import "./index.scss";
-
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Table, Flag } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   const [values, setValues] = React.useState(0);
@@ -104,76 +106,81 @@ export default function CountryAmerica() {
   ];
 
   const asia = [
-    "Afganistán",
-    "Arabia Saudita",
-    "Armenia",
-    "Azerbaiyán",
-    "Bangladesh",
-    "Baréin",
-    "Birmania (Myanmar)",
-    "Brunéi",
-    "Bután",
-    "Camboya",
-    "Catar",
-    "China",
-    "Chipre",
-    "Corea del Norte",
-    "Corea del Sur",
-    "Emiratos Árabes Unidos",
-    "Filipinas",
-    "Georgia",
-    "India",
-    "Indonesia",
-    "Irak",
-    "Irán",
-    "Israel",
-    "Japón",
-    "Jordania",
-    "Kazajistán",
-    "Kirguistán",
-    "Kuwait",
-    "Laos",
-    "Líbano",
-    "Malasia",
-    "Maldivas",
-    "Mongolia",
-    "Nepal",
-    "Omán",
-    "Pakistán",
-    "Palestina",
-    "Qatar",
-    "Rusia",
-    "Singapur",
-    "Siria",
-    "Sri Lanka",
-    "Tailandia",
-    "Tayikistán",
-    "Timor Oriental",
-    "Turkmenistán",
-    "Turquía",
-    "Uzbekistán",
-    "Vietnam",
-    "Yemen"
+    { name: 'Afganistán', countryCode: 'af' },
+    { name: 'Arabia Saudita', countryCode: 'sa' },
+    { name: 'Armenia', countryCode: 'am' },
+    { name: 'Azerbaiyán', countryCode: 'az' },
+    { name: 'Baréin', countryCode: 'bh' },
+    { name: 'Bangladés', countryCode: 'bd' },
+    { name: 'Birmania (Myanmar)', countryCode: 'mm' },
+    { name: 'Brunéi', countryCode: 'bn' },
+    { name: 'Bután', countryCode: 'bt' },
+    { name: 'Camboya', countryCode: 'kh' },
+    { name: 'Catar', countryCode: 'qa' },
+    { name: 'China', countryCode: 'cn' },
+    { name: 'Chipre', countryCode: 'cy' },
+    { name: 'Corea del Norte', countryCode: 'kp' },
+    { name: 'Corea del Sur', countryCode: 'kr' },
+    { name: 'Emiratos Árabes Unidos', countryCode: 'ae' },
+    { name: 'Filipinas', countryCode: 'ph' },
+    { name: 'Georgia', countryCode: 'ge' },
+    { name: 'India', countryCode: 'in' },
+    { name: 'Indonesia', countryCode: 'id' },
+    { name: 'Irak', countryCode: 'iq' },
+    { name: 'Irán', countryCode: 'ir' },
+    { name: 'Israel', countryCode: 'il' },
+    { name: 'Japón', countryCode: 'jp' },
+    { name: 'Jordania', countryCode: 'jo' },
+    { name: 'Kazajistán', countryCode: 'kz' },
+    { name: 'Kirguistán', countryCode: 'kg' },
+    { name: 'Kuwait', countryCode: 'kw' },
+    { name: 'Laos', countryCode: 'la' },
+    { name: 'Líbano', countryCode: 'lb' },
+    { name: 'Malasia', countryCode: 'my' },
+    { name: 'Maldivas', countryCode: 'mv' },
+    { name: 'Mongolia', countryCode: 'mn' },
+    { name: 'Nepal', countryCode: 'np' },
+    { name: 'Omán', countryCode: 'om' },
+    { name: 'Pakistán', countryCode: 'pk' },
+    { name: 'Palestina', countryCode: 'ps' },
+    { name: 'Singapur', countryCode: 'sg' },
+    { name: 'Siria', countryCode: 'sy' },
+    { name: 'Sri Lanka', countryCode: 'lk' },
+    { name: 'Tailandia', countryCode: 'th' },
+    { name: 'Tayikistán', countryCode: 'tj' },
+    { name: 'Turkmenistán', countryCode: 'tm' },
+    { name: 'Turquía', countryCode: 'tr' },
+    { name: 'Uzbekistán', countryCode: 'uz' },
+    { name: 'Vietnam', countryCode: 'vn' },
+    { name: 'Yemen', countryCode: 'ye' },
   ];
+  
+const flagRenderer = (item) => <Flag name={item.countryCode}/>
+  
 
   return (
-    <Box
-    className = 'country-container'
+    <div className="country-container">
+    <Splide
+    options={{
+      type: "slide", // Tipo de transición (slide)
+      perMove: 1, // Número de elementos a mover en cada transición
+      perPage: window.innerWidth < 480 ? 2 : 7,
+    }}
     >
-      <TabPanel >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-          className="custom-tabs"
-        >
-          {asia.map((country) => (
-            <Tab id="country" label={country} />
-          ))}
-        </Tabs>
-      </TabPanel>
-    </Box>
+{asia.map((country) => (
+<SplideSlide
+  key={country}
+  label={country}
+  
+>
+  <label className="country-filter">
+
+  {flagRenderer(country)}{country.name}
+  </label>
+</SplideSlide>
+))}
+
+  </Splide>
+</div>
   );
 }

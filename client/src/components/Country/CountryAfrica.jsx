@@ -15,6 +15,9 @@ import { green } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import { containerClasses } from "@mui/material";
 import "./index.scss";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Table, Flag } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -104,80 +107,91 @@ export default function CountryAmerica() {
   ];
 
   const africa = [
-    "Angola",
-    "Argelia",
-    "Benín",
-    "Botsuana",
-    "Burkina Faso",
-    "Burundi",
-    "Cabo Verde",
-    "Camerún",
-    "Chad",
-    "Comoras",
-    "Congo",
-    "Costa de Marfil",
-    "Egipto",
-    "Eritrea",
-    "Esuatini (Suazilandia)",
-    "Etiopía",
-    "Gabón",
-    "Gambia",
-    "Ghana",
-    "Guinea",
-    "Guinea-Bissau",
-    "Guinea Ecuatorial",
-    "Kenia",
-    "Lesoto",
-    "Liberia",
-    "Libia",
-    "Madagascar",
-    "Malaui",
-    "Malí",
-    "Marruecos",
-    "Mauricio",
-    "Mauritania",
-    "Mozambique",
-    "Namibia",
-    "Níger",
-    "Nigeria",
-    "República Centroafricana",
-    "República Democrática del Congo",
-    "Ruanda",
-    "Santo Tomé y Príncipe",
-    "Senegal",
-    "Seychelles",
-    "Sierra Leona",
-    "Somalia",
-    "Sudáfrica",
-    "Sudán",
-    "Sudán del Sur",
-    "Tanzania",
-    "Togo",
-    "Túnez",
-    "Uganda",
-    "Yibuti",
-    "Zambia",
-    "Zimbabue"
+    { name: 'Algeria', countryCode: 'dz' },
+    { name: 'Angola', countryCode: 'ao' },
+    { name: 'Benin', countryCode: 'bj' },
+    { name: 'Botswana', countryCode: 'bw' },
+    { name: 'Burkina Faso', countryCode: 'bf' },
+    { name: 'Burundi', countryCode: 'bi' },
+    { name: 'Cameroon', countryCode: 'cm' },
+    { name: 'Cape Verde', countryCode: 'cv' },
+    { name: 'Central African Republic', countryCode: 'cf' },
+    { name: 'Chad', countryCode: 'td' },
+    { name: 'Comoros', countryCode: 'km' },
+    { name: 'Congo', countryCode: 'cd' },
+    { name: 'Congo Brazzaville', countryCode: 'cg' },
+    { name: 'Djibouti', countryCode: 'dj' },
+    { name: 'Egypt', countryCode: 'eg' },
+    { name: 'Equatorial Guinea', countryCode: 'gq' },
+    { name: 'Eritrea', countryCode: 'er' },
+    { name: 'Eswatini', countryCode: 'sz' },
+    { name: 'Ethiopia', countryCode: 'et' },
+    { name: 'Gabon', countryCode: 'ga' },
+    { name: 'Gambia', countryCode: 'gm' },
+    { name: 'Ghana', countryCode: 'gh' },
+    { name: 'Guinea', countryCode: 'gn' },
+    { name: 'Guinea-Bissau', countryCode: 'gw' },
+    { name: 'Ivory Coast', countryCode: 'ci' },
+    { name: 'Kenya', countryCode: 'ke' },
+    { name: 'Lesotho', countryCode: 'ls' },
+    { name: 'Liberia', countryCode: 'lr' },
+    { name: 'Libya', countryCode: 'ly' },
+    { name: 'Madagascar', countryCode: 'mg' },
+    { name: 'Malawi', countryCode: 'mw' },
+    { name: 'Mali', countryCode: 'ml' },
+    { name: 'Mauritania', countryCode: 'mr' },
+    { name: 'Mauritius', countryCode: 'mu' },
+    { name: 'Morocco', countryCode: 'ma' },
+    { name: 'Mozambique', countryCode: 'mz' },
+    { name: 'Namibia', countryCode: 'na' },
+    { name: 'Niger', countryCode: 'ne' },
+    { name: 'Nigeria', countryCode: 'ng' },
+    { name: 'Rwanda', countryCode: 'rw' },
+    { name: 'Sao Tome and Principe', countryCode: 'st' },
+    { name: 'Senegal', countryCode: 'sn' },
+    { name: 'Seychelles', countryCode: 'sc' },
+    { name: 'Sierra Leone', countryCode: 'sl' },
+    { name: 'Somalia', countryCode: 'so' },
+    { name: 'South Africa', countryCode: 'za' },
+    { name: 'South Sudan', countryCode: 'ss' },
+    { name: 'Sudan', countryCode: 'sd' },
+    { name: 'Tanzania', countryCode: 'tz' },
+    { name: 'Togo', countryCode: 'tg' },
+    { name: 'Tunisia', countryCode: 'tn' },
+    { name: 'Uganda', countryCode: 'ug' },
+    { name: 'Zambia', countryCode: 'zm' },
+    { name: 'Zimbabwe', countryCode: 'zw' }
   ];
+  
+  // Puedes acceder a la lista de países de África a través de la variable 'africanCountries'
+  
+
+const flagRenderer = (item) => <Flag name={item.countryCode}/>
+
 
   return (
-    <Box
-    className = 'country-container'
+    <div className="country-container">
+    <Splide
+    options={{
+      type: "slide", // Tipo de transición (slide)
+      perMove: 1, // Número de elementos a mover en cada transición
+      perPage: window.innerWidth < 480 ? 2 : 7,
+    }}
     >
-      <TabPanel className = 'panel'>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-          className="custom-tabs"
-        >
-          {africa.map((country) => (
-            <Tab id="country" label={country}  />
-          ))}
-        </Tabs>
-      </TabPanel>
-    </Box>
+{africa.map((country) => (
+<SplideSlide
+  key={country}
+  label={country}
+  
+>
+  <label className="country-filter">
+
+  {flagRenderer(country)}{country.name}
+  </label>
+</SplideSlide>
+))}
+
+  </Splide>
+</div>
   );
 }

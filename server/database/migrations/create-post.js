@@ -18,7 +18,7 @@ module.exports = {
       price: {
         type: Sequelize.FLOAT,
       },
-      stay: {
+      people: {
         type: Sequelize.STRING,
       },
       summary: {
@@ -32,6 +32,30 @@ module.exports = {
       },
       status: {
         type: Sequelize.STRING,
+      },
+      continent: {
+        type: Sequelize.STRING,
+      },
+      country: {
+        type: Sequelize.STRING,
+      },
+      daysAtentions: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
+      },
+      infoImportant: {
+        type: Sequelize.STRING,
+      },
+      hoursAtetionsInitial: {
+        type: Sequelize.STRING,
+      },
+      hoursAtentionsFinally: {
+        type: Sequelize.STRING,
+      },
+      calendar: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+      },
+      listDetails: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       createdAt: {
         allowNull: false,

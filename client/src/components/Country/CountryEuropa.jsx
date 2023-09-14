@@ -15,7 +15,9 @@ import { green } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import { containerClasses } from "@mui/material";
 import "./index.scss";
-
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Table, Flag } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   const [values, setValues] = React.useState(0);
@@ -104,76 +106,83 @@ export default function CountryAmerica() {
   ];
 
   const europa = [
-    "Albania",
-    "Alemania",
-    "Andorra",
-    "Armenia",
-    "Austria",
-    "Azerbaiyán",
-    "Bélgica",
-    "Bielorrusia",
-    "Bosnia y Herzegovina",
-    "Bulgaria",
-    "Chipre",
-    "Ciudad del Vaticano",
-    "Croacia",
-    "Dinamarca",
-    "Eslovaquia",
-    "Eslovenia",
-    "España",
-    "Estonia",
-    "Finlandia",
-    "Francia",
-    "Georgia",
-    "Grecia",
-    "Hungría",
-    "Irlanda",
-    "Islandia",
-    "Italia",
-    "Kazajistán",
-    "Letonia",
-    "Liechtenstein",
-    "Lituania",
-    "Luxemburgo",
-    "Malta",
-    "Moldavia",
-    "Mónaco",
-    "Montenegro",
-    "Noruega",
-    "Países Bajos",
-    "Polonia",
-    "Portugal",
-    "Reino Unido",
-    "República Checa",
-    "Rumania",
-    "Rusia",
-    "San Marino",
-    "Serbia",
-    "Suecia",
-    "Suiza",
-    "Turquía",
-    "Ucrania"
+    { name: 'Albania', countryCode: 'al' },
+    { name: 'Andorra', countryCode: 'ad' },
+    { name: 'Austria', countryCode: 'at' },
+    { name: 'Belarus', countryCode: 'by' },
+    { name: 'Belgium', countryCode: 'be' },
+    { name: 'Bosnia', countryCode: 'ba' },
+    { name: 'Bulgaria', countryCode: 'bg' },
+    { name: 'Croatia', countryCode: 'hr' },
+    { name: 'Cyprus', countryCode: 'cy' },
+    { name: 'Czech Republic', countryCode: 'cz' },
+    { name: 'Denmark', countryCode: 'dk' },
+    { name: 'Estonia', countryCode: 'ee' },
+    { name: 'Faroe Islands', countryCode: 'fo' },
+    { name: 'Finland', countryCode: 'fi' },
+    { name: 'France', countryCode: 'fr' },
+    { name: 'Germany', countryCode: 'de' },
+    { name: 'Greece', countryCode: 'gr' },
+    { name: 'Greenland', countryCode: 'gl' },
+    { name: 'Hungary', countryCode: 'hu' },
+    { name: 'Iceland', countryCode: 'is' },
+    { name: 'Ireland', countryCode: 'ie' },
+    { name: 'Italy', countryCode: 'it' },
+    { name: 'Latvia', countryCode: 'lv' },
+    { name: 'Liechtenstein', countryCode: 'li' },
+    { name: 'Lithuania', countryCode: 'lt' },
+    { name: 'Luxembourg', countryCode: 'lu' },
+    { name: 'Malta', countryCode: 'mt' },
+    { name: 'Moldova', countryCode: 'md' },
+    { name: 'Monaco', countryCode: 'mc' },
+    { name: 'Montenegro', countryCode: 'me' },
+    { name: 'Netherlands', countryCode: 'nl' },
+    { name: 'North Macedonia', countryCode: 'mk' },
+    { name: 'Norway', countryCode: 'no' },
+    { name: 'Poland', countryCode: 'pl' },
+    { name: 'Portugal', countryCode: 'pt' },
+    { name: 'Romania', countryCode: 'ro' },
+    { name: 'Russia', countryCode: 'ru' },
+    { name: 'San Marino', countryCode: 'sm' },
+    { name: 'Serbia', countryCode: 'rs' },
+    { name: 'Slovakia', countryCode: 'sk' },
+    { name: 'Slovenia', countryCode: 'si' },
+    { name: 'Spain', countryCode: 'es' },
+    { name: 'Sweden', countryCode: 'se' },
+    { name: 'Switzerland', countryCode: 'ch' },
+    { name: 'Ukraine', countryCode: 'ua' },
+    { name: 'United Kingdom', countryCode: 'gb', alias: 'uk' },
+    { name: 'Vatican City', countryCode: 'va' },
   ];
+  
+  // Puedes acceder a la lista de países de Europa a través de la variable 'europeanCountries'
+  
 
-
+  const flagRenderer = (item) => <Flag name={item.countryCode}/>
+  
   return (
-    <Box
-    className = 'country-container'
-    >
-      <TabPanel>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-          className="custom-tabs"
+    <div className="country-container">
+        <Splide
+        options={{
+          type: "slide", // Tipo de transición (slide)
+          perMove: 1, // Número de elementos a mover en cada transición
+          perPage: window.innerWidth < 480 ? 2 : 7,
+        }}
         >
-          {europa.map((country) => (
-            <Tab id="country" label={country} />
-          ))}
-        </Tabs>
-      </TabPanel>
-    </Box>
+  {europa.map((country) => (
+    <SplideSlide
+      key={country}
+      label={country}
+      
+    >
+      <label className="country-filter">
+
+      {flagRenderer(country)}{country.name}
+      </label>
+    </SplideSlide>
+  ))}
+
+      </Splide>
+    </div>
   );
 }
