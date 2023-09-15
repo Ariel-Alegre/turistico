@@ -23,6 +23,22 @@ import { useParams } from "react-router-dom";
 import { DetailsPostTuristic } from "../../redux/action";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
+import Diversity3RoundedIcon from '@mui/icons-material/Diversity3Rounded';
+import { Calendar, theme } from 'antd';
+import { FcGlobe } from 'react-icons/fc';
+import { CgAirplane } from 'react-icons/cg';
+import { Table, Flag } from 'semantic-ui-react';
+//import 'semantic-ui-css/semantic.min.css';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { DatePicker, Space } from 'antd';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import Avatar from "@mui/material/Avatar";
+
+dayjs.extend(customParseFormat);
+const { RangePicker } = DatePicker;
+const dateFormat = 'YYYY/MM/DD';
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -94,7 +110,6 @@ export default function CardDetails() {
   const [isLoading, setIsLoading] = React.useState(true);
   const detailpost = useSelector((state) => state.detailpost);
   const dispatch = useDispatch();
-  console.log(detailpost);
 
   React.useEffect(() => {
     dispatch(DetailsPostTuristic(idTuristic));
@@ -102,6 +117,18 @@ export default function CardDetails() {
       setIsLoading(false); // Cambiar el estado de isLoading a "false" después de cierto tiempo
     }, 1000);
   }, []);
+
+
+  const onPanelChange = (value, mode) => {
+    console.log(value.format('YYYY-MM-DD'), mode);
+  };
+  const { token } = theme.useToken();
+  const wrapperStyle = {
+    width: 300,
+    border: `1px solid ${token.colorBorderSecondary}`,
+    borderRadius: token.borderRadiusLG,
+  };
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -122,7 +149,253 @@ export default function CardDetails() {
   const Close = () => {
     setVistPreview(false);
   };
-
+  const countries = [
+    { name: 'Afghanistan', countryCode: 'af' },
+    { name: 'Aland Islands', countryCode: 'ax' },
+    { name: 'Albania', countryCode: 'al' },
+    { name: 'Algeria', countryCode: 'dz' },
+    { name: 'American Samoa', countryCode: 'as' },
+    { name: 'Andorra', countryCode: 'ad' },
+    { name: 'Angola', countryCode: 'ao' },
+    { name: 'Anguilla', countryCode: 'ai' },
+    { name: 'Antigua', countryCode: 'ag' },
+    { name: 'Argentina', countryCode: 'ar' },
+    { name: 'Armenia', countryCode: 'am' },
+    { name: 'Aruba', countryCode: 'aw' },
+    { name: 'Australia', countryCode: 'au' },
+    { name: 'Austria', countryCode: 'at' },
+    { name: 'Azerbaijan', countryCode: 'az' },
+    { name: 'Bahamas', countryCode: 'bs' },
+    { name: 'Bahrain', countryCode: 'bh' },
+    { name: 'Bangladesh', countryCode: 'bd' },
+    { name: 'Barbados', countryCode: 'bb' },
+    { name: 'Belarus', countryCode: 'by' },
+    { name: 'Belgium', countryCode: 'be' },
+    { name: 'Belize', countryCode: 'bz' },
+    { name: 'Benin', countryCode: 'bj' },
+    { name: 'Bermuda', countryCode: 'bm' },
+    { name: 'Bhutan', countryCode: 'bt' },
+    { name: 'Bolivia', countryCode: 'bo' },
+    { name: 'Bosnia', countryCode: 'ba' },
+    { name: 'Botswana', countryCode: 'bw' },
+    { name: 'Bouvet Island', countryCode: 'bv' },
+    { name: 'Brazil', countryCode: 'br' },
+    { name: 'British Virgin Islands', countryCode: 'vg' },
+    { name: 'Brunei', countryCode: 'bn' },
+    { name: 'Bulgaria', countryCode: 'bg' },
+    { name: 'Burkina Faso', countryCode: 'bf' },
+    { name: 'Burma', countryCode: 'mm', alias: 'Myanmar' },
+    { name: 'Burundi', countryCode: 'bi' },
+    { name: 'Caicos Islands', countryCode: 'tc' },
+    { name: 'Cambodia', countryCode: 'kh' },
+    { name: 'Cameroon', countryCode: 'cm' },
+    { name: 'Canada', countryCode: 'ca' },
+    { name: 'Cape Verde', countryCode: 'cv' },
+    { name: 'Cayman Islands', countryCode: 'ky' },
+    { name: 'Central African Republic', countryCode: 'cf' },
+    { name: 'Chad', countryCode: 'td' },
+    { name: 'Chile', countryCode: 'cl' },
+    { name: 'China', countryCode: 'cn' },
+    { name: 'Christmas Island', countryCode: 'cx' },
+    { name: 'Cocos Islands', countryCode: 'cc' },
+    { name: 'Colombia', countryCode: 'co' },
+    { name: 'Comoros', countryCode: 'km' },
+    { name: 'Congo', countryCode: 'cd' },
+    { name: 'Congo Brazzaville', countryCode: 'cg' },
+    { name: 'Cook Islands', countryCode: 'ck' },
+    { name: 'Costa Rica', countryCode: 'cr' },
+    { name: 'Cote Divoire', countryCode: 'ci' },
+    { name: 'Croatia', countryCode: 'hr' },
+    { name: 'Cuba', countryCode: 'cu' },
+    { name: 'Cyprus', countryCode: 'cy' },
+    { name: 'Czech Republic', countryCode: 'cz' },
+    { name: 'Denmark', countryCode: 'dk' },
+    { name: 'Djibouti', countryCode: 'dj' },
+    { name: 'Dominica', countryCode: 'dm' },
+    { name: 'Dominican Republic', countryCode: 'do' },
+    { name: 'Ecuador', countryCode: 'ec' },
+    { name: 'Egypt', countryCode: 'eg' },
+    { name: 'El Salvador', countryCode: 'sv' },
+    { name: 'England', countryCode: 'gb eng' },
+    { name: 'Equatorial Guinea', countryCode: 'gq' },
+    { name: 'Eritrea', countryCode: 'er' },
+    { name: 'Estonia', countryCode: 'ee' },
+    { name: 'Ethiopia', countryCode: 'et' },
+    { name: 'Europeanunion', countryCode: 'eu' },
+    { name: 'Falkland Islands', countryCode: 'fk' },
+    { name: 'Faroe Islands', countryCode: 'fo' },
+    { name: 'Fiji', countryCode: 'fj' },
+    { name: 'Finland', countryCode: 'fi' },
+    { name: 'France', countryCode: 'fr' },
+    { name: 'French Guiana', countryCode: 'gf' },
+    { name: 'French Polynesia', countryCode: 'pf' },
+    { name: 'French Territories', countryCode: 'tf' },
+    { name: 'Gabon', countryCode: 'ga' },
+    { name: 'Gambia', countryCode: 'gm' },
+    { name: 'Georgia', countryCode: 'ge' },
+    { name: 'Germany', countryCode: 'de' },
+    { name: 'Ghana', countryCode: 'gh' },
+    { name: 'Gibraltar', countryCode: 'gi' },
+    { name: 'Greece', countryCode: 'gr' },
+    { name: 'Greenland', countryCode: 'gl' },
+    { name: 'Grenada', countryCode: 'gd' },
+    { name: 'Guadeloupe', countryCode: 'gp' },
+    { name: 'Guam', countryCode: 'gu' },
+    { name: 'Guatemala', countryCode: 'gt' },
+    { name: 'Guinea', countryCode: 'gn' },
+    { name: 'Guinea-Bissau', countryCode: 'gw' },
+    { name: 'Guyana', countryCode: 'gy' },
+    { name: 'Haiti', countryCode: 'ht' },
+    { name: 'Heard Island', countryCode: 'hm' },
+    { name: 'Honduras', countryCode: 'hn' },
+    { name: 'Hong Kong', countryCode: 'hk' },
+    { name: 'Hungary', countryCode: 'hu' },
+    { name: 'Iceland', countryCode: 'is' },
+    { name: 'India', countryCode: 'in' },
+    { name: 'Indian Ocean Territory', countryCode: 'io' },
+    { name: 'Indonesia', countryCode: 'id' },
+    { name: 'Iran', countryCode: 'ir' },
+    { name: 'Iraq', countryCode: 'iq' },
+    { name: 'Ireland', countryCode: 'ie' },
+    { name: 'Israel', countryCode: 'il' },
+    { name: 'Italy', countryCode: 'it' },
+    { name: 'Jamaica', countryCode: 'jm' },
+    { name: 'Jan Mayen', countryCode: 'sj', alias: 'Svalbard' },
+    { name: 'Japan', countryCode: 'jp' },
+    { name: 'Jordan', countryCode: 'jo' },
+    { name: 'Kazakhstan', countryCode: 'kz' },
+    { name: 'Kenya', countryCode: 'ke' },
+    { name: 'Kiribati', countryCode: 'ki' },
+    { name: 'Kuwait', countryCode: 'kw' },
+    { name: 'Kyrgyzstan', countryCode: 'kg' },
+    { name: 'Laos', countryCode: 'la' },
+    { name: 'Latvia', countryCode: 'lv' },
+    { name: 'Lebanon', countryCode: 'lb' },
+    { name: 'Lesotho', countryCode: 'ls' },
+    { name: 'Liberia', countryCode: 'lr' },
+    { name: 'Libya', countryCode: 'ly' },
+    { name: 'Liechtenstein', countryCode: 'li' },
+    { name: 'Lithuania', countryCode: 'lt' },
+    { name: 'Luxembourg', countryCode: 'lu' },
+    { name: 'Macau', countryCode: 'mo' },
+    { name: 'Macedonia', countryCode: 'mk' },
+    { name: 'Madagascar', countryCode: 'mg' },
+    { name: 'Malawi', countryCode: 'mw' },
+    { name: 'Malaysia', countryCode: 'my' },
+    { name: 'Maldives', countryCode: 'mv' },
+    { name: 'Mali', countryCode: 'ml' },
+    { name: 'Malta', countryCode: 'mt' },
+    { name: 'Marshall Islands', countryCode: 'mh' },
+    { name: 'Martinique', countryCode: 'mq' },
+    { name: 'Mauritania', countryCode: 'mr' },
+    { name: 'Mauritius', countryCode: 'mu' },
+    { name: 'Mayotte', countryCode: 'yt' },
+    { name: 'Mexico', countryCode: 'mx' },
+    { name: 'Micronesia', countryCode: 'fm' },
+    { name: 'Moldova', countryCode: 'md' },
+    { name: 'Monaco', countryCode: 'mc' },
+    { name: 'Mongolia', countryCode: 'mn' },
+    { name: 'Montenegro', countryCode: 'me' },
+    { name: 'Montserrat', countryCode: 'ms' },
+    { name: 'Morocco', countryCode: 'ma' },
+    { name: 'Mozambique', countryCode: 'mz' },
+    { name: 'Namibia', countryCode: 'na' },
+    { name: 'Nauru', countryCode: 'nr' },
+    { name: 'Nepal', countryCode: 'np' },
+    { name: 'Netherlands', countryCode: 'nl' },
+    { name: 'Netherlandsantilles', countryCode: 'an' },
+    { name: 'New Caledonia', countryCode: 'nc' },
+    { name: 'New Guinea', countryCode: 'pg' },
+    { name: 'New Zealand', countryCode: 'nz' },
+    { name: 'Nicaragua', countryCode: 'ni' },
+    { name: 'Niger', countryCode: 'ne' },
+    { name: 'Nigeria', countryCode: 'ng' },
+    { name: 'Niue', countryCode: 'nu' },
+    { name: 'Norfolk Island', countryCode: 'nf' },
+    { name: 'North Korea', countryCode: 'kp' },
+    { name: 'Northern Mariana Islands', countryCode: 'mp' },
+    { name: 'Norway', countryCode: 'no' },
+    { name: 'Oman', countryCode: 'om' },
+    { name: 'Pakistan', countryCode: 'pk' },
+    { name: 'Palau', countryCode: 'pw' },
+    { name: 'Palestine', countryCode: 'ps' },
+    { name: 'Panama', countryCode: 'pa' },
+    { name: 'Paraguay', countryCode: 'py' },
+    { name: 'Peru', countryCode: 'pe' },
+    { name: 'Philippines', countryCode: 'ph' },
+    { name: 'Pitcairn Islands', countryCode: 'pn' },
+    { name: 'Poland', countryCode: 'pl' },
+    { name: 'Portugal', countryCode: 'pt' },
+    { name: 'Puerto Rico', countryCode: 'pr' },
+    { name: 'Qatar', countryCode: 'qa' },
+    { name: 'Reunion', countryCode: 're' },
+    { name: 'Romania', countryCode: 'ro' },
+    { name: 'Russia', countryCode: 'ru' },
+    { name: 'Rwanda', countryCode: 'rw' },
+    { name: 'Saint Helena', countryCode: 'sh' },
+    { name: 'Saint Kitts and Nevis', countryCode: 'kn' },
+    { name: 'Saint Lucia', countryCode: 'lc' },
+    { name: 'Saint Pierre', countryCode: 'pm' },
+    { name: 'Saint Vincent', countryCode: 'vc' },
+    { name: 'Samoa', countryCode: 'ws' },
+    { name: 'San Marino', countryCode: 'sm' },
+    { name: 'Sandwich Islands', countryCode: 'gs' },
+    { name: 'Sao Tome', countryCode: 'st' },
+    { name: 'Saudi Arabia', countryCode: 'sa' },
+    { name: 'Scotland', countryCode: 'gb sct' },
+    { name: 'Senegal', countryCode: 'sn' },
+    { name: 'Serbia', countryCode: 'cs' },
+    { name: 'Serbia', countryCode: 'rs' },
+    { name: 'Seychelles', countryCode: 'sc' },
+    { name: 'Sierra Leone', countryCode: 'sl' },
+    { name: 'Singapore', countryCode: 'sg' },
+    { name: 'Slovakia', countryCode: 'sk' },
+    { name: 'Slovenia', countryCode: 'si' },
+    { name: 'Solomon Islands', countryCode: 'sb' },
+    { name: 'Somalia', countryCode: 'so' },
+    { name: 'South Africa', countryCode: 'za' },
+    { name: 'South Korea', countryCode: 'kr' },
+    { name: 'Spain', countryCode: 'es' },
+    { name: 'Sri Lanka', countryCode: 'lk' },
+    { name: 'Sudan', countryCode: 'sd' },
+    { name: 'Suriname', countryCode: 'sr' },
+    { name: 'Swaziland', countryCode: 'sz' },
+    { name: 'Sweden', countryCode: 'se' },
+    { name: 'Switzerland', countryCode: 'ch' },
+    { name: 'Syria', countryCode: 'sy' },
+    { name: 'Taiwan', countryCode: 'tw' },
+    { name: 'Tajikistan', countryCode: 'tj' },
+    { name: 'Tanzania', countryCode: 'tz' },
+    { name: 'Thailand', countryCode: 'th' },
+    { name: 'Timorleste', countryCode: 'tl' },
+    { name: 'Togo', countryCode: 'tg' },
+    { name: 'Tokelau', countryCode: 'tk' },
+    { name: 'Tonga', countryCode: 'to' },
+    { name: 'Trinidad', countryCode: 'tt' },
+    { name: 'Tunisia', countryCode: 'tn' },
+    { name: 'Turkey', countryCode: 'tr' },
+    { name: 'Turkmenistan', countryCode: 'tm' },
+    { name: 'Tuvalu', countryCode: 'tv' },
+    { name: 'U.A.E.', countryCode: 'ae', alias: 'United Arab Emirates' },
+    { name: 'Uganda', countryCode: 'ug' },
+    { name: 'Ukraine', countryCode: 'ua' },
+    { name: 'United Kingdom', countryCode: 'gb', alias: 'uk' },
+    { name: 'United States', countryCode: 'us', alias: 'America' },
+    { name: 'Uruguay', countryCode: 'uy' },
+    { name: 'US Minor Islands', countryCode: 'um' },
+    { name: 'US Virgin Islands', countryCode: 'vi' },
+    { name: 'Uzbekistan', countryCode: 'uz' },
+    { name: 'Vanuatu', countryCode: 'vu' },
+    { name: 'Vatican City', countryCode: 'va' },
+    { name: 'Venezuela', countryCode: 've' },
+    { name: 'Vietnam', countryCode: 'vn' },
+    { name: 'Wales', countryCode: 'gb wls' },
+    { name: 'Wallis and Futuna', countryCode: 'wf' },
+    { name: 'Western Sahara', countryCode: 'eh' },
+    { name: 'Yemen', countryCode: 'ye' },
+    { name: 'Zambia', countryCode: 'zm' },
+    { name: 'Zimbabwe', countryCode: 'zw' },
+  ]
   const list = (anchor) => (
     <div>
       <Box sx={{ display: "grids" }}>
@@ -200,7 +473,8 @@ export default function CardDetails() {
                     <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                       <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
                         <img
-                          src={detailpost.imageFile[0]}
+                          /* src={detailpost.imageFile[0]} */
+                          src={product.images[0].src}
                           alt="Not found"
                           className="h-full w-full object-cover object-center hover-image"
                         />
@@ -209,25 +483,32 @@ export default function CardDetails() {
                       <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                         <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg ">
                           <img
-                            src={detailpost.imageFile[1]}
+                        /*     src={detailpost.imageFile[1]} */
+                        src={product.images[1].src}
                             alt="Not found"
                             className="h-full w-full object-cover object-center hover-image"
                           />
                         </div>
                         <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                           <img
-                            src={detailpost.imageFile[2]}
+                           /*  src={detailpost.imageFile[2]} */
+                           src={product.images[2].src}
                             alt="Not found"
                             className="h-full w-full object-cover object-center hover-image"
                           />
                         </div>
+     
                       </div>
                       <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
                         <img
-                          src={detailpost.imageFile[2]}
+                         /*  src={detailpost.imageFile[2]} */
+                         src={product.images[3].src}
                           alt="Not found"
                           className="h-full w-full object-cover object-center hover-image"
                         />
+                      <Fab size="small" id="icons-details" aria-label="add" >
+          <AddIcon />
+        </Fab>
                       </div>
                     </div>
                   </div>
@@ -246,23 +527,56 @@ export default function CardDetails() {
           {/* Product info */}
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                Lugar para quedarse. Anfitrión:{" "}
-                {detailpost.Users && detailpost.Users[0].name}
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                Lugar para visitar.
               </h1>
+              <h4 className="tracking-tight text-gray-900 sm:text-2xl flex">
+             <FcGlobe/> America
+              </h4>
+              <h4 className="tracking-tight text-gray-900 sm:text-2xl flex">
+              <Flag name={countries[0].countryCode}/> Argentina
+              </h4>
+         
+              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl flex">
+                 Anfitrión:{" "}
+                {/* {detailpost.Users && detailpost.Users[0].name} */}
+                JUAN
+                {""}
+                    <Avatar sx={{ width: 32, height: 32,  }} >{/* {detailpost.Users && detailpost.Users[0].name[0].toUpperCase()} */} J</Avatar>
+                    
+              </h1>
+         
+                 
+              
+              <div className="horizontal-line-with-o">
+        <div className="line"></div> {/* Línea a la izquierda */}
+   
+      </div>
             </div>
+            
 
             {/* Options */}
-            <div className="mt-4 lg:row-span-3 lg:mt-0">
+            <div className="card-reserve">
+
+            <div className="mt-4 lg:row-span-3 lg:mt-0 ">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-                {detailpost.price}
+                ${/* {detailpost.price} */} 50
                 <div>
                   <div className="space-y-6">
                     <h3 className="text-base text-gray-900">
-                      {detailpost.stay}
+                    <Diversity3RoundedIcon/>  4 personas
                     </h3>
                   </div>
+                  <div style={wrapperStyle}>
+                  <Space direction="vertical" size={12}>
+
+<RangePicker
+  defaultValue={[dayjs('2015/01/01', dateFormat), dayjs('2015/01/01', dateFormat)]}
+  format={dateFormat}
+/>
+</Space>
+    </div>
                 </div>
               </p>
 
@@ -280,33 +594,108 @@ export default function CardDetails() {
                   Reservar
                 </button>
               </form>
+  </div>
             </div>
 
             <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
               {/* Description and details */}
               <div>
-                <h3 className="sr-only">Description</h3>
+                <h3 className="sr-only">Descripcion</h3>
 
                 <div className="space-y-6">
                   <p className="text-base text-gray-900">
-                    {detailpost.summary}
+                  {/*   {detailpost.summary} */}
+                  Es una masa de agua estancada, generalmente dulce, que se encuentra en la superficie de la Tierra y está rodeada por tierra. Los lagos pueden variar en tamaño, desde pequeños estanques hasta vastos cuerpos de agua, y pueden ser de origen natural o artificial. Estas extensiones de agua proporcionan hábitats para diversas formas de vida acuática, así como oportunidades recreativas para actividades como la natación, la pesca y la navegación. Los lagos también desempeñan un papel importante en la regulación del ciclo del agua y pueden tener un valor paisajístico y cultural significativo para las comunidades locales.
                   </p>
                 </div>
               </div>
+              <div className="horizontal-line-with-o">
+        <div className="line"></div> {/* Línea a la izquierda */}
+   
+      </div>
 
               <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
+                <h2 className="text-sm font-medium text-gray-900">Descripción</h2>
 
-                <div className="mt-4 space-y-6">
                   <p className="text-sm text-gray-600">
-                    {detailpost.description}
+                   {/*  {detailpost.description} */}
+                   Un lago es una característica geográfica que representa un cuerpo de agua estancada, generalmente de naturaleza dulce, rodeada por tierra. Estas formaciones acuáticas son una parte esencial del paisaje terrestre y desempeñan un papel vital en los ecosistemas naturales, la geología y la vida humana.
+
+Los lagos pueden variar considerablemente en tamaño, desde pequeños estanques que apenas ocupan unos pocos metros cuadrados hasta vastos cuerpos de agua que se extienden a lo largo de cientos de kilómetros cuadrados. Su origen es diverso: algunos son el resultado de procesos glaciares, como la erosión y la deposición de sedimentos durante la última era del hielo; otros se forman a través de la acción de los ríos que llenan cuencas o depresiones naturales. Además, la actividad humana ha dado lugar a la creación de lagos artificiales mediante la construcción de presas para diversos fines, como la generación de energía hidroeléctrica, el suministro de agua potable o la recreación.
+
+Los lagos son ecosistemas ricos y diversos. Suelen albergar una variedad de vida acuática, que incluye peces, aves, anfibios e invertebrados. La biodiversidad en y alrededor de los lagos depende en gran medida de factores como la temperatura del agua, la calidad del agua y la disponibilidad de nutrientes. Los lagos pueden ser fuentes importantes de agua dulce y, por lo tanto, son cruciales para la supervivencia de muchas especies, incluidos los seres humanos.
+
+Para las comunidades humanas, los lagos han sido históricamente vitales como fuentes de agua para beber, regar cultivos y alimentar la industria. Además, los lagos a menudo son destinos populares para actividades recreativas, como la natación, la pesca, la navegación y el senderismo en sus orillas. La belleza escénica de los lagos también ha inspirado a artistas, escritores y viajeros a lo largo de la historia.
+
+Desde una perspectiva geológica, los lagos pueden cambiar con el tiempo debido a la sedimentación, la erosión y otros procesos naturales. Esto puede resultar en la evolución o desaparición de un lago a lo largo de eones geológicos.
+
+En resumen, los lagos son características de la Tierra que abarcan una amplia gama de tamaños y funciones, y tienen una importancia significativa tanto para los ecosistemas naturales como para la vida humana. Son un testimonio de la interacción compleja entre la geología, el clima y la actividad humana en nuestro planeta.
                   </p>
-                </div>
               </div>
+              <div className="horizontal-line-with-o">
+        <div className="line"></div> {/* Línea a la izquierda */}
+   
+      </div>
+              <div className="mt-10">
+                <h2 className="text-sm font-medium text-gray-900">Dias de atención al cliente de lunes a viernes.</h2>
+
+                  <p className="text-sm text-gray-600">
+                    de 8am a 8pm
+                  </p>
+           
+              </div>
+              <div className="horizontal-line-with-o">
+        <div className="line"></div> {/* Línea a la izquierda */}
+   
+      </div>
+              <div className="mt-10">
+              <h3 className="text-sm font-medium text-gray-900">El lugar cuenta con:</h3>
+
+                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+                    <li className="text-gray-400">
+                      <span className="text-gray-600">Vista al mar</span>
+                    </li>
+                    <li className="text-gray-400">
+                      <span className="text-gray-600">Tiendas de comidas</span>
+                    </li>
+                    <li className="text-gray-400">
+                      <span className="text-gray-600">Desayuno gratis</span>
+                    </li>
+                    <li className="text-gray-400">
+                      <span className="text-gray-600">GYM</span>
+                    </li>
+                </ul>
+                <div className="horizontal-line-with-o">
+        <div className="line"></div> {/* Línea a la izquierda */}
+   
+      </div>
+              <div className="mt-10">
+                <h2 className="text-sm font-medium text-gray-900">
+información importante</h2>
+
+                  <p className="text-sm text-gray-600">
+                  <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+                    <li className="text-gray-400">
+                      <span className="text-gray-600">Vista al mar</span>
+                    </li>
+                    <li className="text-gray-400">
+                      <span className="text-gray-600">Tiendas de comidas</span>
+                    </li>
+                    <li className="text-gray-400">
+                      <span className="text-gray-600">Desayuno gratis</span>
+                    </li>
+                    <li className="text-gray-400">
+                      <span className="text-gray-600">GYM</span>
+                    </li>
+                </ul>
+                  </p>
+              </div>
+            </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   );
 }

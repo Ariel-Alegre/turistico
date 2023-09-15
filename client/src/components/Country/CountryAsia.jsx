@@ -155,7 +155,6 @@ export default function CountryAmerica() {
     { name: 'Yemen', countryCode: 'ye' },
   ];
   
-const flagRenderer = (item) => <Flag name={item.countryCode}/>
   
 
   return (
@@ -173,10 +172,12 @@ const flagRenderer = (item) => <Flag name={item.countryCode}/>
   label={country}
   
 >
-  <label className="country-filter">
-
-  {flagRenderer(country)}{country.name}
-  </label>
+<div className="country-filter">
+  {country.name}
+  <p className="flag-container">
+    {<Flag id="flag-img"  name={country.countryCode}/>}
+  </p>
+</div>
 </SplideSlide>
 ))}
 

@@ -9,6 +9,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Grid from "@mui/material/Grid";
 import { useSelector, useDispatch } from "react-redux";
 import { AllPostTuristic, dataPersonal } from "../../redux/action";
+import { list2 } from '../../assets/cards-list'
 
 function Card() {
   const [isLoading, setIsLoading] = useState(true);
@@ -81,28 +82,15 @@ console.log(allPost.length);
                 </Carousel>
                 <div className="desc-hover">
 
-                <div className="card-info-flex">
-                  <Link to="/rooms" className="text-link">
-                    <h3 className="card-title">{info.title}</h3>
-                  </Link>
-                  <div>
-                    <Avatar
-                      sx={{
-                        width: 32,
-                        height: 32,
-                      }}
-                      >
-                      {data.name && data.name[0].toUpperCase()}
-                    </Avatar>
-                  </div>
-                </div>
+             
                 <Link to="/rooms" className="text-link">
      
                   {info.status === "Público" ? (
-                    <div>
-
-                          <p className="summary-card">
+                    <div className="summary-card">
+                           
+                          <p >
                           {info.summary}
+                          </p>
                           <p
                             style={{
                               margin: "0.2rem",
@@ -113,47 +101,53 @@ console.log(allPost.length);
                             <span style={{ fontWeight: "600" }}>Gratis</span>{" "}
                        
                           </p>
-                        </p>
 
-                    <p
-                    className="stay-price"
-                    style={{
-                      margin: "0.2rem",
-                      fontSize: "1rem",
-                      color: "var(--black)",
-                    }}
-                    >
-                    <span style={{ fontWeight: "600" }}>Gratis</span>{" "}
-                  </p>
                       </div>
                     )
                     : (
-                      <div>
-
-                      <p className="summary-card">
-                      {info.summary}
-                      <p
-                        style={{
-                          margin: "0.2rem",
-                          fontSize: "1rem",
-                          color: "var(--black)",
-                        }}
-                        >
-                        <span style={{ fontWeight: "600" }}>${info.price}</span>{" "}
-                        {info.stay}
-                      </p>
-                    </p>
-                      <p
-                      className="stay-price"
-                      style={{
-                        margin: "0.2rem",
-                        fontSize: "1rem",
-                        color: "var(--black)",
+                      <div className="shadow-card">
+                           <div className="card-info-flex">
+                  <Link to="/rooms" className="text-link">
+                    {/* <h3 className="card-title">{info.title}</h3> */}
+                    <h3 className="card-title">Lagos</h3>
+                  </Link>
+                  <div>
+                    <Avatar
+                      sx={{
+                        width: 32,
+                        height: 32,
                       }}
                       >
-                      <span style={{ fontWeight: "600" }}>${info.price}</span>{" "}
-                      {info.stay}
-                  </p>
+                      {/* {data.name && data.name[0].toUpperCase()} */}
+                      J
+                    </Avatar>
+                  </div>
+                </div>
+
+         
+                <p>
+
+
+<p
+    style={{
+      margin: "0.2rem",
+      fontSize: "1rem",
+      color: "var(--black)",
+    }}
+    className="price-none"
+    >
+    {/* <span style={{ fontWeight: "600" }}>${info.price}</span>{" "} */}
+    <span style={{ fontWeight: "600" }}>$50</span>{" "}
+    {/* {info.stay} */}
+    por persona
+  </p>
+    </p>
+                      <p className="summary-card" >
+                      {info.summary}
+             
+                    </p>
+               
+              
                   </div>
                   )
                   }

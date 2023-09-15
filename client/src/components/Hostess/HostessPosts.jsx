@@ -25,7 +25,7 @@ function HostessAdmin() {
 
   return (
     <>
-      {hostessuser.id  ? (
+     {/*  {hostessuser.id  ? (
         <div className="cards-flex">
           {hostessuser.Posts &&
             hostessuser.Posts.map((data, dataIndex) => (
@@ -94,7 +94,7 @@ function HostessAdmin() {
         <div>
           <h1>Sección donde va a poder editar o eliminar publicación</h1>
         </div>
-      )}
+      )} */}
     </>
   );
 }

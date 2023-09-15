@@ -17,7 +17,7 @@ import { containerClasses } from "@mui/material";
 import "./index.scss";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Table, Flag } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css';
+//import 'semantic-ui-css/semantic.min.css';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -166,7 +166,6 @@ export default function CountryAmerica() {
   // Puedes acceder a la lista de países de África a través de la variable 'africanCountries'
   
 
-const flagRenderer = (item) => <Flag name={item.countryCode}/>
 
 
   return (
@@ -184,10 +183,12 @@ const flagRenderer = (item) => <Flag name={item.countryCode}/>
   label={country}
   
 >
-  <label className="country-filter">
-
-  {flagRenderer(country)}{country.name}
-  </label>
+<div className="country-filter">
+  {country.name}
+  <p className="flag-container">
+    {<Flag id="flag-img"  name={country.countryCode}/>}
+  </p>
+</div>
 </SplideSlide>
 ))}
 

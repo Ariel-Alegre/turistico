@@ -594,7 +594,7 @@ export default function FormStepper() {
 <div className="box-container">
 
 
-            <Form noValidate validated={validated}>
+            <Form noValidate validated={validated} className="start-input">
             <Row className="mb-3">
 
               <Form.Group as={Col} className="mb-3" controlId="validationCustomStatus">
@@ -664,309 +664,8 @@ export default function FormStepper() {
                   <div></div>
                 )}
                   </Row>
+               
 
-
-                {show.status === "Privado" ? (
-                  <Form.Group
-                  as={Col}
-                  className="mb-3"
-                    controlId="validationCustomContinent"
-                  >
-            <Row className="mb-3">
-                    <Form.Label>Continente</Form.Label>
-                    <Form.Select
-                      defaultValue={show.continent}
-                      onChange={handleContinent}
-                      aria-label="Continente"
-                      required={show.status === "Privado"}
-                      className="form-control mb-3"
-                    >
-                      <option value="">Seleccione una opción</option>
-                      {continent.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">
-                      Por favor seleccione un continente.
-                    </Form.Control.Feedback>
-                    </Row>
-                    {show.continent === "América" ? (
-                      <div>
-            <Row className="mb-3">
-
-                        <Form.Label>País</Form.Label>
-                        <Form.Select
-                          defaultValue={show.stay}
-                          onChange={handleStay}
-                          aria-label="Estadia"
-                          required={show.status === "Privado"}
-                          className="mb-3"
-                        >
-                          <option value="">Seleccione una opción</option>
-                          {america.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">
-                          Por favor seleccione un país.
-                        </Form.Control.Feedback>
-                          </Row>
-                      </div>
-                    ) : (
-                      <div>
-                        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
-                      </div>
-                    )}
-
-                    {show.continent === "Europa" ? (
-                      <div>
-            <Row className="mb-3">
-            <Form.Group
-                  as={Col}
-                  className="mb-3"
-                    controlId="validationCustomContinent"
-                  >
-
-                        <Form.Label>País</Form.Label>
-                        <Form.Select
-                          defaultValue={show.stay}
-                          onChange={handleStay}
-                          aria-label="Estadia"
-                          required={show.status === "Privado"}
-                          className="mb-3"
-                          >
-                          <option value="">Seleccione una opción</option>
-                          {europa.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">
-                          Por favor seleccione un país.
-                        </Form.Control.Feedback>
-                        </Form.Group>
-                          </Row>
-                      </div>
-                    ) : (
-                      <div>
-                        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
-                      </div>
-                    )}
-                    {show.continent === "Asia" ? (
-                      <div>
-            <Row className="mb-3">
-            <Form.Group
-                  as={Col}
-                  className="mb-3"
-                    controlId="validationCustomContinent"
-                  >
-
-
-                        <Form.Label>País</Form.Label>
-                        <Form.Select
-                          defaultValue={show.stay}
-                          onChange={handleStay}
-                          aria-label="Estadia"
-                          required={show.status === "Privado"}
-                          className="mb-3"
-                          >
-                          <option value="">Seleccione una opción</option>
-                          {asia.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">
-                          Por favor seleccione un país.
-                        </Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
-                      </div>
-                    ) : (
-                      <div>
-                        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
-                      </div>
-                    )}
-
-                    {show.continent === "África" ? (
-<Row className="mb-3">
-                      <div>
-
-            <Form.Group
-                  as={Col}
-                  className="mb-3"
-                    controlId="validationCustomContinent"
-                  >
-                        <Form.Label>País</Form.Label>
-                        <Form.Select
-                          defaultValue={show.stay}
-                          onChange={handleStay}
-                          aria-label="Estadia"
-                          required={show.status === "Privado"}
-                          className="mb-3"
-                        >
-                          <option value="">Seleccione una opción</option>
-                          {africa.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">
-                          Por favor seleccione un país.
-                        </Form.Control.Feedback>
-                              </Form.Group>
-                      </div>
-                    </Row>
-                    ) : (
-                      <div>
-                        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
-                      </div>
-                    )}
-
-                    {show.continent === "Oceanía" ? (
-                      <div>
-            <Row className="mb-3">
-            <Form.Group
-                  as={Col}
-                  className="mb-3"
-                    controlId="validationCustomContinent"
-                  >
-
-                        <Form.Label>País</Form.Label>
-                        <Form.Select
-                          defaultValue={show.stay}
-                          onChange={handleStay}
-                          aria-label="Estadia"
-                          required={show.status === "Privado"}
-                          className="mb-3"
-                        >
-                          <option value="">Seleccione una opción</option>
-                          {oceania.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">
-                          Por favor seleccione un país.
-                        </Form.Control.Feedback>
-                          </Form.Group>
-                          </Row>
-                      </div>
-                    ) : (
-                      <div>
-                        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
-                      </div>
-                    )}
-
-
-            <Row className="mb-3">
-            <Form.Group
-                  as={Col}
-                  className="mb-3"
-                    controlId="validationCustomContinent"
-                  >
-
-                    <Form.Label>Dias y horarios de atención</Form.Label>
-                    <Form.Select
-                      defaultValue={show.attention}
-                      onChange={handleAttention}
-                      aria-label="Continente"
-                      required={show.status === "Privado"}
-                      className="mb-3"
-                      >
-                      <option value="">Seleccione una opción</option>
-                      {daysatention.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </Form.Select>
-              </Form.Group>
-                    </Row>
-
-
-                    {show.attention ? (
-                      
-                        <Row className="mb-3">
-                      <div className="hours-container">
-                   
-                        <TextField
-                          id="hours"
-                          label="Abre"
-                          type="time"
-                          className="mb-3"
-                          value={show.hoursInitial}
-                          onChange={handleHoursinitial}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          inputProps={{
-                            step: 300, // paso en segundos (5 minutos)
-                          }}
-                          />
-                 
-                       <h5>Hasta</h5>
-                       <TextField
-                          id="hours"
-                          label="Cierre"
-                          type="time"
-                          value={show.hoursInitial}
-                          onChange={handleHoursinitial}
-                          className="mb-3"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          inputProps={{
-                            step: 300, // paso en segundos (5 minutos)
-                          }}
-                          />
-                   
-                      </div>
-                              </Row>
-                            
-                            ) : (
-                              <div></div>
-                              )}
-            <Row className="mb-3">
-            <Form.Group
-                  as={Col}
-                  className="mb-3"
-                    controlId="validationCustomContinent"
-                  >
-
-                    <Form.Label>Estadia</Form.Label>
-                    <Form.Select
-                      defaultValue={show.stay}
-                      onChange={handleStay}
-                      aria-label="Estadia"
-                      required={show.status === "Privado"}
-                      className="mb-3"
-                      >
-                      <option value="">Seleccione una opción</option>
-                      {options.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">
-                      Por favor seleccione una opción de estadía.
-                    </Form.Control.Feedback>
-                      </Form.Group>
-                    </Row>
-
-                  </Form.Group>
-                ) : (
-                  <div></div>
-                )}
               <Row className="mb-3">
                 <Form.Group
                  className="mb-3"
@@ -1001,6 +700,315 @@ export default function FormStepper() {
             </Form>
 
             <div className="action-private">
+            <div className={show.status === "Privado" ? "action-box": ""}>
+
+
+{show.status === "Privado" ? (
+  <Form.Group
+  as={Col}
+  className="mb-3"
+    controlId="validationCustomContinent"
+  >
+<Row className="mb-3">
+    <Form.Label>Continente</Form.Label>
+    <Form.Select
+      defaultValue={show.continent}
+      onChange={handleContinent}
+      aria-label="Continente"
+      required={show.status === "Privado"}
+      className="form-control mb-3"
+    >
+      <option value="">Seleccione una opción</option>
+      {continent.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </Form.Select>
+    <Form.Control.Feedback type="invalid">
+      Por favor seleccione un continente.
+    </Form.Control.Feedback>
+    </Row>
+    {show.continent === "América" ? (
+      <div>
+<Row className="mb-3">
+
+        <Form.Label>País</Form.Label>
+        <Form.Select
+          defaultValue={show.stay}
+          onChange={handleStay}
+          aria-label="Estadia"
+          required={show.status === "Privado"}
+          className="mb-3"
+        >
+          <option value="">Seleccione una opción</option>
+          {america.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </Form.Select>
+        <Form.Control.Feedback type="invalid">
+          Por favor seleccione un país.
+        </Form.Control.Feedback>
+          </Row>
+      </div>
+    ) : (
+      <div>
+        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
+      </div>
+    )}
+
+    {show.continent === "Europa" ? (
+      <div>
+<Row className="mb-3">
+<Form.Group
+  as={Col}
+  className="mb-3"
+    controlId="validationCustomContinent"
+  >
+
+        <Form.Label>País</Form.Label>
+        <Form.Select
+          defaultValue={show.stay}
+          onChange={handleStay}
+          aria-label="Estadia"
+          required={show.status === "Privado"}
+          className="mb-3"
+          >
+          <option value="">Seleccione una opción</option>
+          {europa.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </Form.Select>
+        <Form.Control.Feedback type="invalid">
+          Por favor seleccione un país.
+        </Form.Control.Feedback>
+        </Form.Group>
+          </Row>
+      </div>
+    ) : (
+      <div>
+        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
+      </div>
+    )}
+    {show.continent === "Asia" ? (
+      <div>
+<Row className="mb-3">
+<Form.Group
+  as={Col}
+  className="mb-3"
+    controlId="validationCustomContinent"
+  >
+
+
+        <Form.Label>País</Form.Label>
+        <Form.Select
+          defaultValue={show.stay}
+          onChange={handleStay}
+          aria-label="Estadia"
+          required={show.status === "Privado"}
+          className="mb-3"
+          >
+          <option value="">Seleccione una opción</option>
+          {asia.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </Form.Select>
+        <Form.Control.Feedback type="invalid">
+          Por favor seleccione un país.
+        </Form.Control.Feedback>
+        </Form.Group>
+    </Row>
+      </div>
+    ) : (
+      <div>
+        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
+      </div>
+    )}
+
+    {show.continent === "África" ? (
+<Row className="mb-3">
+      <div>
+
+<Form.Group
+  as={Col}
+  className="mb-3"
+    controlId="validationCustomContinent"
+  >
+        <Form.Label>País</Form.Label>
+        <Form.Select
+          defaultValue={show.stay}
+          onChange={handleStay}
+          aria-label="Estadia"
+          required={show.status === "Privado"}
+          className="mb-3"
+        >
+          <option value="">Seleccione una opción</option>
+          {africa.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </Form.Select>
+        <Form.Control.Feedback type="invalid">
+          Por favor seleccione un país.
+        </Form.Control.Feedback>
+              </Form.Group>
+      </div>
+    </Row>
+    ) : (
+      <div>
+        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
+      </div>
+    )}
+
+
+    {show.continent === "Oceanía" ? (
+      <div>
+<Row className="mb-3">
+<Form.Group
+  as={Col}
+  className="mb-3"
+    controlId="validationCustomContinent"
+  >
+
+        <Form.Label>País</Form.Label>
+        <Form.Select
+          defaultValue={show.stay}
+          onChange={handleStay}
+          aria-label="Estadia"
+          required={show.status === "Privado"}
+          className="mb-3"
+        >
+          <option value="">Seleccione una opción</option>
+          {oceania.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </Form.Select>
+        <Form.Control.Feedback type="invalid">
+          Por favor seleccione un país.
+        </Form.Control.Feedback>
+          </Form.Group>
+          </Row>
+      </div>
+    ) : (
+      <div>
+        {/* Aquí puedes agregar contenido adicional que se mostrará cuando no se seleccione "América" */}
+      </div>
+    )}
+
+
+<Row className="mb-3">
+<Form.Group
+  as={Col}
+  className="mb-3"
+    controlId="validationCustomContinent"
+  >
+
+    <Form.Label>Dias y horarios de atención</Form.Label>
+    <Form.Select
+      defaultValue={show.attention}
+      onChange={handleAttention}
+      aria-label="Continente"
+      required={show.status === "Privado"}
+      className="mb-3"
+      >
+      <option value="">Seleccione una opción</option>
+      {daysatention.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </Form.Select>
+</Form.Group>
+    </Row>
+
+
+    {show.attention ? (
+      
+        <Row className="mb-3">
+      <div className="hours-container">
+   
+        <TextField
+          id="hours"
+          label="Abre"
+          type="time"
+          className="mb-3"
+          value={show.hoursInitial}
+          onChange={handleHoursinitial}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          inputProps={{
+            step: 300, // paso en segundos (5 minutos)
+          }}
+          />
+ 
+       <h5>Hasta</h5>
+       <TextField
+          id="hours"
+          label="Cierre"
+          type="time"
+          value={show.hoursInitial}
+          onChange={handleHoursinitial}
+          className="mb-3"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          inputProps={{
+            step: 300, // paso en segundos (5 minutos)
+          }}
+          />
+   
+      </div>
+              </Row>
+            
+            ) : (
+              <div></div>
+              )}
+
+
+<Row className="mb-3">
+<Form.Group
+  as={Col}
+  className="mb-3"
+    controlId="validationCustomContinent"
+  >
+
+    <Form.Label>Estadia</Form.Label>
+    <Form.Select
+      defaultValue={show.stay}
+      onChange={handleStay}
+      aria-label="Estadia"
+      required={show.status === "Privado"}
+      className="mb-3"
+      >
+      <option value="">Seleccione una opción</option>
+      {options.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </Form.Select>
+    <Form.Control.Feedback type="invalid">
+      Por favor seleccione una opción de estadía.
+    </Form.Control.Feedback>
+      </Form.Group>
+    </Row>
+
+  </Form.Group>
+) : (
+  <div></div>
+)}
+  </div>
+  <div className={show.status === "Privado" ? "rest-info" : ""}>
 
             <Row className="mb-3">
        
@@ -1035,7 +1043,7 @@ export default function FormStepper() {
              {defaultWords.includes(word) && (
                <input
                type="checkbox"
-                 checked={selectedWords.includes(index)}
+               checked={selectedWords.includes(index)}
                  onChange={() => handleCheckboxChange(index)}
                  className="mr-2"
                  />
@@ -1082,11 +1090,12 @@ export default function FormStepper() {
      )}
    </Col>
  </Row>
+
 </Container>
 
 
-         ): (
-           <div>
+): (
+  <div>
 
           </div>
          )}
@@ -1162,6 +1171,8 @@ export default function FormStepper() {
           </div>
          )}
 </Row>
+</div>
+
 
 
          </div>

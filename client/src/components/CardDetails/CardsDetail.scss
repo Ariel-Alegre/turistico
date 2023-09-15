@@ -26,7 +26,12 @@
 }
 
 
-
+.card-reserve {
+  box-shadow: 0px 0px 50px rgb(204, 204, 204);
+  justify-content: center;
+  width: 450px;
+  display: flex;
+}
 
 .drawer-details {
   display: grid;
@@ -103,10 +108,36 @@
   background-color: #05A1A1;
 }
 
+#icons-details {
+  color: #fff;
+  background-color: #05A1A1;
+  position: absolute;
+  margin-top: -50px;
+  margin-left: 280px;
 
+}
+
+#icons-details:hover {
+  color: #fff;
+  background-color: #05A1A1;
+}
+.anfitrion-avatar {
+  display: flex;
+  gap: 10px;
+}
 @media only screen and (max-width: 480px) {
   #skeleton1 {
     height: 250px;
+  }
+  #icons-details {
+  
+    margin-left: 330px;
+  
+  }
+  .card-reserve {
+  width: 350px;
+  box-shadow: 0px 0px 0px;
+
   }
 }
 
@@ -115,4 +146,23 @@
     width: 750px;
     height: 420px;
   }
+  .card-reserve {
+  box-shadow: 0px 0px 0px;
+
+  }
+  #icons-details {
+  
+    margin-left: 480px;
+  
+  }
 }
+
+
+@media only screen and (min-width: 1025px) and (max-width: 1728px) {
+  .card-reserve {
+    width: 350px;
+  
+    }
+}
+
+

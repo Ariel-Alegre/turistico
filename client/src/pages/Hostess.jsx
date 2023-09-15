@@ -3,7 +3,6 @@ import Tabs from 'react-bootstrap/Tabs';
 import Card from '../components/Cards/Card';
 import Header from '../components/Header';
 import HostessPosts from '../components/Hostess/HostessPosts';
-import ContactUs from '../components/Hostess/Contact Us/ContactUs';
 import { Link } from 'react-router-dom';
 
 function Hostess() {
@@ -25,7 +24,7 @@ function Hostess() {
         </h1>
       </Tab>
       <Tab eventKey="profile" title="Publicaciones">
-        <HostessPosts/>
+       sadasd
       </Tab>
 
  
