@@ -159,29 +159,24 @@ export default function CountryAmerica() {
 
   return (
     <div className="country-container">
-    <Splide
-    options={{
-      type: "slide", // Tipo de transición (slide)
-      perMove: 1, // Número de elementos a mover en cada transición
-      perPage: window.innerWidth < 480 ? 2 : 7,
-    }}
-    >
+  <Tabs
+    value={value}
+    onChange={handleChange}
+    variant="scrollable"
+    scrollButtons="auto"
+    aria-label="scrollable auto tabs example"
+  >
 {asia.map((country) => (
-<SplideSlide
-  key={country}
-  label={country}
-  
->
-<div className="country-filter">
-  {country.name}
-  <p className="flag-container">
-    {<Flag id="flag-img"  name={country.countryCode}/>}
-  </p>
+ <div className="country-filter">
+
+ <Tab  label={country.name} />
+ <p className="flag-container">
+   {<Flag id="flag-img" name={country.countryCode} />}
+ </p>
 </div>
-</SplideSlide>
 ))}
 
-  </Splide>
+  </Tabs>
 </div>
   );
 }

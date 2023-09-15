@@ -127,7 +127,7 @@ export default function CountryAmerica() {
     { name: 'Paraguay', countryCode: 'py' },
     { name: 'Peru', countryCode: 'pe' },
     { name: 'Puerto Rico', countryCode: 'pr' },
-    { name: 'Trinidad and Tobago', countryCode: 'tt' },
+    { name: 'Trinidad  Tobago', countryCode: 'tt' },
     { name: 'United States', countryCode: 'us', alias: 'America' },
     { name: 'Uruguay', countryCode: 'uy' },
     { name: 'Venezuela', countryCode: 've' }
@@ -140,31 +140,32 @@ export default function CountryAmerica() {
 
   
   return (
-    <div className="country-container">
-        <Splide
-        options={{
-          type: "slide", // Tipo de transición (slide)
-          perMove: 1, // Número de elementos a mover en cada transición
-          perPage: window.innerWidth < 480 ? 2 : 7,
-        }}
-        >
-  {america.map((country) => (
-    <SplideSlide
-      key={country}
-      label={country}
-      
-    >
-   <div className="country-filter">
+<div className="country-container">
+  <Tabs
+    value={value}
+    onChange={handleChange}
+    variant="scrollable"
+    scrollButtons="auto"
+    aria-label="scrollable auto tabs example"
+  >
+    {america.map((country) => (
+      <div className="country-filter">
+
+        <Tab  label={country.name} />
+        <p className="flag-container">
+          {<Flag id="flag-img" name={country.countryCode} />}
+        </p>
+      </div>
+    ))}
+  </Tabs>
+</div>
+
+  );
+}
+
+{/*    <div className="country-filter">
   {country.name}
   <p className="flag-container">
     {<Flag id="flag-img"  name={country.countryCode}/>}
   </p>
-</div>
-
-    </SplideSlide>
-  ))}
-
-      </Splide>
-    </div>
-  );
-}
+</div> */}
