@@ -30,7 +30,7 @@ function App() {
           <Route exact path='/' element={<Home />} />
           <Route exact path='/auth/login' element={<Login />} />
           <Route exact path='/auth/register' element={<Register />} />
-          <Route exact path='/rooms/:idTuristic' element={<CardDetails />} />
+          <Route exact path='/rooms' element={<CardDetails />} />
           <Route exact path='/account-settings' element={<AccountSettings />} />
           <Route exact path='/account-settings/personal-info' element={<InfoPersonal />} />
           <Route exact path='/account-settings/login-and-security' element={<Security />} />
