@@ -163,9 +163,3 @@ export default function CountryAmerica() {
   );
 }
 
-{/*    <div className="country-filter">
-  {country.name}
-  <p className="flag-container">
-    {<Flag id="flag-img"  name={country.countryCode}/>}
-  </p>
-</div> */}
