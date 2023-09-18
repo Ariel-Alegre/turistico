@@ -103,3 +103,17 @@ gap: 10px;
         }
     }
 }
+
+@media only screen and (min-width: 1025px) and (max-width: 1728px) {
+    .filter-container {
+
+        .filter-type {
+            
+            height: 550px;
+            width: 550px;
+        }
+        .slide-card {
+gap: 10px;
+        }
+    }
+  }
