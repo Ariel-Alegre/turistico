@@ -12,10 +12,8 @@ import "./FilterCard.scss";
 
 export default function FilterCard() {
   return (
-    <>
-     <div className="search-formobile">
+     <div className="all-filter">
                 <h2>Buscar por</h2>
-              </div>
     <div className="filter-container">
       <Splide
         options={{
@@ -60,6 +58,6 @@ export default function FilterCard() {
   
       </Splide>
     </div>
-        </>
+          </div>
   );
 }

@@ -133,7 +133,11 @@ export default function CountryAmerica() {
   {oceania.map((country) => (
    <div className="country-filter">
 
-   <Tab  label={country.name} />
+   <Tab   sx={{
+    '&:focus': {
+      color: '#05A1A1',
+    },
+  }}  label={country.name} />
    <p className="flag-container">
      {<Flag id="flag-img" name={country.countryCode} />}
    </p>

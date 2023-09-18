@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       daysAtentions: DataTypes.STRING,
       hoursAtentionsFinally: DataTypes.STRING,
       hoursAtetionsInitial: DataTypes.STRING,
-      calendar: DataTypes.ARRAY(DataTypes.STRING),
+      reservedDates: DataTypes.ARRAY(DataTypes.STRING),
       listDetails: DataTypes.ARRAY(DataTypes.STRING)
 
 

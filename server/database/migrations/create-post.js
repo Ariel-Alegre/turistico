@@ -40,7 +40,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       daysAtentions: {
-        type: Sequelize.ARRAY(Sequelize.STRING)
+        type: Sequelize.STRING
       },
       infoImportant: {
         type: Sequelize.STRING,
@@ -51,7 +51,7 @@ module.exports = {
       hoursAtentionsFinally: {
         type: Sequelize.STRING,
       },
-      calendar: {
+      reservedDates: {
         type: Sequelize.ARRAY(Sequelize.STRING),
       },
       listDetails: {

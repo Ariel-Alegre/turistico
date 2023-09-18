@@ -10,16 +10,14 @@
         background: linear-gradient(to top, #fff 50%, #05A1A1  50%); /* Cambia 'otro-color' al color que desees */
         border-radius: 10px;
         height: 650px;
-        width: 450px;
+        width: 650px;
         box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .05);
-   
-
     }
 
 
     .slide {
-        height: 70vh;
-        width: 50%; /* Cambia esto a 25% para mostrar 2 elementos a la vez */
+        height: 100%;
+        width: 100%; /* Cambia esto a 25% para mostrar 2 elementos a la vez */
         display: flex;
         justify-content: center;
       }
@@ -27,6 +25,7 @@
       .splide-slide {
         display: flex;
         margin-right: 0; /* Evita espacios innecesarios entre las tarjetas */
+        
       }
       
 
@@ -45,6 +44,7 @@
         display: flex;
         gap: 50px;
         width: 100%;
+        justify-content: center;
     }
 
    
@@ -62,42 +62,27 @@
 
 }
 
-.search-formobile h2{
+.all-filter h2{
     text-align: center;
-    margin-top: 50px;
+  }
+
+  .all-filter {
+    margin-top: 80px;
   }
 
 @media only screen and (max-width: 480px) {
     .filter-container {
+
         .filter-type {
-            color: white;
-            background-color: #05A1A1;
-            border-radius: 10px;
+            
             height: 250px;
             width: 250px;
-
         }
-    
-
-        .slide {
-            display: flex;
-            justify-content: center;
-            width: 90%;
-
-
-        }
-        .slide-card { 
-            gap: 10px;
-        }
-
-        .filter-type img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto;
+        .slide-card {
+gap: 10px;
         }
     }
+
 };
 
 /* @media only screen and (min-width: 1025px) and (max-width: 1728px) {

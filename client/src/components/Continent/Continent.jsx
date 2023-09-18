@@ -109,36 +109,36 @@ function Continent() {
   return (
     <>
       <div className="continent-container">
-        <button variant="contained" onClick={handleClickAmerica}>
+        <Button   onClick={handleClickAmerica}>
           <div className="continent">
             <img src={america} alt="not found" />
             <p>America</p>
           </div>
-        </button>
-        <button variant="contained" onClick={handleClickEurope}>
+        </Button>
+        <Button  onClick={handleClickEurope}>
           <div className="continent">
             <img src={europa} alt="not found" />
             <p>Europa</p>
           </div>
-        </button>
-        <button variant="contained" onClick={handleClickAsia}>
+        </Button>
+        <Button onClick={handleClickAsia}>
           <div className="continent">
             <img src={asia} alt="not found" />
             <p>Asia</p>
           </div>
-        </button>
-        <button variant="contained" onClick={handleClickAfrica}>
+        </Button>
+        <Button onClick={handleClickAfrica}>
           <div className="continent">
             <img src={africa} alt="not found" />
             <p>Africa</p>
           </div>
-        </button>
-        <button variant="contained" onClick={handleClickOceania}>
+        </Button>
+        <Button  onClick={handleClickOceania}>
           <div className="continent">
             <img src={america} alt="not found" />
             <p>Oceania</p>
           </div>
-        </button>
+        </Button>
       </div>
       <div>
         <Fade in={showAmerica}>

@@ -440,8 +440,8 @@ export default function CardDetails() {
       <div className="bg-white">
         <div className="pt-6">
           {/* <h1 className="title">{detailpost.title}</h1> */}
-          
           <h1 className="title">Lagos</h1>
+          
           {/* Image gallery */}
           {isLoading ? (
             <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -466,6 +466,7 @@ export default function CardDetails() {
               {["top"].map((anchor) => (
                 <React.Fragment key={anchor}>
                   <div onClick={toggleDrawer(anchor, true)}>
+
                     <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                       <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
                         <img
@@ -617,59 +618,8 @@ export default function CardDetails() {
                 <div className="line"></div> {/* Línea a la izquierda */}
               </div>
 
-              <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">
-                  Descripción
-                </h2>
-
-                <p className="text-sm text-gray-600">
-                  {/*  {detailpost.description} */}
-                  Un lago es una característica geográfica que representa un
-                  cuerpo de agua estancada, generalmente de naturaleza dulce,
-                  rodeada por tierra. Estas formaciones acuáticas son una parte
-                  esencial del paisaje terrestre y desempeñan un papel vital en
-                  los ecosistemas naturales, la geología y la vida humana. Los
-                  lagos pueden variar considerablemente en tamaño, desde
-                  pequeños estanques que apenas ocupan unos pocos metros
-                  cuadrados hasta vastos cuerpos de agua que se extienden a lo
-                  largo de cientos de kilómetros cuadrados. Su origen es
-                  diverso: algunos son el resultado de procesos glaciares, como
-                  la erosión y la deposición de sedimentos durante la última era
-                  del hielo; otros se forman a través de la acción de los ríos
-                  que llenan cuencas o depresiones naturales. Además, la
-                  actividad humana ha dado lugar a la creación de lagos
-                  artificiales mediante la construcción de presas para diversos
-                  fines, como la generación de energía hidroeléctrica, el
-                  suministro de agua potable o la recreación. Los lagos son
-                  ecosistemas ricos y diversos. Suelen albergar una variedad de
-                  vida acuática, que incluye peces, aves, anfibios e
-                  invertebrados. La biodiversidad en y alrededor de los lagos
-                  depende en gran medida de factores como la temperatura del
-                  agua, la calidad del agua y la disponibilidad de nutrientes.
-                  Los lagos pueden ser fuentes importantes de agua dulce y, por
-                  lo tanto, son cruciales para la supervivencia de muchas
-                  especies, incluidos los seres humanos. Para las comunidades
-                  humanas, los lagos han sido históricamente vitales como
-                  fuentes de agua para beber, regar cultivos y alimentar la
-                  industria. Además, los lagos a menudo son destinos populares
-                  para actividades recreativas, como la natación, la pesca, la
-                  navegación y el senderismo en sus orillas. La belleza escénica
-                  de los lagos también ha inspirado a artistas, escritores y
-                  viajeros a lo largo de la historia. Desde una perspectiva
-                  geológica, los lagos pueden cambiar con el tiempo debido a la
-                  sedimentación, la erosión y otros procesos naturales. Esto
-                  puede resultar en la evolución o desaparición de un lago a lo
-                  largo de eones geológicos. En resumen, los lagos son
-                  características de la Tierra que abarcan una amplia gama de
-                  tamaños y funciones, y tienen una importancia significativa
-                  tanto para los ecosistemas naturales como para la vida humana.
-                  Son un testimonio de la interacción compleja entre la
-                  geología, el clima y la actividad humana en nuestro planeta.
-                </p>
-              </div>
-              <div className="horizontal-line-with-o">
-                <div className="line"></div> {/* Línea a la izquierda */}
-              </div>
+          
+          
               <div className="mt-10">
                 <h2 className="text-sm font-medium text-gray-900">
                   Dias de atención al cliente de lunes a viernes.
@@ -729,6 +679,59 @@ export default function CardDetails() {
                     </ul>
                   </p>
                 </div>
+                <div className="horizontal-line-with-o">
+                <div className="line"></div> {/* Línea a la izquierda */}
+              </div>
+                <div className="mt-10">
+                <h2 className="text-sm font-medium text-gray-900">
+                  Descripción
+                </h2>
+
+                <p className="text-sm text-gray-600">
+                  {/*  {detailpost.description} */}
+                  Un lago es una característica geográfica que representa un
+                  cuerpo de agua estancada, generalmente de naturaleza dulce,
+                  rodeada por tierra. Estas formaciones acuáticas son una parte
+                  esencial del paisaje terrestre y desempeñan un papel vital en
+                  los ecosistemas naturales, la geología y la vida humana. Los
+                  lagos pueden variar considerablemente en tamaño, desde
+                  pequeños estanques que apenas ocupan unos pocos metros
+                  cuadrados hasta vastos cuerpos de agua que se extienden a lo
+                  largo de cientos de kilómetros cuadrados. Su origen es
+                  diverso: algunos son el resultado de procesos glaciares, como
+                  la erosión y la deposición de sedimentos durante la última era
+                  del hielo; otros se forman a través de la acción de los ríos
+                  que llenan cuencas o depresiones naturales. Además, la
+                  actividad humana ha dado lugar a la creación de lagos
+                  artificiales mediante la construcción de presas para diversos
+                  fines, como la generación de energía hidroeléctrica, el
+                  suministro de agua potable o la recreación. Los lagos son
+                  ecosistemas ricos y diversos. Suelen albergar una variedad de
+                  vida acuática, que incluye peces, aves, anfibios e
+                  invertebrados. La biodiversidad en y alrededor de los lagos
+                  depende en gran medida de factores como la temperatura del
+                  agua, la calidad del agua y la disponibilidad de nutrientes.
+                  Los lagos pueden ser fuentes importantes de agua dulce y, por
+                  lo tanto, son cruciales para la supervivencia de muchas
+                  especies, incluidos los seres humanos. Para las comunidades
+                  humanas, los lagos han sido históricamente vitales como
+                  fuentes de agua para beber, regar cultivos y alimentar la
+                  industria. Además, los lagos a menudo son destinos populares
+                  para actividades recreativas, como la natación, la pesca, la
+                  navegación y el senderismo en sus orillas. La belleza escénica
+                  de los lagos también ha inspirado a artistas, escritores y
+                  viajeros a lo largo de la historia. Desde una perspectiva
+                  geológica, los lagos pueden cambiar con el tiempo debido a la
+                  sedimentación, la erosión y otros procesos naturales. Esto
+                  puede resultar en la evolución o desaparición de un lago a lo
+                  largo de eones geológicos. En resumen, los lagos son
+                  características de la Tierra que abarcan una amplia gama de
+                  tamaños y funciones, y tienen una importancia significativa
+                  tanto para los ecosistemas naturales como para la vida humana.
+                  Son un testimonio de la interacción compleja entre la
+                  geología, el clima y la actividad humana en nuestro planeta.
+                </p>
+              </div>
               </div>
             </div>
           </div>
