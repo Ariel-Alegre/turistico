@@ -327,7 +327,7 @@ export default function FormStepper() {
   };
   const disabledDate = (current) => {
     // Comprueba si la fecha actual está deshabilitada
-    const isDisabled = show.selectedDates.some((date) =>
+    const isDisabled = show.reservedDates.some((date) =>
       dayjs(date).isSame(current, "day")
     );
 

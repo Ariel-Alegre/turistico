@@ -111,18 +111,17 @@ export default function CountryAmerica() {
     { name: 'Angola', countryCode: 'ao' },
     { name: 'Benin', countryCode: 'bj' },
     { name: 'Botswana', countryCode: 'bw' },
-    { name: 'Burkina Faso', countryCode: 'bf' },
+    { name: 'Burkina F.', countryCode: 'bf' },
     { name: 'Burundi', countryCode: 'bi' },
     { name: 'Cameroon', countryCode: 'cm' },
     { name: 'Cape Verde', countryCode: 'cv' },
-    { name: 'Central African Republic', countryCode: 'cf' },
     { name: 'Chad', countryCode: 'td' },
     { name: 'Comoros', countryCode: 'km' },
     { name: 'Congo', countryCode: 'cd' },
-    { name: 'Congo Brazzaville', countryCode: 'cg' },
+    { name: 'Congo Bra.', countryCode: 'cg' },
     { name: 'Djibouti', countryCode: 'dj' },
     { name: 'Egypt', countryCode: 'eg' },
-    { name: 'Equatorial Guinea', countryCode: 'gq' },
+    { name: ' Guinea', countryCode: 'gq' },
     { name: 'Eritrea', countryCode: 'er' },
     { name: 'Eswatini', countryCode: 'sz' },
     { name: 'Ethiopia', countryCode: 'et' },
@@ -130,7 +129,7 @@ export default function CountryAmerica() {
     { name: 'Gambia', countryCode: 'gm' },
     { name: 'Ghana', countryCode: 'gh' },
     { name: 'Guinea', countryCode: 'gn' },
-    { name: 'Guinea-Bissau', countryCode: 'gw' },
+    { name: 'Guinea-Bi.', countryCode: 'gw' },
     { name: 'Ivory Coast', countryCode: 'ci' },
     { name: 'Kenya', countryCode: 'ke' },
     { name: 'Lesotho', countryCode: 'ls' },
@@ -147,13 +146,13 @@ export default function CountryAmerica() {
     { name: 'Niger', countryCode: 'ne' },
     { name: 'Nigeria', countryCode: 'ng' },
     { name: 'Rwanda', countryCode: 'rw' },
-    { name: 'Sao Tome y Principe', countryCode: 'st' },
+    { name: 'Sao Tome', countryCode: 'st' },
     { name: 'Senegal', countryCode: 'sn' },
     { name: 'Seychelles', countryCode: 'sc' },
-    { name: 'Sierra Leone', countryCode: 'sl' },
+    { name: 'Sierra L.', countryCode: 'sl' },
     { name: 'Somalia', countryCode: 'so' },
-    { name: 'South Africa', countryCode: 'za' },
-    { name: 'South Sudan', countryCode: 'ss' },
+    { name: 'Sudafrica', countryCode: 'za' },
+    { name: 'Sudan', countryCode: 'ss' },
     { name: 'Sudan', countryCode: 'sd' },
     { name: 'Tanzania', countryCode: 'tz' },
     { name: 'Togo', countryCode: 'tg' },
@@ -178,17 +177,29 @@ export default function CountryAmerica() {
     aria-label="scrollable auto tabs example"
   >
 {africa.map((country) => (
- <div className="country-filter">
-
- <Tab   sx={{
-    '&:focus': {
-      color: '#05A1A1',
-    },
-  }} label={country.name} />
- <p className="flag-container">
-   {<Flag id="flag-img" name={country.countryCode} />}
- </p>
-</div>
+       <div className="country-name" key={country.id}>
+       <Tab
+         sx={{
+           '&:focus': {
+             color: '#05A1A1',
+           },
+           display: 'flex',
+           flexDirection: 'column',
+           alignItems: 'center',
+           gap: '160px', // Ajusta el valor según el espacio deseado
+         }}
+         label={
+           <div className="country-filter">
+             <span>{country.name}</span>
+             <div>
+               <p className="flag-container">
+                 {<Flag id="flag-img" name={country.countryCode} />}
+               </p>
+             </div>
+           </div>
+         }
+       />
+     </div>
 ))}
 
   </Tabs>

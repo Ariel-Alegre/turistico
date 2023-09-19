@@ -5,14 +5,224 @@
     justify-content: center;
 
 
-    .filter-type {
-        color: white;
-        background: linear-gradient(to top, #fff 50%, #05A1A1  50%); /* Cambia 'otro-color' al color que desees */
+    .filter-lagos {
+        position: relative;
+        background-size: cover;
+        background-image: url('../../assets/icons-filter/lagos.png');
         border-radius: 10px;
         height: 650px;
         width: 650px;
         box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .05);
     }
+    
+    .bg-lagos {
+        background-color: rgba(0, 0, 0, 0.421);
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        height: 100%;
+        display: none;
+        transition: background-color 0.3s, opacity 0.3s;
+
+
+      }
+      
+      #lagos {
+       margin-top: 30vh;
+       position: relative;
+       text-align: center;
+
+      }
+      
+      .filter-lagos:hover .bg-lagos {
+        display: grid;
+        opacity: 1;
+      }
+      
+      
+      
+      .filter-montañas {
+        position: relative;
+        background-image: url('../../assets/icons-filter/montañas.png');
+        background-size: cover;
+
+        border-radius: 10px;
+        height: 650px;
+        width: 650px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .05);
+    }
+    
+    .bg-montañas {
+        background-color: rgba(0, 0, 0, 0.421);
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        height: 100%;
+        display: none;
+        transition: background-color 0.3s, opacity 0.3s;
+
+      }
+      
+      #montañas {
+       margin-top: 30vh;
+       position: relative;
+       text-align: center;
+
+      }
+      
+      .filter-montañas:hover .bg-montañas {
+        display: grid;
+        opacity: 1;
+      }
+
+
+
+
+
+
+
+    .filter-verdes {
+        color: white;
+        background-image: url('../../assets/icons-filter/areas-verdes.png');
+
+        border-radius: 10px;
+        height: 650px;
+        width: 650px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .05);
+    }
+
+
+    .bg-verdes {
+        background-color: rgba(0, 0, 0, 0.421);
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        height: 100%;
+        display: none;
+        transition: background-color 0.3s, opacity 0.3s;
+
+      }
+      
+      #verdes {
+       margin-top: 30vh;
+       position: relative;
+       text-align: center;
+
+      }
+      
+      .filter-verdes:hover .bg-verdes {
+        display: grid;
+        opacity: 1;
+      }
+
+
+    .filter-acuaticos {
+        color: white;
+        background-image: url('../../assets/icons-filter/parques-acuaticos.jpg');
+
+        border-radius: 10px;
+        height: 650px;
+        width: 650px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .05);
+    }
+
+    .bg-acuaticos {
+        background-color: rgba(0, 0, 0, 0.421);
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        height: 100%;
+        display: none;
+        transition: background-color 0.3s, opacity 0.3s;
+
+      }
+      
+      #acuaticos {
+       margin-top: 30vh;
+       position: relative;
+       text-align: center;
+
+      }
+      
+      .filter-acuaticos:hover .bg-acuaticos {
+        display: grid;
+        opacity: 1;
+      }
+
+
+
+    .filter-playas {
+        color: white;
+        background-image: url('../../assets/icons-filter/playas.png');
+
+        border-radius: 10px;
+        height: 650px;
+        width: 650px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .05);
+    }
+
+    .bg-playas {
+        background-color: rgba(0, 0, 0, 0.421);
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        height: 100%;
+        display: none;
+        transition: background-color 0.3s, opacity 0.3s;
+
+      }
+      
+      #playas {
+       margin-top: 30vh;
+       position: relative;
+       text-align: center;
+
+      }
+      
+      .filter-playas:hover .bg-playas {
+        display: grid;
+        opacity: 1;
+      }
+      
+
+
+
+
+
+    .filter-arqueologicos {
+        color: white;
+        background-image: url('../../assets/icons-filter/parques-arqueologicos.png');
+
+        border-radius: 10px;
+        height: 650px;
+        width: 650px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .05);
+    }
+
+
+
+    .bg-arqueologicos {
+        background-color: rgba(0, 0, 0, 0.421);
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        height: 100%;
+        display: none;
+        transition: background-color 0.3s, opacity 0.3s;
+
+      }
+      
+      #arqueologicos {
+       margin-top: 30vh;
+       position: relative;
+       text-align: center;
+
+      }
+      
+      .filter-arqueologicos:hover .bg-arqueologicos {
+        display: grid;
+        opacity: 1;
+      }
 
 
     .slide {
@@ -73,11 +283,96 @@
 @media only screen and (max-width: 480px) {
     .filter-container {
 
-        .filter-type {
+        .filter-lagos {
             
             height: 250px;
             width: 250px;
         }
+        .bg-lagos  {
+            display: grid;
+        }
+        #lagos {
+            margin-top: 100px;
+            font-size: 20px;
+        }
+
+        .filter-montañas{
+            height: 250px;
+            width: 250px;
+        }
+
+        .bg-montañas {
+            display: grid;
+
+        }
+        #montañas {
+            margin-top: 100px;
+            font-size: 20px;
+        }
+
+
+        .filter-verdes{
+            height: 250px;
+            width: 250px;
+        }
+
+        .bg-verdes {
+            display: grid;
+
+        }
+        #verdes {
+            margin-top: 100px;
+            font-size: 20px;
+        }
+
+
+        .filter-acuaticos{
+            height: 250px;
+            width: 250px;
+        }
+
+        .bg-acuaticos {
+            display: grid;
+
+        }
+        #acuaticos {
+            margin-top: 100px;
+            font-size: 20px;
+        }
+
+
+
+        .filter-playas{
+            height: 250px;
+            width: 250px;
+        }
+
+
+        .bg-playas {
+            display: grid;
+
+        }
+        #playas {
+            margin-top: 100px;
+            font-size: 20px;
+        }
+
+
+        .filter-arqueologicos{
+            height: 250px;
+            width: 250px;
+        }
+
+        .bg-arqueologicos {
+            display: grid;
+
+        }
+        #arqueologicos {
+            margin-top: 100px;
+            font-size: 20px;
+        }
+    
+    
         .slide-card {
 gap: 10px;
         }
@@ -107,11 +402,45 @@ gap: 10px;
 @media only screen and (min-width: 1025px) and (max-width: 1728px) {
     .filter-container {
 
-        .filter-type {
-            
-            height: 550px;
-            width: 550px;
+        .filter-lagos {
+        
+            height: 500px;
+            width: 500px;
         }
+        .filter-montañas {
+        
+            height: 500px;
+            width: 500px;
+        }
+
+        .filter-verdes {
+        
+            height: 500px;
+            width: 500px;
+        }
+        
+        .filter-acuaticos {
+        
+            height: 500px;
+            width: 500px;
+        }
+        .filter-playas {
+        
+            height: 500px;
+            width: 500px;
+        }
+
+        .filter-arqueologicos {
+        
+            height: 500px;
+            width: 500px;
+        }
+
+  
+   
+        
+          
+  
         .slide-card {
 gap: 10px;
         }

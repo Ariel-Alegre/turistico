@@ -24,35 +24,48 @@ export default function FilterCard() {
         className="slide"
         >
         <SplideSlide className="slide-card">
-          <button variant="contained" className="filter-type no-spacing">
-            <img src={lagos} alt="not found" />
-            <p>Lagos</p>
+          <button variant="contained" className="filter-lagos">
+            <div className="bg-lagos">
+
+            <h2 id="lagos">Lagos</h2>
+            </div>
           </button>
-          <button variant="contained" className="filter-type no-spacing">
-            <img src={montañas} alt="not found" />
-            <p>Montañas</p>
+          <button variant="contained" className="filter-montañas no-spacing">
+          <div className="bg-montañas">
+
+            <h2 id="montañas">Montañas</h2>
+          </div>
           </button>
         </SplideSlide>
         <SplideSlide className="slide-card">
-          <button variant="contained" className="filter-type no-spacing">
-            <img src={areas_verdes} alt="not found" />
-            <p>Areas verdes</p>
+          <button variant="contained" className="filter-verdes no-spacing">
+          <div className="bg-verdes">
+
+
+            <h2 id="verdes">Areas verdes</h2>
+          </div>
           </button>
-          <button variant="contained" className="filter-type">
-            <img src={parques_acuaticos} alt="not found" />
-            <p>Parques acuaticos</p>
+          <button variant="contained" className="filter-acuaticos">
+          <div className="bg-acuaticos">
+
+            <h2 id="acuaticos">Parques acuaticos</h2>
+          </div>
           </button>
         </SplideSlide>
     
 
         <SplideSlide className="slide-card">
-          <button variant="contained" className="filter-type">
-            <img src={playas} alt="not found" />
-            <p>Playas</p>
+          <button variant="contained" className="filter-playas">
+          <div className="bg-playas">
+
+            <h2 id="playas">Playas</h2>
+          </div>
           </button>
-          <button variant="contained" className="filter-type">
-            <img src={Parques_arqueologicos} alt="not found" />
-            <p>Parques arqueologicos</p>
+          <button variant="contained" className="filter-arqueologicos">
+          <div className="bg-arqueologicos">
+
+            <h2 id="arqueologicos">Parques arqueologicos</h2>
+          </div>
           </button>
         </SplideSlide>
   

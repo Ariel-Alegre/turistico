@@ -114,7 +114,7 @@ export default function CountryAmerica() {
     { name: 'Colombia', countryCode: 'co' },
     { name: 'Costa Rica', countryCode: 'cr' },
     { name: 'Cuba', countryCode: 'cu' },
-    { name: 'Dominican Republic', countryCode: 'do' },
+    { name: 'RD', countryCode: 'do' },
     { name: 'Ecuador', countryCode: 'ec' },
     { name: 'El Salvador', countryCode: 'sv' },
     { name: 'Guatemala', countryCode: 'gt' },
@@ -126,9 +126,9 @@ export default function CountryAmerica() {
     { name: 'Panama', countryCode: 'pa' },
     { name: 'Paraguay', countryCode: 'py' },
     { name: 'Peru', countryCode: 'pe' },
-    { name: 'Puerto Rico', countryCode: 'pr' },
-    { name: 'Trinidad  Tobago', countryCode: 'tt' },
-    { name: 'United States', countryCode: 'us', alias: 'America' },
+    { name: 'PR', countryCode: 'pr' },
+    { name: 'T.  Tobago', countryCode: 'tt' },
+    { name: 'USA', countryCode: 'us', alias: 'America' },
     { name: 'Uruguay', countryCode: 'uy' },
     { name: 'Venezuela', countryCode: 've' }
   ];
@@ -149,23 +149,33 @@ export default function CountryAmerica() {
     aria-label="scrollable auto tabs example"
   >
     {america.map((country) => (
-      <div className="country-filter">
-
-<Tab
-  sx={{
-    '&:focus': {
-      color: '#05A1A1',
-    },
-  }}
-  label={country.name}
-/>
-        <p className="flag-container">
-          {<Flag id="flag-img" name={country.countryCode} />}
-        </p>
+      <div className="country-name" key={country.id}>
+        <Tab
+          sx={{
+            '&:focus': {
+              color: '#05A1A1',
+            },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '160px', // Ajusta el valor según el espacio deseado
+          }}
+          label={
+            <div className="country-filter">
+              <span>{country.name}</span>
+              <div>
+                <p className="flag-container">
+                  {<Flag id="flag-img" name={country.countryCode} />}
+                </p>
+              </div>
+            </div>
+          }
+        />
       </div>
     ))}
   </Tabs>
 </div>
+
 
   );
 }

@@ -46,7 +46,7 @@ module.exports = {
         if (err) {
           return res.sendStatus(401);
         } else {
-          const { title, price, people, summary, description, status,continent, infoImportant, daysAtentions, calendar, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
+          const { title, price, people, summary, description, status,continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
 
           if (status === "Privado") {
             
@@ -63,7 +63,7 @@ module.exports = {
               daysAtentions,
               hoursAtetionsInitial,
               hoursAtentionsFinally,
-              calendar,
+              reservedDates,
               listDetails,
               imageFile: imageUrls,
               

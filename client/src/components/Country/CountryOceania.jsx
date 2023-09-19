@@ -70,35 +70,10 @@ export default function CountryAmerica() {
     setValue(newValue);
   };
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
 
-  const transitionDuration = {
-    enter: theme.transitions.duration.enteringScreen,
-    exit: theme.transitions.duration.leavingScreen,
-  };
 
-  const fabs = [
-    {
-      color: "primary",
-      sx: fabStyle,
-      icon: <AddIcon />,
-      label: "Add",
-    },
-    {
-      color: "secondary",
-      sx: fabStyle,
-      icon: <EditIcon />,
-      label: "Edit",
-    },
-    {
-      color: "inherit",
-      sx: { ...fabStyle, ...fabGreenStyle },
-      icon: <UpIcon />,
-      label: "Expand",
-    },
-  ];
+
+
 
   const oceania = [
     { name: 'Australia', countryCode: 'au' },
@@ -131,17 +106,29 @@ export default function CountryAmerica() {
     aria-label="scrollable auto tabs example"
   >
   {oceania.map((country) => (
-   <div className="country-filter">
-
-   <Tab   sx={{
-    '&:focus': {
-      color: '#05A1A1',
-    },
-  }}  label={country.name} />
-   <p className="flag-container">
-     {<Flag id="flag-img" name={country.countryCode} />}
-   </p>
- </div>
+        <div className="country-name" key={country.id}>
+        <Tab
+          sx={{
+            '&:focus': {
+              color: '#05A1A1',
+            },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '160px', // Ajusta el valor según el espacio deseado
+          }}
+          label={
+            <div className="country-filter">
+              <span>{country.name}</span>
+              <div>
+                <p className="flag-container">
+                  {<Flag id="flag-img" name={country.countryCode} />}
+                </p>
+              </div>
+            </div>
+          }
+        />
+      </div>
   ))}
 
       </Tabs>

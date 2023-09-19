@@ -115,10 +115,9 @@ export default function CountryAmerica() {
     { name: 'Bulgaria', countryCode: 'bg' },
     { name: 'Croatia', countryCode: 'hr' },
     { name: 'Cyprus', countryCode: 'cy' },
-    { name: 'Czech Republic', countryCode: 'cz' },
+    { name: 'R.Cheka', countryCode: 'cz' },
     { name: 'Denmark', countryCode: 'dk' },
     { name: 'Estonia', countryCode: 'ee' },
-    { name: 'Faroe Islands', countryCode: 'fo' },
     { name: 'Finland', countryCode: 'fi' },
     { name: 'France', countryCode: 'fr' },
     { name: 'Germany', countryCode: 'de' },
@@ -137,7 +136,7 @@ export default function CountryAmerica() {
     { name: 'Monaco', countryCode: 'mc' },
     { name: 'Montenegro', countryCode: 'me' },
     { name: 'Netherlands', countryCode: 'nl' },
-    { name: 'North Macedonia', countryCode: 'mk' },
+    { name: 'Macedonia', countryCode: 'mk' },
     { name: 'Norway', countryCode: 'no' },
     { name: 'Poland', countryCode: 'pl' },
     { name: 'Portugal', countryCode: 'pt' },
@@ -151,7 +150,7 @@ export default function CountryAmerica() {
     { name: 'Sweden', countryCode: 'se' },
     { name: 'Switzerland', countryCode: 'ch' },
     { name: 'Ukraine', countryCode: 'ua' },
-    { name: 'United Kingdom', countryCode: 'gb', alias: 'uk' },
+    { name: 'Inglaterra', countryCode: 'gb', alias: 'uk' },
     { name: 'Vatican City', countryCode: 'va' },
   ];
   
@@ -170,17 +169,29 @@ export default function CountryAmerica() {
     aria-label="scrollable auto tabs example"
   >
   {europa.map((country) => (
-  <div className="country-filter">
-
-  <Tab   sx={{
-    '&:focus': {
-      color: '#05A1A1',
-    },
-  }}  label={country.name} />
-  <p className="flag-container">
-    {<Flag id="flag-img" name={country.countryCode} />}
-  </p>
-</div>
+        <div className="country-name" key={country.id}>
+        <Tab
+          sx={{
+            '&:focus': {
+              color: '#05A1A1',
+            },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '160px', // Ajusta el valor según el espacio deseado
+          }}
+          label={
+            <div className="country-filter">
+              <span>{country.name}</span>
+              <div>
+                <p className="flag-container">
+                  {<Flag id="flag-img" name={country.countryCode} />}
+                </p>
+              </div>
+            </div>
+          }
+        />
+      </div>
   ))}
 
       </Tabs>

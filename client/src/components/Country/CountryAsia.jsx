@@ -112,16 +112,15 @@ export default function CountryAmerica() {
     { name: 'Azerbaiyán', countryCode: 'az' },
     { name: 'Baréin', countryCode: 'bh' },
     { name: 'Bangladés', countryCode: 'bd' },
-    { name: 'Birmania (Myanmar)', countryCode: 'mm' },
+    { name: 'Birmania', countryCode: 'mm' },
     { name: 'Brunéi', countryCode: 'bn' },
     { name: 'Bután', countryCode: 'bt' },
     { name: 'Camboya', countryCode: 'kh' },
     { name: 'Catar', countryCode: 'qa' },
     { name: 'China', countryCode: 'cn' },
     { name: 'Chipre', countryCode: 'cy' },
-    { name: 'Corea del Norte', countryCode: 'kp' },
-    { name: 'Corea del Sur', countryCode: 'kr' },
-    { name: 'Emiratos Árabes Unidos', countryCode: 'ae' },
+    { name: 'Corea', countryCode: 'kr' },
+    { name: 'Emiratos', countryCode: 'ae' },
     { name: 'Filipinas', countryCode: 'ph' },
     { name: 'Georgia', countryCode: 'ge' },
     { name: 'India', countryCode: 'in' },
@@ -167,17 +166,29 @@ export default function CountryAmerica() {
     aria-label="scrollable auto tabs example"
   >
 {asia.map((country) => (
- <div className="country-filter">
-
- <Tab   sx={{
-    '&:focus': {
-      color: '#05A1A1',
-    },
-  }} label={country.name} />
- <p className="flag-container">
-   {<Flag id="flag-img" name={country.countryCode} />}
- </p>
-</div>
+      <div className="country-name" key={country.id}>
+      <Tab
+        sx={{
+          '&:focus': {
+            color: '#05A1A1',
+          },
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '160px', // Ajusta el valor según el espacio deseado
+        }}
+        label={
+          <div className="country-filter">
+            <span>{country.name}</span>
+            <div>
+              <p className="flag-container">
+                {<Flag id="flag-img" name={country.countryCode} />}
+              </p>
+            </div>
+          </div>
+        }
+      />
+    </div>
 ))}
 
   </Tabs>
