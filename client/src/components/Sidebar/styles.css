@@ -84,6 +84,7 @@ input[type="number"] {
   width: 500px;
   margin-right: 50px;
   border-radius: 10px;
+  
 }
 
 .start-input {
@@ -101,6 +102,7 @@ input[type="number"] {
 }
 .label-calendar {
   margin-top: 50px;
+  margin-bottom: -900px;
 }
 
 .bottom-description {
@@ -268,11 +270,7 @@ input[type="number"] {
     display: grid;
     gap: 30px;
   }
-  .rest-info {
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 350px;
-  }
+
   .action-box {
     margin-left: 10px;
     margin-right: 10px;

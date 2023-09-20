@@ -47,6 +47,10 @@ module.exports = {
           return res.sendStatus(401);
         } else {
           const { title, price, people, summary, description, status,continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
+          const parsedReservedDates = JSON.parse(reservedDates);
+          const parsedListDetails = JSON.parse(listDetails);
+          const parsedInfoImportant= JSON.parse(infoImportant);
+
 
           if (status === "Privado") {
             
@@ -59,12 +63,12 @@ module.exports = {
               status,
               continent,
               country,
-              infoImportant,
               daysAtentions,
               hoursAtetionsInitial,
               hoursAtentionsFinally,
-              reservedDates,
-              listDetails,
+              infoImportant: parsedInfoImportant,
+              reservedDates: parsedReservedDates,
+              listDetails: parsedListDetails,
               imageFile: imageUrls,
               
             });

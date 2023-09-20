@@ -23,7 +23,8 @@ import BeatLoader from "react-loading";
 import MenuItem from "@mui/material/MenuItem";
 import "dayjs/locale/es";
 import dayjs from "dayjs";
-import { Container } from "react-bootstrap";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
@@ -37,19 +38,45 @@ const validate = (input) => {
     errors.description = "la descripcion es requerido";
   }
 
-  if (input.status !== "Público") {
+
     if (!input.price) {
       errors.price = "El precio es requerido";
     }
 
-    if (!input.stay) {
-      errors.stay = "La estadía es requerida";
-    }
+    if (!input.people) {
+      errors.people = "La capacidad es requerida";
   }
 
   if (!input.summary) {
     errors.summary = "El resumen es requerido";
   }
+
+  if (!input.status) {
+    errors.status = "El estado es requerido";
+  }
+  if (!input.continent) {
+    errors.continent = "El continente es requerido";
+  }
+  if (!input.country) {
+    errors.country = "El país es requerido";
+  }
+  if (!input.daysAtentions) {
+    errors.daysAtentions = "Los dias de atencion al cliente es requerido";
+  }
+  if (!input.hoursAtetionsInitial) {
+    errors.hoursAtetionsInitial = "El horario de inicio de atencion al cliente es requerido";
+  }
+  if (!input.hoursAtentionsFinally) {
+    errors.hoursAtentionsFinally = "El horario de final de atencion al cliente es requerido";
+  }
+  if (!input.reservedDates) {
+    errors.reservedDates = "Los dias no disponibles tienen que estar seleccionado";
+  }
+
+  if (!input.listDetails) {
+    errors.listDetails = "Los dias no disponibles tienen que estar seleccionado";
+  }
+
 
   return errors;
 };
@@ -81,7 +108,7 @@ export default function FormStepper() {
   const [show, setShow] = useState({
     title: "",
     price: "",
-    stay: "",
+    people: "",
     imageFile: [],
     summary: "",
     description: "",
@@ -94,7 +121,62 @@ export default function FormStepper() {
     ampmInitial: "",
     ampmFinally: "",
     reservedDates: [],
+    listDetails: [],
+    infoImportant:[]
   });
+
+  console.log(show.infoImportant);
+
+  const [detail, setDetail] = useState(""); // Estado para el detalle que se está escribiendo
+  const [info, setInfo] = useState(""); // Estado para el detalle que se está escribiendo
+
+  const handleDetailChange = (event) => {
+    setDetail(event.target.value);
+  };
+
+  const handleAddDetail = () => {
+    if (detail.trim() !== "") {
+      setShow((prevState) => ({
+        ...prevState,
+        listDetails: [...prevState.listDetails, detail],
+      }));
+      setDetail(""); // Limpia el campo de entrada después de agregar
+    }
+  };
+
+  const handleDeleteDetail = (index) => {
+    const updatedDetails = [...show.listDetails];
+    updatedDetails.splice(index, 1);
+    setShow((prevState) => ({
+      ...prevState,
+      listDetails: updatedDetails,
+    }));
+  };
+
+  const handleInfoChange = (event) => {
+    setInfo(event.target.value);
+  };
+
+  const handleAddInfo = () => {
+    if (info.trim() !== "") {
+      setShow((prevState) => ({
+        ...prevState,
+        infoImportant: [...prevState.infoImportant, info],
+      }));
+      setInfo(""); // Limpia el campo de entrada después de agregar
+    }
+  };
+
+  const handleDeleteInfo = (index) => {
+    const updatedDetails = [...show.infoImportant];
+    updatedDetails.splice(index, 1);
+    setShow((prevState) => ({
+      ...prevState,
+      infoImportant: updatedDetails,
+    }));
+  };
+
+
   const [calendarOpen, setCalendarOpen] = useState(false);
 
   const handleNext = (event) => {
@@ -155,7 +237,7 @@ export default function FormStepper() {
       const formData = new FormData();
       formData.append("title", show.title);
       formData.append("price", show.price);
-      formData.append("stay", show.stay);
+      formData.append("people", show.people);
       formData.append("summary", show.summary);
       formData.append("description", show.description);
       formData.append("status", show.status);
@@ -164,8 +246,9 @@ export default function FormStepper() {
       formData.append("daysAtentions", show.daysAtentions);
       formData.append("hoursAtetionsInitial", show.hoursAtetionsInitial);
       formData.append("hoursAtentionsFinally", show.hoursAtentionsFinally);
-
-
+      formData.append("reservedDates", JSON.stringify(show.reservedDates));
+      formData.append("listDetails", JSON.stringify(show.listDetails));
+      formData.append("infoImportant", JSON.stringify(show.infoImportant));
 
 
       show.images.forEach((image, index) => {
@@ -231,11 +314,11 @@ export default function FormStepper() {
       country: e.target.value,
     }));
   };
-  const handleStay = (event) => {
+  const handlePeople = (event) => {
     const newValue = event.target.value;
     setShow((prevState) => ({
       ...prevState,
-      stay: newValue,
+      people: newValue,
     }));
   };
   const handleStatus = (event) => {
@@ -335,7 +418,7 @@ export default function FormStepper() {
     return isDisabled;
   };
 
-  const options = ["Por noche", "Por semana", "Por mes"];
+  const options = ["1", "2", "3", "4", "5", "6","7", "8", "9","10", "11", "12","13", "14", "15","16", "17", "18","19", "20", "21", "22", "23", "24", "25", "26","27", "28", "29","30", "31", "32","33", "34", "35","36", "37", "38","39", "40"];
   const status = ["Público", "Privado"];
   const continent = ["América", "Europa", "Asia", "África", "Oceanía"];
   const daysatention = [
@@ -564,12 +647,12 @@ export default function FormStepper() {
   ];
   //retocar
 
+  const [infoImportant, setInfoImportant] = useState([]);
   const [word, setWord] = useState("");
   const defaultWords = ["cocina", "baño", "patio", "terraza"];
   const [words, setWords] = useState([...defaultWords]);
   const [inputVisible, setInputVisible] = useState(false);
   const [selectedWords, setSelectedWords] = useState([]);
-  const [infoImportant, setInfoImportant] = useState([]);
 
   React.useEffect(() => {
     setWords([...defaultWords]);
@@ -599,7 +682,7 @@ export default function FormStepper() {
   };
 
   const handleCheckboxChange = (index) => {
-    const updatedSelectedWords = [...selectedWords];
+    const updatedSelectedWords = [...show.listDetails];
     if (updatedSelectedWords.includes(index)) {
       updatedSelectedWords.splice(updatedSelectedWords.indexOf(index), 1);
     } else {
@@ -615,108 +698,107 @@ export default function FormStepper() {
           <div className="post-container">
             <div className="box-container">
               <div className="start-input">
+                <Form noValidate validated={validated}>
+                  <Row className="mb-3">
+                    <Form.Group
+                      as={Col}
+                      className="mb-3"
+                      controlId="validationCustomStatus"
+                    >
+                      <Form.Label className="label-status">Estado</Form.Label>
+                      <Form.Select
+                        defaultValue={show.status}
+                        onChange={handleStatus}
+                        aria-label="Estado"
+                        required
+                      >
+                        <option value="">Seleccione una opción</option>
+                        {status.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </Form.Select>
+                      <Form.Control.Feedback type="invalid">
+                        Por favor seleccione una opción.
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Row>
+                  <Row className="mb-3">
+                    <Form.Group
+                      as={Col}
+                      className="mb-3"
+                      controlId="validationCustomStatus"
+                    >
+                      <Form.Label>Titulo</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        placeholder="Titulo"
+                        defaultValue={show.title}
+                        onChange={handleTittle}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Por favor se requiere un titulo.
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Row>
 
-              <Form noValidate validated={validated} >
-                <Row className="mb-3">
-                  <Form.Group
-                    as={Col}
-                    className="mb-3"
-                    controlId="validationCustomStatus"
-                  >
-                    <Form.Label className="label-status">Estado</Form.Label>
-                    <Form.Select
-                      defaultValue={show.status}
-                      onChange={handleStatus}
-                      aria-label="Estado"
+                  <Row className="mb-3">
+                    {show.status === "Privado" ? (
+                      <Form.Group as={Col} controlId="validationCustomPrecio">
+                        <Form.Label>Precio</Form.Label>
+                        <InputGroup className="mb-3">
+                          <InputGroup.Text>$</InputGroup.Text>
+                          <Form.Control
+                            aria-label="Amount (to the nearest dollar)"
+                            type="number"
+                            defaultValue={show.price}
+                            onChange={handlePrice}
+                            required={show.status === "Privado"}
+                          />
+                          <InputGroup.Text>.00</InputGroup.Text>
+                          <Form.Control.Feedback type="invalid">
+                            Por favor se requiere un precio.
+                          </Form.Control.Feedback>
+                        </InputGroup>
+                      </Form.Group>
+                    ) : (
+                      <div></div>
+                    )}
+                  </Row>
+
+                  <Row className="mb-3">
+                    <Form.Group
+                      className="mb-3"
+                      controlId="validationCustomSummary"
+                    >
+                      <Form.Label>Resumen del lugar.</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        required
+                        defaultValue={show.summary}
+                        onChange={handleSummary}
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="validationCustomDescription"
                       required
                     >
-                      <option value="">Seleccione una opción</option>
-                      {status.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">
-                      Por favor seleccione una opción.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group
-                    as={Col}
-                    className="mb-3"
-                    controlId="validationCustomStatus"
-                  >
-                    <Form.Label>Titulo</Form.Label>
-                    <Form.Control
-                      required
-                      type="text"
-                      placeholder="Titulo"
-                      defaultValue={show.title}
-                      onChange={handleTittle}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Por favor se requiere un titulo.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Row>
-
-                <Row className="mb-3">
-                  {show.status === "Privado" ? (
-                    <Form.Group as={Col} controlId="validationCustomPrecio">
-                      <Form.Label>Precio</Form.Label>
-                      <InputGroup className="mb-3">
-                        <InputGroup.Text>$</InputGroup.Text>
-                        <Form.Control
-                          aria-label="Amount (to the nearest dollar)"
-                          type="number"
-                          defaultValue={show.price}
-                          onChange={handlePrice}
-                          required={show.status === "Privado"}
-                        />
-                        <InputGroup.Text>.00</InputGroup.Text>
-                        <Form.Control.Feedback type="invalid">
-                          Por favor se requiere un precio.
-                        </Form.Control.Feedback>
-                      </InputGroup>
+                      <Form.Label>Descripción</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        required
+                        defaultValue={show.description}
+                        onChange={handleDescription}
+                        className="bottom-description"
+                      />
                     </Form.Group>
-                  ) : (
-                    <div></div>
-                  )}
-                </Row>
-
-                <Row className="mb-3">
-                  <Form.Group
-                    className="mb-3"
-                    controlId="validationCustomSummary"
-                  >
-                    <Form.Label>Resumen del lugar.</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={3}
-                      required
-                      defaultValue={show.summary}
-                      onChange={handleSummary}
-                    />
-                  </Form.Group>
-                  <Form.Group
-                    className="mb-3"
-                    controlId="validationCustomDescription"
-                    required
-                  >
-                    <Form.Label>Descripción</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={3}
-                      required
-                      defaultValue={show.description}
-                      onChange={handleDescription}
-                      className="bottom-description"
-                    />
-                  </Form.Group>
-                </Row>
-              </Form>
+                  </Row>
+                </Form>
               </div>
 
               <div className="action-private">
@@ -735,8 +817,9 @@ export default function FormStepper() {
                           defaultValue={show.continent}
                           onChange={handleContinent}
                           aria-label="Continente"
-                          required={show.status === "Privado"}
                           className="mb-3"
+                          required
+                          isInvalid={!show.continent && validated}
                         >
                           <option value="">Seleccione una opción</option>
                           {continent.map((option) => (
@@ -757,7 +840,8 @@ export default function FormStepper() {
                               defaultValue={show.country}
                               onChange={handleCountry}
                               aria-label="Pais"
-                              required={show.status === "Privado"}
+                              required
+                          isInvalid={!show.country && validated}
                               className="mb-3"
                             >
                               <option value="">Seleccione una opción</option>
@@ -791,7 +875,8 @@ export default function FormStepper() {
                                 defaultValue={show.country}
                                 onChange={handleCountry}
                                 aria-label="Pais"
-                                required={show.status === "Privado"}
+                                required
+                          isInvalid={!show.country && validated}
                                 className="mb-3"
                               >
                                 <option value="">Seleccione una opción</option>
@@ -825,7 +910,8 @@ export default function FormStepper() {
                                 defaultValue={show.country}
                                 onChange={handleCountry}
                                 aria-label="Pais"
-                                required={show.status === "Privado"}
+                                required
+                                isInvalid={!show.country && validated}
                                 className="mb-3"
                               >
                                 <option value="">Seleccione una opción</option>
@@ -860,7 +946,8 @@ export default function FormStepper() {
                                 defaultValue={show.country}
                                 onChange={handleCountry}
                                 aria-label="Pais"
-                                required={show.status === "Privado"}
+                                required
+                                isInvalid={!show.country && validated}
                                 className="mb-3"
                               >
                                 <option value="">Seleccione una opción</option>
@@ -895,7 +982,8 @@ export default function FormStepper() {
                                 defaultValue={show.country}
                                 onChange={handleCountry}
                                 aria-label="Pais"
-                                required={show.status === "Privado"}
+                                required
+                                isInvalid={!show.country && validated}
                                 className="mb-3"
                               >
                                 <option value="">Seleccione una opción</option>
@@ -928,7 +1016,8 @@ export default function FormStepper() {
                             defaultValue={show.daysAtentions}
                             onChange={handleAttention}
                             aria-label="daysAtentions"
-                            required={show.status === "Privado"}
+                            required
+                            isInvalid={!show.daysAtentions && validated}
                             className="mb-3 form-control"
                           >
                             <option value="">Seleccione una opción</option>
@@ -938,6 +1027,9 @@ export default function FormStepper() {
                               </option>
                             ))}
                           </Form.Select>
+                          <Form.Control.Feedback type="invalid">
+                            Por favor seleccione el horario de atencion al cliente.
+                          </Form.Control.Feedback>
                         </Form.Group>
                       </Row>
 
@@ -957,6 +1049,8 @@ export default function FormStepper() {
                               inputProps={{
                                 step: 300, // paso en segundos (5 minutos)
                               }}
+                              required
+                              isInvalid={!show.hoursAtetionsInitial && validated}
                             />
 
                             <h5>Hasta</h5>
@@ -973,6 +1067,8 @@ export default function FormStepper() {
                               inputProps={{
                                 step: 300, // paso en segundos (5 minutos)
                               }}
+                              required
+                              isInvalid={!show.hoursAtentionsFinally && validated}
                             />
                           </div>
                         </Row>
@@ -984,15 +1080,17 @@ export default function FormStepper() {
                         <Form.Group
                           as={Col}
                           className="mb-3 bottom-people"
-                          controlId="validationCustomContinent"
+                          controlId="validationCustomCapacidad"
                         >
-                          <Form.Label>Estadia</Form.Label>
+                          <Form.Label>Capacidad de persona</Form.Label>
                           <Form.Select
-                            defaultValue={show.stay}
-                            onChange={handleStay}
-                            aria-label="Estadia"
-                            required={show.status === "Privado"}
+                            defaultValue={show.people}
+                            onChange={handlePeople}
+                            aria-label="Capacidad de persona"
+                            required
+                            isInvalid={!show.people && validated}
                             className="mb-3"
+                           
                           >
                             <option value="">Seleccione una opción</option>
                             {options.map((option) => (
@@ -1002,7 +1100,7 @@ export default function FormStepper() {
                             ))}
                           </Form.Select>
                           <Form.Control.Feedback type="invalid">
-                            Por favor seleccione una opción de estadía.
+                            Por favor seleccione una opción de capacidad de personas.
                           </Form.Control.Feedback>
                         </Form.Group>
                       </Row>
@@ -1018,6 +1116,7 @@ export default function FormStepper() {
                         className="label-calendar"
                         direction="vertical"
                         size={12}
+                        
                       >
                         <Button onClick={toggleCalendar}>
                           Abrir/Cerrar Calendario
@@ -1029,6 +1128,8 @@ export default function FormStepper() {
                           onChange={handleDateSelect}
                           disabledDate={disabledDate}
                           showToday={false}
+                      
+                        
                         />
                       </Space>
                     ) : (
@@ -1037,159 +1138,97 @@ export default function FormStepper() {
                   </Row>
                   <Row className="mb-3">
                     {show.status === "Privado" ? (
-                      <Container className="mt-4">
-                        <label htmlFor="">El lugar cuenta con:</label>
-
-                        {words.length > 0 && (
-                          <Row>
-                            <Col>
-                              <div className="d-flex flex-wrap align-items-center">
-                                {words.map((word, index) => (
-                                  <div
-                                    key={index}
-                                    className="d-flex align-items-center mb-2"
+                      <div>
+                        <span>El lugas cuenta con:</span>
+                        <Card >
+                          <Card.Body>
+                            <Card.Text >
+                              {show.listDetails.map((detail, index) => (
+                                <span
+                                  key={index}
+                                  className="mr-2"
+                                  style={{ fontSize: "14px", maxHeight: '80px' }}
+                                >
+                                  {detail}
+                                  <button
+                                    variant="danger"
+                                    onClick={() => handleDeleteDetail(index)}
+                                    size="sm"
+                                    className="ml-2"
                                   >
-                                    {defaultWords.includes(word) && (
-                                      <input
-                                        type="checkbox"
-                                        checked={selectedWords.includes(index)}
-                                        onChange={() =>
-                                          handleCheckboxChange(index)
-                                        }
-                                        className="mr-2"
-                                      />
-                                    )}
-                                    <span>{word}</span>
-                                    <Button
-                                      variant="danger"
-                                      size="sm"
-                                      onClick={() => handleDeleteWord(index)}
-                                    >
-                                      X
-                                    </Button>
-                                    {index < words.length - 1 && (
-                                      <span className="mx-2">|</span>
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-                            </Col>
-                          </Row>
-                        )}
-
-                        <Row>
-                          <Col>
-                            {inputVisible ? (
-                              <div>
-                                <Form.Group className="mb-3">
-                                  <Form.Control
-                                    type="text"
-                                    placeholder="Nueva Palabra"
-                                    value={word}
-                                    onChange={handleWordChange}
-                                  />
-                                </Form.Group>
-                                <Button
-                                  variant="primary"
-                                  onClick={handleAddWord}
-                                >
-                                  Agregar
-                                </Button>{" "}
-                                <Button
-                                  variant="secondary"
-                                  onClick={toggleInput}
-                                >
-                                  Cancelar
-                                </Button>
-                              </div>
-                            ) : (
-                              <Button variant="info" onClick={toggleInput}>
-                                Agregar más
-                              </Button>
-                            )}
-                          </Col>
-                        </Row>
-                      </Container>
+                                    X
+                                  </button>
+                                  |
+                                </span>
+                              ))}
+                            </Card.Text>
+                          </Card.Body>
+                        </Card>
+                        <Form.Group className="d-flex">
+                          <Form.Control
+                            type="text"
+                            placeholder="Nuevo detalle"
+                            value={detail}
+                            onChange={handleDetailChange}
+                            className="flex-grow-1 mr-2"
+                            required
+                            isInvalid={!show.listDetails && validated}
+                          />
+                          <Button variant="primary" onClick={handleAddDetail}>
+                            Agregar
+                          </Button>
+                          <Form.Control.Feedback type="invalid">
+                            Por favor seleccione una opción de capacidad de personas.
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </div>
                     ) : (
                       <div></div>
                     )}
                   </Row>
-
                   <Row className="mb-3">
                     {show.status === "Privado" ? (
-                      <Container className="mt-4 place-has bottom-people">
-                        <label htmlFor="">Inormación importante:</label>
-
-                        {words.length > 0 && (
-                          <Row>
-                            <Col>
-                              <div className="d-flex flex-wrap align-items-center">
-                                {infoImportant.map((word, index) => (
-                                  <div
-                                    key={index}
-                                    className="d-flex align-items-center mb-2"
+                      <div>
+                        <span>Informacion importante:</span>
+                        <Card >
+                          <Card.Body>
+                            <Card.Text>
+                              {show.infoImportant.map((important, index) => (
+                                <span
+                                  key={index}
+                                  className="mr-2"
+                                  style={{ fontSize: "14px", maxHeight: '80px' }}
+                                >
+                                  {important}
+                                  <button
+                                    variant="danger"
+                                    onClick={() => handleDeleteInfo(index)}
+                                    size="sm"
+                                    className="ml-2"
                                   >
-                                    {defaultWords.includes(word) && (
-                                      <input
-                                        type="checkbox"
-                                        checked={infoImportant.includes(index)}
-                                        onChange={() =>
-                                          handleCheckboxChange(index)
-                                        }
-                                        className="mr-2"
-                                      />
-                                    )}
-                                    <span>{word}</span>
-                                    <Button
-                                      variant="danger"
-                                      size="sm"
-                                      onClick={() => handleDeleteWord(index)}
-                                    >
-                                      X
-                                    </Button>
-                                    {index < words.length - 1 && (
-                                      <span className="mx-2">|</span>
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-                            </Col>
-                          </Row>
-                        )}
-
-                        <Row>
-                          <Col>
-                            {inputVisible ? (
-                              <div>
-                                <Form.Group className="mb-3">
-                                  <Form.Control
-                                    type="text"
-                                    placeholder="Nueva Palabra"
-                                    value={word}
-                                    onChange={handleWordChange}
-                                  />
-                                </Form.Group>
-                                <Button
-                                  variant="primary"
-                                  onClick={handleAddWord}
-                                >
-                                  Agregar
-                                </Button>{" "}
-                                <Button
-                                  variant="secondary"
-                                  onClick={toggleInput}
-                                >
-                                  Cancelar
-                                </Button>
-                              </div>
-                            ) : (
-                              <Button variant="info" onClick={toggleInput}>
-                                Agregar más información
-                              </Button>
-                            )}
-                          </Col>
-                        </Row>
-                      </Container>
+                                    X
+                                  </button>
+                                  |
+                                </span>
+                              ))}
+                            </Card.Text>
+                          </Card.Body>
+                        </Card>
+                        <Form.Group className="d-flex">
+                          <Form.Control
+                            type="text"
+                            placeholder="Nuevo detalle"
+                            value={info}
+                            onChange={handleInfoChange}
+                            className="flex-grow-1 mr-2"
+                            required
+                            isInvalid={!show.infoImportant && validated}
+                          />
+                          <Button variant="primary" onClick={handleAddInfo}>
+                            Agregar
+                          </Button>
+                        </Form.Group>
+                      </div>
                     ) : (
                       <div></div>
                     )}

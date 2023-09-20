@@ -16,6 +16,7 @@ function Card() {
   const dispatch = useDispatch();
   const allPost = useSelector((state) => state.allPost);
   const token = useSelector((state) => state.token);
+  console.log(allPost);
 
 console.log(allPost.length);
   function getRandomColor() {
@@ -108,8 +109,8 @@ console.log(allPost.length);
                       <div className="shadow-card">
                            <div className="card-info-flex">
                   <Link to="/rooms" className="text-link">
-                    {/* <h3 className="card-title">{info.title}</h3> */}
-                    <h3 className="card-title">Lagos</h3>
+                    <h3 className="card-title">{info.title}</h3>
+                   {/*  <h3 className="card-title">Lagos</h3> */}
                   </Link>
                   <div>
                     <Avatar

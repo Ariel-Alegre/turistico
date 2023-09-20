@@ -10,25 +10,8 @@ function Hostess() {
     <>
     <Header/>
     <div>
+  <HostessPosts/>
 
-    <Tabs
-      defaultActiveKey="profile"
-      id="fill-tab-example"
-      className="mb-3"
-      fill
-      >
-      <Tab eventKey="home" title="Reservaciones">
-        <h1>
-
-       Reservaciones
-        </h1>
-      </Tab>
-      <Tab eventKey="profile" title="Publicaciones">
-       sadasd
-      </Tab>
-
- 
-    </Tabs>
       </div>
         </>
   );
