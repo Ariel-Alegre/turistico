@@ -28,20 +28,20 @@ module.exports = {
   },   
  */
    development: {
-    username: 'elari',
-  password: 'Mwi5VpKFvabakGQo6xKXjpkej0Mj3q4Z',
-  database: 'turistic',
-  host: 'dpg-ck6ubmnq54js73ae9esg-a',
-  port: '5432',
+    username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  host:process.env.PGHOST,
+  port: process.env.PGHOST,
   dialect: 'postgres'
   },
 
   production: {
-    username: 'elari',
-    password: 'Mwi5VpKFvabakGQo6xKXjpkej0Mj3q4Z',
-    database: 'turistic',
-    host: 'dpg-ck6ubmnq54js73ae9esg-a',
-    port: '5432',
+    username: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    database: process.env.PGDATABASE,
+    host:process.env.PGHOST,
+    port: process.env.PGHOST,
     dialect: 'postgres'
   }, 
 }  
