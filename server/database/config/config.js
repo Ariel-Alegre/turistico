@@ -1,20 +1,17 @@
 require('dotenv').config()
-console.log(process.env.PGUSER);
-console.log(process.env.PGPASSWORD);
-console.log(process.env.PGDATABASE);
-console.log(process.env.PGPORT);
-console.log(process.env.PGHOST);
+
+console.log(process.env.DATABASE_URL);
 
 
 
 
 module.exports = {
     development: {
-      url: process.env.DATABASE_URL, // Utiliza la URL proporcionada en tu entorno
+      url: 'postgres://elari:Mwi5VpKFvabakGQo6xKXjpkej0Mj3q4Z@dpg-ck6ubmnq54js73ae9esg-a.oregon-postgres.render.com/turistic', // Utiliza la URL proporcionada en tu entorno
       dialect: 'postgres'
     },
     production: {
-      url: process.env.DATABASE_URL, // Utiliza la URL proporcionada en tu entorno
+      url: 'postgres://elari:Mwi5VpKFvabakGQo6xKXjpkej0Mj3q4Z@dpg-ck6ubmnq54js73ae9esg-a.oregon-postgres.render.com/turistic', // Utiliza la URL proporcionada en tu entorno
       dialect: 'postgres'
     }
   // ... otras configuraciones ...
