@@ -280,4 +280,26 @@ export const dataPersonal = (token) => {
     payload: data
    })
   }
-}   
+};
+
+export const DeletePost = (postId) => {
+  return async (dispach) => {
+    const res = await axios.delete(`http://localhost:4000/post/${postId}`);
+    const data = res.data
+    return dispach({
+        type: "DELETE_POST",
+        payload: data
+    })
+  }
+};
+
+export const OnlyAllPost = () => {
+  return async (dispach) => {
+    const res = await axios.get(`http://localhost:4000/posthostess`);
+    const data = res.data.OnlyPosts
+    return dispach({
+        type: "ONLY_POST",
+        payload: data
+    })
+  }
+};

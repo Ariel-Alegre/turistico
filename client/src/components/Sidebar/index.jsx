@@ -38,7 +38,14 @@ const validate = (input) => {
     errors.description = "la descripcion es requerido";
   }
 
-
+  if (!input.summary) {
+    errors.summary = "El resumen es requerido";
+  }
+  if (!input.status) {
+    errors.status = "El estado es requerido";
+  }
+if (input.status === "Privado") {
+  
     if (!input.price) {
       errors.price = "El precio es requerido";
     }
@@ -47,13 +54,7 @@ const validate = (input) => {
       errors.people = "La capacidad es requerida";
   }
 
-  if (!input.summary) {
-    errors.summary = "El resumen es requerido";
-  }
 
-  if (!input.status) {
-    errors.status = "El estado es requerido";
-  }
   if (!input.continent) {
     errors.continent = "El continente es requerido";
   }
@@ -76,6 +77,7 @@ const validate = (input) => {
   if (!input.listDetails) {
     errors.listDetails = "Los dias no disponibles tienen que estar seleccionado";
   }
+}
 
 
   return errors;
@@ -781,6 +783,9 @@ export default function FormStepper() {
                         defaultValue={show.summary}
                         onChange={handleSummary}
                       />
+                             <Form.Control.Feedback type="invalid">
+                             Por favor se requiere resumen.
+                          </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group
                       className="mb-3"
@@ -794,8 +799,10 @@ export default function FormStepper() {
                         required
                         defaultValue={show.description}
                         onChange={handleDescription}
-                        className="bottom-description"
                       />
+                       <Form.Control.Feedback type="invalid">
+                             Por favor se requiere descripción.
+                          </Form.Control.Feedback>
                     </Form.Group>
                   </Row>
                 </Form>
@@ -1104,39 +1111,7 @@ export default function FormStepper() {
                           </Form.Control.Feedback>
                         </Form.Group>
                       </Row>
-                    </Form.Group>
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
-                <div className={show.status === "Privado" ? "rest-info" : ""}>
-                  <Row className="mb-3">
-                    {show.status === "Privado" ? (
-                      <Space
-                        className="label-calendar"
-                        direction="vertical"
-                        size={12}
-                        
-                      >
-                        <Button onClick={toggleCalendar}>
-                          Abrir/Cerrar Calendario
-                        </Button>
-
-                        <DatePicker
-                          open={calendarOpen}
-                          onOpenChange={() => setCalendarOpen(true)}
-                          onChange={handleDateSelect}
-                          disabledDate={disabledDate}
-                          showToday={false}
-                      
-                        
-                        />
-                      </Space>
-                    ) : (
-                      <div></div>
-                    )}
-                  </Row>
-                  <Row className="mb-3">
+                      <Row className="mb-3">
                     {show.status === "Privado" ? (
                       <div>
                         <span>El lugas cuenta con:</span>
@@ -1186,6 +1161,39 @@ export default function FormStepper() {
                       <div></div>
                     )}
                   </Row>
+                    </Form.Group>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+                <div className={show.status === "Privado" ? "rest-info" : ""}>
+                  <Row className="mb-3">
+                    {show.status === "Privado" ? (
+                      <Space
+                        className="label-calendar"
+                        direction="vertical"
+                        size={12}
+                        
+                      >
+                        <Button onClick={toggleCalendar}>
+                          Abrir/Cerrar Calendario
+                        </Button>
+
+                        <DatePicker
+                          open={calendarOpen}
+                          onOpenChange={() => setCalendarOpen(true)}
+                          onChange={handleDateSelect}
+                          disabledDate={disabledDate}
+                          showToday={false}
+                      
+                        
+                        />
+                      </Space>
+                    ) : (
+                      null
+                    )}
+                  </Row>
+            
                   <Row className="mb-3">
                     {show.status === "Privado" ? (
                       <div>
@@ -1220,7 +1228,6 @@ export default function FormStepper() {
                             placeholder="Nuevo detalle"
                             value={info}
                             onChange={handleInfoChange}
-                            className="flex-grow-1 mr-2"
                             required
                             isInvalid={!show.infoImportant && validated}
                           />
@@ -1243,12 +1250,11 @@ export default function FormStepper() {
                 pt: 2,
                 justifyContent: "center",
                 gap: "60px",
-                bottom: "30px",
+                marginBottom: '60px'
               }}
-              className=""
             >
               <Button
-                color="inherit"
+                color="primary"
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 sx={{ mr: 1 }}
@@ -1341,7 +1347,6 @@ export default function FormStepper() {
                 pt: 2,
                 justifyContent: "center",
                 gap: "60px",
-                bottom: "30px",
               }}
             >
               <Button
@@ -1533,7 +1538,7 @@ export default function FormStepper() {
                         pt: 2,
                         justifyContent: "center",
                         gap: "60px",
-                        bottom: "30px",
+                        marginBottom: '60px'
                       }}
                     >
                       <Button

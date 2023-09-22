@@ -99,7 +99,7 @@ function classNames(...classes) {
 }
 
 export default function CardDetails() {
-  /*  const { idTuristic } = useParams(); */
+  const { idTuristic } = useParams();
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -112,11 +112,11 @@ export default function CardDetails() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    /*     dispatch(DetailsPostTuristic(idTuristic)); */
+    dispatch(DetailsPostTuristic(idTuristic));
     setTimeout(() => {
       setIsLoading(false); // Cambiar el estado de isLoading a "false" después de cierto tiempo
     }, 1000);
-  }, []);
+  }, [dispatch, idTuristic]);
 
   const onPanelChange = (value, mode) => {
     console.log(value.format("YYYY-MM-DD"), mode);
@@ -394,6 +394,7 @@ export default function CardDetails() {
     { name: "Zambia", countryCode: "zm" },
     { name: "Zimbabwe", countryCode: "zw" },
   ];
+
   const list = (anchor) => (
     <div>
       <Box sx={{ display: "grids" }}>
@@ -406,11 +407,11 @@ export default function CardDetails() {
             &times;
           </h3>
           <div className="drawer-details">
-            {/* {detailpost.imageFile.map((img, index) => ( */}
+            {detailpost.imageFile.map((img, index) => (
               <div onClick={handleShowVistPreview} className="drawer-image">
-                <img    src={product.images[0].src} alt="not found" />
+                <img src={img} alt="not found" />
               </div>
-      {/*       ))} */}
+            ))}
           </div>
         </List>
       </Box>
@@ -422,11 +423,11 @@ export default function CardDetails() {
           </span>
 
           <Carousel fade>
-     {/*        {detailpost.imageFile.map((img, index) => ( */}
+            {detailpost.imageFile.map((img, index) => (
               <Carousel.Item className="img-carrusel">
-                <img    src={product.images[0].src} alt="Not found" />
-            </Carousel.Item>
-           {/*  ))}  */}
+                <img src={img} alt="Not found" />
+              </Carousel.Item>
+            ))}
           </Carousel>
         </div>
       )}
@@ -439,9 +440,6 @@ export default function CardDetails() {
 
       <div className="bg-white">
         <div className="pt-6">
-          {/* <h1 className="title">{detailpost.title}</h1> */}
-          <h1 className="title">Lagos</h1>
-          
           {/* Image gallery */}
           {isLoading ? (
             <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -466,12 +464,17 @@ export default function CardDetails() {
               {["top"].map((anchor) => (
                 <React.Fragment key={anchor}>
                   <div onClick={toggleDrawer(anchor, true)}>
-
+                    <div className="title-continent">
+                      <h1>{detailpost.title}</h1>
+                      {/*    <h1 className="title">Lagos</h1> */}
+                   
+                 
+                    </div>
                     <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                       <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
                         <img
-                          /* src={detailpost.imageFile[0]} */
-                          src={product.images[0].src}
+                          src={detailpost.imageFile[0]}
+                          /*   src={product.images[0].src} */
                           alt="Not found"
                           className="h-full w-full object-cover object-center hover-image"
                         />
@@ -480,16 +483,16 @@ export default function CardDetails() {
                       <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                         <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg ">
                           <img
-                            /*     src={detailpost.imageFile[1]} */
-                            src={product.images[1].src}
+                            src={detailpost.imageFile[1]}
+                            /*  src={product.images[1].src} */
                             alt="Not found"
                             className="h-full w-full object-cover object-center hover-image"
                           />
                         </div>
                         <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                           <img
-                            /*  src={detailpost.imageFile[2]} */
-                            src={product.images[2].src}
+                            src={detailpost.imageFile[2]}
+                            /* src={product.images[2].src} */
                             alt="Not found"
                             className="h-full w-full object-cover object-center hover-image"
                           />
@@ -497,8 +500,8 @@ export default function CardDetails() {
                       </div>
                       <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
                         <img
-                          /*  src={detailpost.imageFile[2]} */
-                          src={product.images[3].src}
+                          src={detailpost.imageFile[2]}
+                          /*  src={product.images[3].src} */
                           alt="Not found"
                           className="h-full w-full object-cover object-center hover-image"
                         />
@@ -526,42 +529,56 @@ export default function CardDetails() {
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                 Lugar para visitar.
               </h1>
-              <h4 className="tracking-tight text-gray-900 sm:text-2xl flex">
-                <FcGlobe /> America
-              </h4>
-              <h4 className="tracking-tight text-gray-900 sm:text-2xl flex">
-                <Flag name={countries[0].countryCode} /> Argentina
-              </h4>
 
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl flex">
                 Anfitrión:{" "}
-                {/* {detailpost.Users && detailpost.Users[0].name} */}
-                JUAN
-                {""}
+               {detailpost.Users && detailpost.Users[0].name} 
+              
                 <Avatar sx={{ width: 32, height: 32 }}>
-                  {/* {detailpost.Users && detailpost.Users[0].name[0].toUpperCase()} */}{" "}
-                  J
+                  {detailpost.Users && detailpost.Users[0].name[0].toUpperCase()}
+                  
                 </Avatar>
               </h1>
+              <div>
+                       {detailpost.continent} {/* <Flag name={countries[0].countryCode} /> */} {detailpost.country}
+                      </div> 
 
               <div className="horizontal-line-with-o">
                 <div className="line"></div> {/* Línea a la izquierda */}
               </div>
             </div>
-
+           
             {/* Options */}
-            <div className="card-reserve">
+            <div className={ detailpost.status === "Privado" ? "card-reserve" : ""}>
               <div className="mt-4 lg:row-span-3 lg:mt-0 ">
                 <h2 className="sr-only">Product information</h2>
                 <p className="text-3xl tracking-tight text-gray-900">
-                  ${/* {detailpost.price} */} 50
+                  {detailpost.price ? (
+                    <span>
+                      
+                    ${detailpost.price} 
+                    </span>
+                    
+                  ):null}
                   <div>
                     <div className="space-y-6">
                       <h3 className="text-base text-gray-900">
-                        <Diversity3RoundedIcon /> 4 personas
+                        {
+                          detailpost.people ? (
+                            <div>
+                              <Diversity3RoundedIcon /> 
+
+                            {detailpost.people} personas
+                            </div>
+                          ) :null
+
+                        }
+                        
                       </h3>
                     </div>
-                    <div style={wrapperStyle}>
+                    {detailpost.status === "Privado" ? (
+
+                      <div style={wrapperStyle}>
                       <Space direction="vertical" size={12}>
                         <RangePicker
                           defaultValue={[
@@ -569,9 +586,10 @@ export default function CardDetails() {
                             dayjs("2015/01/01", dateFormat),
                           ]}
                           format={dateFormat}
-                        />
+                          />
                       </Space>
                     </div>
+                          ):null}
                   </div>
                 </p>
 
@@ -581,6 +599,7 @@ export default function CardDetails() {
                   {/* Colors */}
 
                   {/* Sizes */}
+                  {detailpost.status === "Privado" ? (
 
                   <button
                     type="submit"
@@ -588,71 +607,80 @@ export default function CardDetails() {
                   >
                     Reservar
                   </button>
+                  ): (
+                    <div
+                    type="submit"
+                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserve"
+                  >
+                    Gratis
+                  </div>
+                  )}
+
                 </form>
               </div>
             </div>
 
+           
             <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
               {/* Description and details */}
-              <div>
-                <h3 className="sr-only">Descripcion</h3>
-
-                <div className="space-y-6">
+       
+              <div className="space-y-6">
                   <p className="text-base text-gray-900">
-                    {/*   {detailpost.summary} */}
-                    Es una masa de agua estancada, generalmente dulce, que se
-                    encuentra en la superficie de la Tierra y está rodeada por
-                    tierra. Los lagos pueden variar en tamaño, desde pequeños
-                    estanques hasta vastos cuerpos de agua, y pueden ser de
-                    origen natural o artificial. Estas extensiones de agua
-                    proporcionan hábitats para diversas formas de vida acuática,
-                    así como oportunidades recreativas para actividades como la
-                    natación, la pesca y la navegación. Los lagos también
-                    desempeñan un papel importante en la regulación del ciclo
-                    del agua y pueden tener un valor paisajístico y cultural
-                    significativo para las comunidades locales.
+                     {detailpost.summary} 
+       
                   </p>
                 </div>
-              </div>
+   {detailpost.status === "Privado" ? (
+    <div>
+
               <div className="horizontal-line-with-o">
                 <div className="line"></div> {/* Línea a la izquierda */}
               </div>
 
-          
-          
-              <div className="mt-10">
+     <div className="mt-10">
                 <h2 className="text-sm font-medium text-gray-900">
-                  Dias de atención al cliente de lunes a viernes.
+                  Dias de atención al cliente de {detailpost.daysAtentions}.
                 </h2>
 
-                <p className="text-sm text-gray-600">de 8am a 8pm</p>
+                <p className="text-sm text-gray-600">de {detailpost.hoursAtetionsInitial}am a {detailpost.hoursAtentionsFinally}pm</p>
               </div>
+    </div>
+                ):null}
+
+
+
+
+              <div className="mt-10">
+              {detailpost.status === "Privado" ? (
+<div>
+
               <div className="horizontal-line-with-o">
                 <div className="line"></div> {/* Línea a la izquierda */}
               </div>
-              <div className="mt-10">
                 <h3 className="text-sm font-medium text-gray-900">
                   El lugar cuenta con:
                 </h3>
 
                 <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  <li className="text-gray-400">
-                    <span className="text-gray-600">Vista al mar</span>
+                  {detailpost.listDetails && detailpost.listDetails.map(list => (
+
+                    <li className="text-gray-400">
+                    <span className="text-gray-600">{list}</span>
                   </li>
-                  <li className="text-gray-400">
-                    <span className="text-gray-600">Tiendas de comidas</span>
-                  </li>
-                  <li className="text-gray-400">
-                    <span className="text-gray-600">Desayuno gratis</span>
-                  </li>
-                  <li className="text-gray-400">
-                    <span className="text-gray-600">GYM</span>
-                  </li>
+                    ))}
                 </ul>
-                <div className="horizontal-line-with-o">
+                    </div>
+
+):null}        
+
+                <div className="mt-10">
+
+                {detailpost.status === "Privado" ? (
+<div>
+
+                  <div className="horizontal-line-with-o">
                   <div className="line"></div> {/* Línea a la izquierda */}
                 </div>
-                <div className="mt-10">
                   <h2 className="text-sm font-medium text-gray-900">
                     información importante
                   </h2>
@@ -661,77 +689,31 @@ export default function CardDetails() {
                     <ul
                       role="list"
                       className="list-disc space-y-2 pl-4 text-sm"
-                    >
-                      <li className="text-gray-400">
-                        <span className="text-gray-600">Vista al mar</span>
+                      >
+                      {detailpost.infoImportant && detailpost.infoImportant.map(list => (
+
+                        <li className="text-gray-400">
+                        <span className="text-gray-600">{list}</span>
                       </li>
-                      <li className="text-gray-400">
-                        <span className="text-gray-600">
-                          Tiendas de comidas
-                        </span>
-                      </li>
-                      <li className="text-gray-400">
-                        <span className="text-gray-600">Desayuno gratis</span>
-                      </li>
-                      <li className="text-gray-400">
-                        <span className="text-gray-600">GYM</span>
-                      </li>
+                        ))} 
+                    
                     </ul>
                   </p>
+                        </div>
+                        ) : null}
                 </div>
                 <div className="horizontal-line-with-o">
-                <div className="line"></div> {/* Línea a la izquierda */}
-              </div>
+                  <div className="line"></div> {/* Línea a la izquierda */}
+                </div>
                 <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">
-                  Descripción
-                </h2>
+                  <h2 className="text-sm font-medium text-gray-900">
+                    Descripción
+                  </h2>
 
-                <p className="text-sm text-gray-600">
-                  {/*  {detailpost.description} */}
-                  Un lago es una característica geográfica que representa un
-                  cuerpo de agua estancada, generalmente de naturaleza dulce,
-                  rodeada por tierra. Estas formaciones acuáticas son una parte
-                  esencial del paisaje terrestre y desempeñan un papel vital en
-                  los ecosistemas naturales, la geología y la vida humana. Los
-                  lagos pueden variar considerablemente en tamaño, desde
-                  pequeños estanques que apenas ocupan unos pocos metros
-                  cuadrados hasta vastos cuerpos de agua que se extienden a lo
-                  largo de cientos de kilómetros cuadrados. Su origen es
-                  diverso: algunos son el resultado de procesos glaciares, como
-                  la erosión y la deposición de sedimentos durante la última era
-                  del hielo; otros se forman a través de la acción de los ríos
-                  que llenan cuencas o depresiones naturales. Además, la
-                  actividad humana ha dado lugar a la creación de lagos
-                  artificiales mediante la construcción de presas para diversos
-                  fines, como la generación de energía hidroeléctrica, el
-                  suministro de agua potable o la recreación. Los lagos son
-                  ecosistemas ricos y diversos. Suelen albergar una variedad de
-                  vida acuática, que incluye peces, aves, anfibios e
-                  invertebrados. La biodiversidad en y alrededor de los lagos
-                  depende en gran medida de factores como la temperatura del
-                  agua, la calidad del agua y la disponibilidad de nutrientes.
-                  Los lagos pueden ser fuentes importantes de agua dulce y, por
-                  lo tanto, son cruciales para la supervivencia de muchas
-                  especies, incluidos los seres humanos. Para las comunidades
-                  humanas, los lagos han sido históricamente vitales como
-                  fuentes de agua para beber, regar cultivos y alimentar la
-                  industria. Además, los lagos a menudo son destinos populares
-                  para actividades recreativas, como la natación, la pesca, la
-                  navegación y el senderismo en sus orillas. La belleza escénica
-                  de los lagos también ha inspirado a artistas, escritores y
-                  viajeros a lo largo de la historia. Desde una perspectiva
-                  geológica, los lagos pueden cambiar con el tiempo debido a la
-                  sedimentación, la erosión y otros procesos naturales. Esto
-                  puede resultar en la evolución o desaparición de un lago a lo
-                  largo de eones geológicos. En resumen, los lagos son
-                  características de la Tierra que abarcan una amplia gama de
-                  tamaños y funciones, y tienen una importancia significativa
-                  tanto para los ecosistemas naturales como para la vida humana.
-                  Son un testimonio de la interacción compleja entre la
-                  geología, el clima y la actividad humana en nuestro planeta.
-                </p>
-              </div>
+                  <p className="text-sm text-gray-600">
+                     {detailpost.description} 
+                  </p>
+                </div>
               </div>
             </div>
           </div>

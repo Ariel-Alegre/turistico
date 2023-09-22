@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const routerUser = require('./user_routers');
-const routerImages = require('./images.routers');
 const postRouter = require('./turistic_routers');
-const imagesRoutes = require('./images.routers')
+const hostessRouter = require('./hostess_routers')
 
 
-router.use('/', routerUser, routerImages, postRouter, imagesRoutes)
+router.use('/', routerUser, postRouter, hostessRouter)
 
 
 module.exports = router

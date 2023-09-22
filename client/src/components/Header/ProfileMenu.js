@@ -308,9 +308,13 @@ export default function BasicMenu() {
             <MenuItem className="menu-items" onClick={handleClose}>
               Informacion Personal
             </MenuItem>
+            <Link to={'/anfitrion/'+ datapersonal.id}>
+
+
             <MenuItem className="menu-items" onClick={handleClose}>
-              Seguridad
+              Modo anfitrión
             </MenuItem>
+            </Link>
             <Link to='/public'>
 
               <MenuItem onClick={handleClose} className="menu-items">

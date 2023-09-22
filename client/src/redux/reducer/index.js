@@ -6,8 +6,8 @@ const initialState = {
   posts: [],
   allPost: [],
   detailpost: [],
-  hostessuser:[]
-
+  hostessuser:[],
+  onlypost: [],
   }
 
 
@@ -65,6 +65,22 @@ export const rootReducer = (state = initialState, action) => {
           ...state,
           hostessuser: action.payload
         }
+
+        case 'ONLY_POST': 
+
+        return {
+          ...state,
+          onlypost: action.payload
+        }
+
+        case "DELETE_POST":
+          // Filtra las publicaciones para eliminar la que coincide con el postId
+          const updatedOnlyPost = state.onlypost.filter(post => post.id !== action.payload.id);
+          return {
+            ...state,
+            onlypost: updatedOnlyPost,
+          };
+        
       
       
 
@@ -74,4 +90,9 @@ export const rootReducer = (state = initialState, action) => {
     default: return { ...state }
 }
 }
+
+
+
+
+
 

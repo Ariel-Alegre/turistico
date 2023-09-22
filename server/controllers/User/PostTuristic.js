@@ -5,6 +5,7 @@ require('dotenv').config();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const sharp = require('sharp'); // Importa la biblioteca sharp
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -36,17 +37,31 @@ module.exports = {
 
       for (const file of req.files) {
         const fileBuffer = await fs.promises.readFile(file.path);
-        
-        // Subir imagen a Cloudinary y obtener la URL
-        const cloudinaryUploadResult = await cloudinary.uploader.upload(file.path);
-        imageUrls.push(cloudinaryUploadResult.secure_url);
+
+        // Aplicar optimización de imagen con sharp
+        const optimizedBuffer = await sharp(fileBuffer)
+          .resize({ width: 800, height: 600 }) // Cambia el tamaño de la imagen si es necesario
+          .jpeg({ quality: 80 }) // Ajusta la calidad de la imagen (para JPEG)
+          .toBuffer();
+
+        // Subir imagen optimizada a Cloudinary y obtener la URL
+        const cloudinaryUploadResult = await cloudinary.uploader.upload_stream(
+          { resource_type: 'image' },
+          (error, result) => {
+            if (error) {
+              console.error('Error al subir imagen a Cloudinary:', error);
+            } else {
+              imageUrls.push(result.secure_url);
+            }
+          }
+        ).end(optimizedBuffer);
       }
 
       jwt.verify(authorization, process.env.FIRMA_TOKEN, async (err, decoded) => {
         if (err) {
           return res.sendStatus(401);
         } else {
-          const { title, price, people, summary, description, status,continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
+          const { title, price, people, summary, description, status, continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
           const parsedReservedDates = JSON.parse(reservedDates);
           const parsedListDetails = JSON.parse(listDetails);
           const parsedInfoImportant= JSON.parse(infoImportant);
@@ -90,9 +105,6 @@ module.exports = {
             console.log('Post creado correctamente');
             res.status(201).json({ message: 'Post creado exitosamente' });
           }
-
-
-
         }
       });
     } catch (error) {
@@ -101,9 +113,3 @@ module.exports = {
     }
   }
 };
-
-
-
-
-
-

@@ -43,7 +43,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       infoImportant: {
-        type: Sequelize.STRING,
+        type: Sequelize.ARRAY(Sequelize.STRING), 
       },
       hoursAtetionsInitial: {
         type: Sequelize.STRING,
