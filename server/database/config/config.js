@@ -28,21 +28,21 @@ module.exports = {
   },   
  */
    development: {
-    username:'postgres',
-    password: 'password',
-    database: 'turistic',
-    host: 'localhost',
-    port: '5432',
-    dialect: "postgres"
+    username: 'elari',
+  password: 'Mwi5VpKFvabakGQo6xKXjpkej0Mj3q4Z',
+  database: 'turistic',
+  host: 'dpg-ck6ubmnq54js73ae9esg-a',
+  port: '5432',
+  dialect: 'postgres'
   },
 
   production: {
-    username:'postgres',
-    password: 'password',
+    username: 'elari',
+    password: 'Mwi5VpKFvabakGQo6xKXjpkej0Mj3q4Z',
     database: 'turistic',
-    host: 'localhost',
+    host: 'dpg-ck6ubmnq54js73ae9esg-a',
     port: '5432',
-    dialect: "postgres"
+    dialect: 'postgres'
   }, 
 }  
 
