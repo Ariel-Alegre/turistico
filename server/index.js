@@ -26,8 +26,3 @@ app.listen(PORT, () => {
     console.log(`server on port ${PORT}`);
 })
 
-conn.sync({ force: true }).then(() => {
-  app.listen(PORT, () => {
-    console.log(`server on port ${PORT}`); // eslint-disable-line no-console
-  });
-});
