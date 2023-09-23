@@ -135,6 +135,39 @@ export const dataPersonal = (token) => {
   }
 }  
 
+export const DeletePost = (postId) => {
+  return async (dispach) => {
+    const res = await axios.delete(`https://demo-turistic-production.up.railway.app/post/${postId}`);
+    const data = res.data
+    return dispach({
+        type: "DELETE_POST",
+        payload: data
+    })
+  }
+};
+
+export const OnlyAllPost = () => {
+  return async (dispach) => {
+    const res = await axios.get(`https://demo-turistic-production.up.railway.app/posthostess`);
+    const data = res.data.OnlyPosts
+    return dispach({
+        type: "ONLY_POST",
+        payload: data
+    })
+  }
+}; 
+
+export const HostesstUser = (idHostess) => {
+  return async (dispach) => {
+    const res = await axios.get(`https://demo-turistic-production.up.railway.app/hostess/${idHostess}`);
+    const data = res.data.details
+    return dispach({
+        type: "HOSTESS_USER",
+        payload: data
+    })
+  }
+};
+
  /*  import axios from 'axios';
 
 
