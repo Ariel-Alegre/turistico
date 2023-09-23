@@ -6,19 +6,39 @@ console.log(process.env.DATABASE_URL);
 
 
 module.exports = {
-    development: {
-      url: 'postgres://elari:Mwi5VpKFvabakGQo6xKXjpkej0Mj3q4Z@dpg-ck6ubmnq54js73ae9esg-a.oregon-postgres.render.com/turistic', // Utiliza la URL proporcionada en tu entorno
-     ssl: true,
-      dialect: 'postgres'
+  development: {
+    dialect: 'postgres',
+    host: 'dpg-ck6ubmnq54js73ae9esg-a',
+    port: 5432,
+    username: 'elari',
+    password: '', // Deja esto en blanco si no tienes una contraseña
+    database: 'turistic',
+    ssl: true, // Habilita SSL/TLS si es necesario
+    dialectOptions: {
+      ssl: {
+        require: true, // Esto indica que SSL/TLS es requerido si es necesario
+      },
     },
-    production: {
-      url: 'postgres://elari:Mwi5VpKFvabakGQo6xKXjpkej0Mj3q4Z@dpg-ck6ubmnq54js73ae9esg-a.oregon-postgres.render.com/turistic', // Utiliza la URL proporcionada en tu entorno
-      ssl: true,
-    
-      dialect: 'postgres'
-    }
-  // ... otras configuraciones ...
+  },
+  production: {
+    dialect: 'postgres',
+    host: 'dpg-ck6ubmnq54js73ae9esg-a',
+    port: 5432,
+    username: 'elari',
+    password: '', // Deja esto en blanco si no tienes una contraseña
+    database: 'turistic',
+    ssl: true, // Habilita SSL/TLS si es necesario
+    dialectOptions: {
+      ssl: {
+        require: true, // Esto indica que SSL/TLS es requerido si es necesario
+      },
+    },
+  },
+  // Otras configuraciones...
 };
+
+
+
 
 
 
